@@ -8,8 +8,15 @@
 import Foundation
 
 
-struct Cashier : Employee,Person{
+struct Cashier : Employee,Person,User{
     
+    typealias MyType = Cashier
+    
+    var userName: String
+    
+    var password: String 
+    
+    var UserId: String
     
     var name: String
     
@@ -35,13 +42,37 @@ struct Cashier : Employee,Person{
     
     var role: Role = .Cashier
     
-    init(employeeId: String, dateJoined: Date, education: String, role: Role, name: String, age: Int? = nil, bloodGroup: BloodGroup? = nil, phoneNumber: String, sex: Sex, dateOfBirth: Date? = nil, mail: String, address: String) {
+    init(userName: String, password: String, UserId: String, name: String, age: Int? = nil, bloodGroup: BloodGroup? = nil, phoneNumber: String, sex: Sex, dateOfBirth: Date? = nil, mail: String, address: String, employeeId: String, dateJoined: Date, education: String, role: Role) {
+        self.userName = userName
+        self.UserId = UserId
+        self.name = name
+        self.age = age
+        self.bloodGroup = bloodGroup
+        self.phoneNumber = phoneNumber
+        self.sex = sex
+        self.dateOfBirth = dateOfBirth
+        self.mail = mail
+        self.address = address
         self.employeeId = employeeId
         self.dateJoined = dateJoined
         self.education = education
         self.role = role
+        self.password = password
+        
+    }
+    
+    func changePassword(newPassword : String) {
+        userDAO.changePassword(userId: UserId, newPassword: newPassword)
+    }
+    
+    func viewProfile() -> Cashier {
+        return self
+    }
+    
+   
+    mutating func UpdateInfo( education: String, name: String, bloodGroup: BloodGroup? = nil, phoneNumber: String, sex: Sex, dateOfBirth: Date? = nil, mail: String, address: String) {
+        self.education = education
         self.name = name
-        self.age = age
         self.bloodGroup = bloodGroup
         self.phoneNumber = phoneNumber
         self.sex = sex
@@ -58,4 +89,5 @@ struct Cashier : Employee,Person{
     }
     
     private let billDAO = BillDAO()
+    private let userDAO = UserDAO()
 }

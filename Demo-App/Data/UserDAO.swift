@@ -9,11 +9,15 @@ import Foundation
 
 struct UserDAO{
     
-    func adduser(user : User){
+    func adduser(user : any User){
         Storage.storage.userDetails[user.UserId] = user
     }
     
-    func getUser(userId : String)->User?{
+    func update(user : any User){
+        Storage.storage.userDetails[user.UserId] = user
+    }
+    
+    func getUser(userId : String)->(any User)?{
        return Storage.storage.userDetails[userId]
     }
     

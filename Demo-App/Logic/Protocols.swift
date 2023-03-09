@@ -28,19 +28,16 @@ protocol Employee : Person{
     var role : Role { get set }
 }
 
-
-enum BloodGroup{
-    case O_positive
+protocol User{
+    
+    var userName : String { get set }
+    var password : String { get set }
+    var UserId : String { get set }
+    var role : Role { get set }
+    
+    associatedtype MyType;
+    
+    //func changePassword(newPassword : String)
+    func viewProfile()->MyType
 }
 
-enum Role {
-    case Admin,Doctor,Receptionist,Cashier,Patient
-}
-
-enum Sex{
-    case Male,Female,NonBinary
-}
-
-enum Department{
-    case neurologist
-}

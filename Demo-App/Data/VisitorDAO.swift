@@ -12,28 +12,29 @@ struct VisitorDAO{
     
     func addVisitor(visitor : Visitor,date : Date){
         
-        guard let visitorsOnDate = Storage.storage.visitorList[date] else {
-            Storage.storage.visitorList[date] = [visitor]
+        if var visitors = Storage.storage.visitorList[dateFormat(date: date)]{
+            visitors.append(visitor)
+            Storage.storage.visitorList[dateFormat(date: date)] = visitors
+        }
+        else {
+            Storage.storage.visitorList[dateFormat(date: date)] = [visitor]
         }
         
-        var visitors = visitorsOnDate
-        visitors.append(visitor)
-        Storage.storage.visitorList[date] = visitors
         
     }
     
     func getVisitor(date : Date)->[Visitor]?{
-        return  Storage.storage.visitorList[date]
+        return  Storage.storage.visitorList[dateFormat(date: date)]
     }
     
     func getvisitor(patientId : String , date : Date)->[Visitor]?{
-        guard let visitors = Storage.storage.visitorList[date] else { return nil }
+        guard let visitors = Storage.storage.visitorList[dateFormat(date: date)] else { return nil }
         
-        let visitedPerson : [Visitor]?
+        var visitedPerson = [Visitor]()
         for visitor in visitors {
             
             if visitor.patientVisiting.patientId == patientId{
-                visitedPerson?.append(visitor)
+                visitedPerson.append(visitor)
             }
         }
         return visitedPerson

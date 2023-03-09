@@ -13,16 +13,24 @@ struct ReceptionistDAO{
         Storage.storage.receptionistList[receptionist.employeeId] = receptionist
     }
     
+    func isExist(id:String)->Bool{
+      return  Storage.storage.receptionistList.contains(where: {($0.key).caseInsensitiveCompare(id) == .orderedSame})
+    }
+    
     func update(receptionist : Receptionist){
         Storage.storage.receptionistList[receptionist.employeeId] = receptionist
     }
     
-    func remove(receptionist : Receptionist){
-        Storage.storage.receptionistList[receptionist.employeeId] = nil
+    func remove(id:String){
+        Storage.storage.receptionistList[id] = nil
     }
     
-    func getCashier(receptionist : Receptionist)->Receptionist?{
+    func getReceptionist(receptionist : Receptionist)->Receptionist?{
        return  Storage.storage.receptionistList[receptionist.employeeId]
+    }
+    
+    func getReceptionist(id : String)->Receptionist?{
+       return  Storage.storage.receptionistList[id]
     }
     
 }

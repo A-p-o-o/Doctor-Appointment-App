@@ -10,36 +10,47 @@ import Foundation
 struct Appointment : Equatable{
     
     
-    let patientId : String
-    let patientName : String
-    let patientMobileNumber : String
-    let doctor : Doctor
-    let date : Date
-    let startTime : Date
-    let endTime : Date
+    var patientId : String
+    var patientName : String
+    var patientMobileNumber : String
+    var doctor : Doctor
+    var date : Date
+    var slot : Slot
     var status : Bool
     
-    init(patientId: String, patientName: String, patientMobileNumber: String, doctor: Doctor, date: Date, startTime: Date, endTime: Date, status: Bool) {
+    init(patientId: String, patientName: String, patientMobileNumber: String, doctor: Doctor, date: Date, slot: Slot) {
         self.patientId = patientId
         self.patientName = patientName
         self.patientMobileNumber = patientMobileNumber
         self.doctor = doctor
         self.date = date
-        self.startTime = startTime
-        self.endTime = endTime
-        self.status = status
+        self.slot = slot
+        self.status = false
     }
     
     static func == (lhs: Appointment, rhs: Appointment) -> Bool {
         if (lhs.patientId).caseInsensitiveCompare(rhs.patientId) == .orderedSame && (lhs.patientName).caseInsensitiveCompare(rhs.patientName) == .orderedSame && (lhs.patientMobileNumber).caseInsensitiveCompare(rhs.patientMobileNumber) == .orderedSame && lhs.doctor == rhs.doctor &&
             lhs.date == rhs.date &&
-            lhs.startTime == rhs.startTime &&
-            lhs.endTime == rhs.endTime
+            isequal(slot: lhs.slot) == isequal(slot: rhs.slot)
         {
             return true
         }
         else {
             return false
+        }
+        
+        func isequal(slot : Slot)->(slotNo : Int,time : Time){
+            switch slot{
+            case .slot(let no ,let time,_) :
+                return (no , time)
+            }
+        }
+    }
+    
+    func isequal(slot : Slot)->(slotNo : Int,time : Time){
+        switch slot{
+        case .slot(let no ,let time,_) :
+            return (no , time)
         }
     }
     
@@ -51,27 +62,23 @@ struct Appointment : Equatable{
         return status
     }
     
-    func getPatientName()->String{
+    func getPatientName()->String?{
         patientName
     }
     
-    func getPatientMobileNumber()->String{
+    func getPatientMobileNumber()->String?{
         patientMobileNumber
     }
     
-    func getDoctor()->Doctor{
+    func getDoctor()->Doctor?{
         doctor
     }
     
-    func getStartTime()->Date{
-        startTime
+    func getSlot()->Slot?{
+        slot
     }
     
-    func getEndTime()->Date{
-        endTime
-    }
-    
-    func getdate()->Date{
+    func getdate()->Date?{
         date
     }
 }

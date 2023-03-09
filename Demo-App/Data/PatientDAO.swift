@@ -29,17 +29,17 @@ struct PatientDAO{
         
          let allPatients = Array(Storage.storage.patientList.values)
         
-        var patients : [Patient]?
+        var patients = [Patient]()
         
         for patient in allPatients{
             
             if ((patient.patientId.range(of: search, options: .caseInsensitive)) != nil) ||
                 ((patient.phoneNumber.range(of: search, options: .caseInsensitive)) != nil) ||
                 ((patient.name.range(of: search, options: .caseInsensitive)) != nil) {
-                patients?.append(patient)
+                patients.append(patient)
             }
         }
-        return patients
+        return patients.count != 0 ? patients : nil
     }
     
 }

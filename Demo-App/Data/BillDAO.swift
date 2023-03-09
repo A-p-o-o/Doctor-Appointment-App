@@ -14,36 +14,39 @@ struct BillDAO{
     func add(bill : Bill){
         
         var bills : [Bill]
-      guard  var billsOnDate = Storage.storage.BillList[Date()]
+        if let billsOnDate = Storage.storage.BillList[dateFormat(date: bill.billGenerateddate)]{
+            bills = billsOnDate
+        }
         else {
           bills = [Bill]()
       }
-        bills = billsOnDate
         bills.append(bill)
-        Storage.storage.BillList[Date()] = bills
+        Storage.storage.BillList[dateFormat(date: bill.billGenerateddate)] = bills
     }
     
     func get(forPatientId  patientId : String )->[Bill]?{
         
-        var patientBills : [Bill]?
+        var patientBills = [Bill]()
         
         let allBills = Storage.storage.BillList.values
         
         for perDayBill in allBills {
             for bill in perDayBill {
                 if (bill.patientId).caseInsensitiveCompare(patientId) == .orderedSame{
-                    patientBills?.append(bill)
+                    patientBills.append(bill)
                 }
             }
             
         }
-        return patientBills
-    }
+        return patientBills.count != 0 ? patientBills : nil
+        }
+       
+    
     
     func getAmmount(forDate date: Date)->Double{
         var ammount = 0.0
         
-        guard let billsPerDay = Storage.storage.BillList[date] else {
+        guard let billsPerDay = Storage.storage.BillList[dateFormat(date: date)] else {
             return ammount
         }
         

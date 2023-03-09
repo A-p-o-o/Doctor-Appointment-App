@@ -18,19 +18,20 @@ struct DoctorDAO{
         return Storage.storage.doctorList[doctorId]
     }
     
-    func getAvailableDoctors(on date : Date)->[Doctor]?{
-        return Storage.storage.availableDoctors[date]
+    func getAvailableDoctors(on date : Date)->  [DoctorAvailability]?{
+        return Storage.storage.availableDoctors[dateFormat(date: date)]
     }
     
     func update(doctor : Doctor){
         Storage.storage.doctorList[doctor.employeeId] = doctor
+        
     }
     func isDoctorExist(doctorId : String)->Bool{
         return Storage.storage.doctorList.contains(where: {$0.key == doctorId})
     }
     
     func removeDoctor(doctorId : String ){
-      let doctor = Storage.storage.doctorList.removeValue(forKey: doctorId)
+       Storage.storage.doctorList.removeValue(forKey: doctorId)
     }
     
     func getAllDoctors()->[Doctor]?{
@@ -49,23 +50,36 @@ struct DoctorDAO{
         return nil
     }
     
-    func changeDoctorAvailability(date : Date ,doctors : [Doctor]){
-        Storage.storage.availableDoctors[date] = doctors
+    func changeDoctorAvailability(date : Date ,doctors : [DoctorAvailability]){
+        Storage.storage.availableDoctors[dateFormat(date: date)] = doctors
     }
     
-    func getAvailableDoctors(on date:Date , in department : Department)->[Doctor]?{
-        var availableDoctors : [Doctor]?
+    func updateDoctorAvailability(date: Date ,doctorAvailability : [DoctorAvailability]){
+        Storage.storage.availableDoctors[dateFormat(date: date)] = doctorAvailability
+    }
+    
+    func getAvailableDoctors(on date:Date , in department : Department)->[DoctorAvailability]?{
+        var availableDoctors = [DoctorAvailability]()
         
-        guard let availableDoctorsOnSpecifiedDate = Storage.storage.availableDoctors[date] else {
+        guard let availableDoctorsOnSpecifiedDate = Storage.storage.availableDoctors[dateFormat(date: date)] else {
             return nil
         }
         
         for doctor in availableDoctorsOnSpecifiedDate{
-            if (doctor.department == department){
-                availableDoctors?.append(doctor)
+            if (doctor.department == department && doctor.isAvailable == true){
+                availableDoctors.append(doctor)
             }
         }
-        return availableDoctors
+        return availableDoctors.count != 0 ? availableDoctors : nil
     }
     
+    
+    
+  
+}
+
+func dateFormat(date : Date)->String{
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd-MM-yyyy"
+   return dateFormatter.string(from: date)
 }

@@ -21,8 +21,7 @@
 		07D75D4029B6195C0082A4A5 /* Doctor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D3F29B6195C0082A4A5 /* Doctor.swift */; };
 		07D75D4229B61A5D0082A4A5 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D4129B61A5D0082A4A5 /* Report.swift */; };
 		07D75D4429B61B320082A4A5 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D4329B61B320082A4A5 /* Review.swift */; };
-		07D75D4629B61BF60082A4A5 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D4529B61BF60082A4A5 /* Slot.swift */; };
-		07D75D4829B61C600082A4A5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D4729B61C600082A4A5 /* User.swift */; };
+		07D75D4829B61C600082A4A5 /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D4729B61C600082A4A5 /* Enum.swift */; };
 		07D75D4A29B623170082A4A5 /* Visitors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D4929B623170082A4A5 /* Visitors.swift */; };
 		07D75D4C29B624970082A4A5 /* Receptionist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D4B29B624970082A4A5 /* Receptionist.swift */; };
 		07D75D4F29B628620082A4A5 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D4E29B628620082A4A5 /* Storage.swift */; };
@@ -37,6 +36,14 @@
 		07D75D6129B743D30082A4A5 /* AdminDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D6029B743D30082A4A5 /* AdminDAO.swift */; };
 		07D75D6329B74F240082A4A5 /* AppointmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D6229B74F240082A4A5 /* AppointmentList.swift */; };
 		07D75D6729B786900082A4A5 /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D6629B786900082A4A5 /* Register.swift */; };
+		07D75D6929B8AFAA0082A4A5 /* ReportDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D6829B8AFAA0082A4A5 /* ReportDAO.swift */; };
+		07D75D6B29B8BC460082A4A5 /* ReviewDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D6A29B8BC460082A4A5 /* ReviewDAO.swift */; };
+		07D75D6D29B8C9B90082A4A5 /* DoctorAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D6C29B8C9B90082A4A5 /* DoctorAvailability.swift */; };
+		07D75D6F29B9C3870082A4A5 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D6E29B9C3870082A4A5 /* Login.swift */; };
+		07D75D7229B9CB840082A4A5 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7129B9CB840082A4A5 /* RegisterController.swift */; };
+		07D75D7629BA0F840082A4A5 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7529BA0F840082A4A5 /* LoginPage.swift */; };
+		07D75D7829BA25AD0082A4A5 /* ForgetPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7729BA25AD0082A4A5 /* ForgetPasswordPage.swift */; };
+		07D75D7A29BA3C4B0082A4A5 /* ResetPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7929BA3C4B0082A4A5 /* ResetPasswordPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,8 +63,7 @@
 		07D75D3F29B6195C0082A4A5 /* Doctor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doctor.swift; sourceTree = "<group>"; };
 		07D75D4129B61A5D0082A4A5 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		07D75D4329B61B320082A4A5 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
-		07D75D4529B61BF60082A4A5 /* Slot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
-		07D75D4729B61C600082A4A5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		07D75D4729B61C600082A4A5 /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		07D75D4929B623170082A4A5 /* Visitors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Visitors.swift; sourceTree = "<group>"; };
 		07D75D4B29B624970082A4A5 /* Receptionist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receptionist.swift; sourceTree = "<group>"; };
 		07D75D4E29B628620082A4A5 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -72,6 +78,14 @@
 		07D75D6029B743D30082A4A5 /* AdminDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminDAO.swift; sourceTree = "<group>"; };
 		07D75D6229B74F240082A4A5 /* AppointmentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentList.swift; sourceTree = "<group>"; };
 		07D75D6629B786900082A4A5 /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		07D75D6829B8AFAA0082A4A5 /* ReportDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDAO.swift; sourceTree = "<group>"; };
+		07D75D6A29B8BC460082A4A5 /* ReviewDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDAO.swift; sourceTree = "<group>"; };
+		07D75D6C29B8C9B90082A4A5 /* DoctorAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorAvailability.swift; sourceTree = "<group>"; };
+		07D75D6E29B9C3870082A4A5 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		07D75D7129B9CB840082A4A5 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
+		07D75D7529BA0F840082A4A5 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
+		07D75D7729BA25AD0082A4A5 /* ForgetPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordPage.swift; sourceTree = "<group>"; };
+		07D75D7929BA3C4B0082A4A5 /* ResetPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,20 +121,23 @@
 				07D75D1C29B607480082A4A5 /* AppDelegate.swift */,
 				07D75D1E29B607480082A4A5 /* SceneDelegate.swift */,
 				07D75D2029B607480082A4A5 /* ViewController.swift */,
-				07D75D3029B609710082A4A5 /* Middle Layer */,
-				07D75D2529B607490082A4A5 /* Assets.xcassets */,
+				07D75D7029B9CB0C0082A4A5 /* UI  */,
+				07D75D3029B609710082A4A5 /* Logic */,
+				07D75D4D29B625810082A4A5 /* Data */,
 				07D75D2729B607490082A4A5 /* LaunchScreen.storyboard */,
+				07D75D2529B607490082A4A5 /* Assets.xcassets */,
 				07D75D2A29B607490082A4A5 /* Info.plist */,
 			);
 			path = "Demo-App";
 			sourceTree = "<group>";
 		};
-		07D75D3029B609710082A4A5 /* Middle Layer */ = {
+		07D75D3029B609710082A4A5 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
 				07D75D3129B609910082A4A5 /* Admin.swift */,
 				07D75D3329B60CAE0082A4A5 /* Appointment.swift */,
 				07D75D6229B74F240082A4A5 /* AppointmentList.swift */,
+				07D75D6C29B8C9B90082A4A5 /* DoctorAvailability.swift */,
 				07D75D3729B6127C0082A4A5 /* Bill.swift */,
 				07D75D3929B614150082A4A5 /* Cashier.swift */,
 				07D75D3B29B614970082A4A5 /* Patient.swift */,
@@ -128,23 +145,24 @@
 				07D75D4129B61A5D0082A4A5 /* Report.swift */,
 				07D75D4329B61B320082A4A5 /* Review.swift */,
 				07D75D6629B786900082A4A5 /* Register.swift */,
-				07D75D4529B61BF60082A4A5 /* Slot.swift */,
-				07D75D4729B61C600082A4A5 /* User.swift */,
+				07D75D6E29B9C3870082A4A5 /* Login.swift */,
+				07D75D4729B61C600082A4A5 /* Enum.swift */,
 				07D75D4929B623170082A4A5 /* Visitors.swift */,
 				07D75D4B29B624970082A4A5 /* Receptionist.swift */,
 				07D75D3D29B615840082A4A5 /* Protocols.swift */,
-				07D75D4D29B625810082A4A5 /* Data Layer */,
 			);
-			path = "Middle Layer";
+			path = Logic;
 			sourceTree = "<group>";
 		};
-		07D75D4D29B625810082A4A5 /* Data Layer */ = {
+		07D75D4D29B625810082A4A5 /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				07D75D4E29B628620082A4A5 /* Storage.swift */,
 				07D75D5029B6F3140082A4A5 /* AppointmentDAO.swift */,
 				07D75D5229B704170082A4A5 /* BillDAO.swift */,
+				07D75D6829B8AFAA0082A4A5 /* ReportDAO.swift */,
 				07D75D5429B712600082A4A5 /* DoctorDAO.swift */,
+				07D75D6A29B8BC460082A4A5 /* ReviewDAO.swift */,
 				07D75D5629B71E850082A4A5 /* PatientDAO.swift */,
 				07D75D5829B724860082A4A5 /* UserDAO.swift */,
 				07D75D5A29B72F250082A4A5 /* VisitorDAO.swift */,
@@ -152,7 +170,18 @@
 				07D75D5E29B742B80082A4A5 /* ReceptionistDAO.swift */,
 				07D75D6029B743D30082A4A5 /* AdminDAO.swift */,
 			);
-			path = "Data Layer";
+			path = Data;
+			sourceTree = "<group>";
+		};
+		07D75D7029B9CB0C0082A4A5 /* UI  */ = {
+			isa = PBXGroup;
+			children = (
+				07D75D7129B9CB840082A4A5 /* RegisterController.swift */,
+				07D75D7529BA0F840082A4A5 /* LoginPage.swift */,
+				07D75D7729BA25AD0082A4A5 /* ForgetPasswordPage.swift */,
+				07D75D7929BA3C4B0082A4A5 /* ResetPasswordPage.swift */,
+			);
+			path = "UI ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,28 +260,35 @@
 				07D75D5F29B742B80082A4A5 /* ReceptionistDAO.swift in Sources */,
 				07D75D2129B607480082A4A5 /* ViewController.swift in Sources */,
 				07D75D1D29B607480082A4A5 /* AppDelegate.swift in Sources */,
+				07D75D6929B8AFAA0082A4A5 /* ReportDAO.swift in Sources */,
 				07D75D1F29B607480082A4A5 /* SceneDelegate.swift in Sources */,
 				07D75D5129B6F3140082A4A5 /* AppointmentDAO.swift in Sources */,
 				07D75D3229B609910082A4A5 /* Admin.swift in Sources */,
 				07D75D4429B61B320082A4A5 /* Review.swift in Sources */,
 				07D75D4C29B624970082A4A5 /* Receptionist.swift in Sources */,
-				07D75D4829B61C600082A4A5 /* User.swift in Sources */,
+				07D75D4829B61C600082A4A5 /* Enum.swift in Sources */,
 				07D75D6329B74F240082A4A5 /* AppointmentList.swift in Sources */,
 				07D75D5329B704170082A4A5 /* BillDAO.swift in Sources */,
 				07D75D3829B6127C0082A4A5 /* Bill.swift in Sources */,
+				07D75D7829BA25AD0082A4A5 /* ForgetPasswordPage.swift in Sources */,
+				07D75D7629BA0F840082A4A5 /* LoginPage.swift in Sources */,
+				07D75D6D29B8C9B90082A4A5 /* DoctorAvailability.swift in Sources */,
+				07D75D6B29B8BC460082A4A5 /* ReviewDAO.swift in Sources */,
 				07D75D3C29B614970082A4A5 /* Patient.swift in Sources */,
 				07D75D4029B6195C0082A4A5 /* Doctor.swift in Sources */,
 				07D75D5D29B734140082A4A5 /* CashierDAO.swift in Sources */,
 				07D75D6729B786900082A4A5 /* Register.swift in Sources */,
 				07D75D3E29B615840082A4A5 /* Protocols.swift in Sources */,
+				07D75D7A29BA3C4B0082A4A5 /* ResetPasswordPage.swift in Sources */,
 				07D75D5B29B72F250082A4A5 /* VisitorDAO.swift in Sources */,
 				07D75D4A29B623170082A4A5 /* Visitors.swift in Sources */,
 				07D75D3A29B614150082A4A5 /* Cashier.swift in Sources */,
 				07D75D3429B60CAE0082A4A5 /* Appointment.swift in Sources */,
 				07D75D5529B712600082A4A5 /* DoctorDAO.swift in Sources */,
+				07D75D7229B9CB840082A4A5 /* RegisterController.swift in Sources */,
 				07D75D5929B724860082A4A5 /* UserDAO.swift in Sources */,
 				07D75D4F29B628620082A4A5 /* Storage.swift in Sources */,
-				07D75D4629B61BF60082A4A5 /* Slot.swift in Sources */,
+				07D75D6F29B9C3870082A4A5 /* Login.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
