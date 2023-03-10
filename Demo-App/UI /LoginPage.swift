@@ -11,15 +11,13 @@ class LoginPage: UIViewController {
     
     let loginView = UIView()
     
-    let emailLabel = UILabel()
-    let passwordLabel = UILabel()
     
-    let emailField = UITextField()
-    let passwordfield = UITextField()
-    
+    let email = LabelAndField()
+    let password = LabelAndField()
     let signInButton = UIButton()
     let forgottenPassLabel = UILabel()
     let donthaveAnAccountLabel = UILabel()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +25,10 @@ class LoginPage: UIViewController {
         setGradient()
         setLoginView()
        // setBacgroundImage()
+        setEmail()
+        setPassword()
         setLabels()
-        setTextFields()
+       
         setButton()
         setConstraints()
     }
@@ -59,6 +59,7 @@ class LoginPage: UIViewController {
         
         
         NSLayoutConstraint.activate([
+            loginView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             loginView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 25),
             loginView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -25),
@@ -66,27 +67,31 @@ class LoginPage: UIViewController {
         ])
     }
     
+    func setEmail(){
+        loginView.addSubview(email)
+        email.translatesAutoresizingMaskIntoConstraints = false
+        email.label.text = "Email"
+        email.errorLabel.isHidden = true
+        email.textField.delegate = self
+    }
+    
+    func setPassword(){
+        loginView.addSubview(password)
+        password.translatesAutoresizingMaskIntoConstraints = false
+        password.label.text = "Password"
+        password.errorLabel.isHidden = true
+        password.textField.delegate = self
+    }
+    
     
     
     func setLabels(){
-        //EMAIL LABEL
-        loginView.addSubview(emailLabel)
-        emailLabel.text = "Email Address"
-        emailLabel.textColor = .systemBlue
-        emailLabel.font = UIFont(name: "Avenir Next", size: 20)
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        //PASSWORD LABEL
-        loginView.addSubview(passwordLabel)
-        passwordLabel.text = "Password"
-        passwordLabel.textColor = .systemBlue
-        passwordLabel.font = UIFont(name: "Avenir Next", size: 20)
-        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+       
         //FORGOTTEN PASSWORD LABEL
         loginView.addSubview(forgottenPassLabel)
         forgottenPassLabel.text = "Forget Password?"
-        forgottenPassLabel.textColor = .lightGray
+        forgottenPassLabel.textColor = UIColor(named: "black")
         forgottenPassLabel.font = UIFont(name: "Avenir Next", size: 17)
         forgottenPassLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -94,7 +99,7 @@ class LoginPage: UIViewController {
         loginView.addSubview(donthaveAnAccountLabel)
         let attributedString = NSMutableAttributedString(string: "Don\'t have an account? Register here")
         attributedString.addAttribute(.foregroundColor, value: UIColor(named: "black")!, range: NSRange(location: 0, length: 22))
-        attributedString.addAttribute(.foregroundColor, value: UIColor.systemBlue, range: NSRange(location: 23, length: 13))
+        attributedString.addAttribute(.foregroundColor, value: UIColor(named: "blue")!, range: NSRange(location: 23, length: 13))
 
         donthaveAnAccountLabel.attributedText = attributedString
         donthaveAnAccountLabel.font = UIFont(name: "Avenir Next", size: 15)
@@ -102,24 +107,6 @@ class LoginPage: UIViewController {
         
     }
     
-    func setTextFields(){
-        //EMAIL FIELD
-        loginView.addSubview(emailField)
-        emailField.borderStyle = .roundedRect
-        emailField.textColor = UIColor(named: "TextFieldColor")
-        emailField.backgroundColor = .lightGray
-        emailField.layer.cornerRadius = 20
-        
-        emailField.translatesAutoresizingMaskIntoConstraints = false
-        
-        //PASSWORD FIELD
-        loginView.addSubview(passwordfield)
-        passwordfield.borderStyle = .roundedRect
-        passwordfield.textColor = UIColor(named: "TextFieldColor")
-        passwordfield.backgroundColor = .lightGray
-        passwordfield.layer.cornerRadius = 20
-        passwordfield.translatesAutoresizingMaskIntoConstraints = false
-    }
     
     func setButton(){
         //SIGN IN BUTTON
@@ -133,41 +120,29 @@ class LoginPage: UIViewController {
     }
     
     func setConstraints(){
-        //EMAIL LABEL
+        
+       
         NSLayoutConstraint.activate([
-            emailLabel.topAnchor.constraint(equalTo:loginView.topAnchor, constant: 50),
-            emailLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 20),
-            emailLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -160),
-            emailLabel.heightAnchor.constraint(equalToConstant: 30)
+            email.topAnchor.constraint(equalTo:loginView.topAnchor, constant: 50),
+            email.centerXAnchor.constraint(equalTo: loginView.centerXAnchor),
+            email.widthAnchor.constraint(equalTo: loginView.widthAnchor, multiplier: 0.9),
+            email.heightAnchor.constraint(equalToConstant: 100),
+            email.label.heightAnchor.constraint(equalToConstant: 30),
+            email.textField.heightAnchor.constraint(equalToConstant: 50)
         ])
         
-        //EMAIL FIELD
         NSLayoutConstraint.activate([
-            emailField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor),
-            emailField.leadingAnchor.constraint(equalTo: loginView.leadingAnchor,constant: 20),
-            emailField.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -20),
-            emailField.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        //PASSWORD LABEL
-        NSLayoutConstraint.activate([
-            passwordLabel.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
-            passwordLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 20),
-            passwordLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -160),
-            passwordLabel.heightAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        //PASSWORD FIELD
-        NSLayoutConstraint.activate([
-            passwordfield.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor),
-            passwordfield.leadingAnchor.constraint(equalTo: loginView.leadingAnchor,constant: 20),
-            passwordfield.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -20),
-            passwordfield.heightAnchor.constraint(equalToConstant: 50)
+            password.topAnchor.constraint(equalTo:email.bottomAnchor, constant: 20),
+            password.centerXAnchor.constraint(equalTo: loginView.centerXAnchor),
+            password.widthAnchor.constraint(equalTo: loginView.widthAnchor, multiplier: 0.9),
+            password.heightAnchor.constraint(equalToConstant: 100),
+            password.label.heightAnchor.constraint(equalToConstant: 30),
+            password.textField.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         //SIGN IN BUTTON
         NSLayoutConstraint.activate([
-            signInButton.topAnchor.constraint(equalTo: passwordfield.bottomAnchor, constant: 50),
+            signInButton.topAnchor.constraint(equalTo: password.bottomAnchor, constant: 50),
             signInButton.centerXAnchor.constraint(equalTo: loginView.centerXAnchor),
             signInButton.leadingAnchor.constraint(equalTo: loginView.leadingAnchor,constant: 20),
             signInButton.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -20)
@@ -189,14 +164,93 @@ class LoginPage: UIViewController {
         ])
         
     }
-    
+   
     func setGradient(){
+        if view.layer.sublayers?.count != nil {
+            view.layer.sublayers![0].removeFromSuperlayer()
+        }
         let gradientLayer2 = CAGradientLayer()
         gradientLayer2.frame = view.bounds
-        gradientLayer2.colors = [UIColor(named: "black")!.cgColor,UIColor(named: "white")!.cgColor, UIColor.blue.cgColor]
+        gradientLayer2.colors = [UIColor(named: "black")!.cgColor,UIColor(named:"white")!.cgColor,UIColor.blue.cgColor]
         gradientLayer2.startPoint = CGPoint(x: 0, y: 0)
         view.layer.insertSublayer(gradientLayer2, at: 0)
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) || traitCollection.verticalSizeClass != previousTraitCollection?.verticalSizeClass {
+           setGradient()
+            if traitCollection.userInterfaceStyle == .dark {
+                print("Dark")
+            }
+        }
+    }
 
+}
+
+extension LoginPage : UITextFieldDelegate{
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        active(textField)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        inActive(textField)
+        
+        switch textField {
+        case email.textField : validateEmail(email: textField.text!)
+        case password.textField : validPassword(password: textField.text!)
+        default : return
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField  {
+        case email.textField : password.textField.becomeFirstResponder()
+        case password.textField : password.textField.resignFirstResponder()
+        default : true
+        }
+        return true
+    }
+    
+    
+    private func active(_ textField: UITextField){
+        textField.layer.borderWidth = 1
+        textField.layer.cornerRadius = 5
+        textField.layer.borderColor = UIColor(named: "blue")?.cgColor
+        textField.backgroundColor = UIColor(named: "field_active")
+    }
+    
+    private func inActive(_ textField: UITextField) {
+        textField.backgroundColor = UIColor(named: "field_inactive")
+        textField.layer.borderWidth = 0
+    }
+    
+    private func validateEmail(email:String){
+        let emailRegex = "^[\\+\\-\\p{L}\\p{M}\\p{N}_]([\\p{L}\\p{M}\\p{N}!#$%&'*+\\-\\/=?^_`{|}~.]*)@(?=.{4,256}$)(([\\p{L}\\p{N}\\p{M}]+)(([\\-_]*[\\p{L}\\p{M}\\p{N}])*)[.])+[\\p{L}\\p{M}]{2,22}$"
+        
+        if let _ = email.range(of: emailRegex, options: .regularExpression) {
+            self.email.errorLabel.isHidden = true
+                } else {
+                    self.email.textField.layer.borderWidth = 1
+                    self.email.textField.layer.borderColor = UIColor.systemRed.cgColor
+                    self.email.errorLabel.text = "*Invalid Email address"
+                    self.email.errorLabel.isHidden = false
+                }
+    }
+    
+    private func validPassword(password:String){
+        if password.count < 8 {
+            self.password.textField.layer.borderWidth = 1
+            self.password.textField.layer.borderColor = UIColor.systemRed.cgColor
+            self.password.errorLabel.text = "*Password should be minimum 8 charcaters"
+            self.password.errorLabel.isHidden = false
+        }
+        else{
+            self.password.errorLabel.isHidden = true
+        }
+    }
+    
+    
 }

@@ -44,6 +44,16 @@
 		07D75D7629BA0F840082A4A5 /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7529BA0F840082A4A5 /* LoginPage.swift */; };
 		07D75D7829BA25AD0082A4A5 /* ForgetPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7729BA25AD0082A4A5 /* ForgetPasswordPage.swift */; };
 		07D75D7A29BA3C4B0082A4A5 /* ResetPasswordPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7929BA3C4B0082A4A5 /* ResetPasswordPage.swift */; };
+		07D75D7E29BAEDEC0082A4A5 /* RegisterSecondPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7D29BAEDEC0082A4A5 /* RegisterSecondPage.swift */; };
+		07D75D8029BAEE120082A4A5 /* LabelAndField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7F29BAEE120082A4A5 /* LabelAndField.swift */; };
+		07D75D8829BB48D40082A4A5 /* PatientHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8729BB48D40082A4A5 /* PatientHomePage.swift */; };
+		07D75D8B29BB4F4F0082A4A5 /* ReportsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8A29BB4F4F0082A4A5 /* ReportsPage.swift */; };
+		07D75D8D29BB4F680082A4A5 /* Consult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8C29BB4F680082A4A5 /* Consult.swift */; };
+		07D75D8F29BB4FA00082A4A5 /* Payments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8E29BB4FA00082A4A5 /* Payments.swift */; };
+		07D75D9129BB528A0082A4A5 /* DiseasePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D9029BB528A0082A4A5 /* DiseasePage.swift */; };
+		07D75D9329BB564A0082A4A5 /* SurgeryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D9229BB564A0082A4A5 /* SurgeryView.swift */; };
+		07D75D9629BB7AC40082A4A5 /* Symptoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D9529BB7AC40082A4A5 /* Symptoms.swift */; };
+		07D75D9829BB7D6A0082A4A5 /* ImageAndLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D9729BB7D6A0082A4A5 /* ImageAndLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +96,16 @@
 		07D75D7529BA0F840082A4A5 /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		07D75D7729BA25AD0082A4A5 /* ForgetPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordPage.swift; sourceTree = "<group>"; };
 		07D75D7929BA3C4B0082A4A5 /* ResetPasswordPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPage.swift; sourceTree = "<group>"; };
+		07D75D7D29BAEDEC0082A4A5 /* RegisterSecondPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSecondPage.swift; sourceTree = "<group>"; };
+		07D75D7F29BAEE120082A4A5 /* LabelAndField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndField.swift; sourceTree = "<group>"; };
+		07D75D8729BB48D40082A4A5 /* PatientHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientHomePage.swift; sourceTree = "<group>"; };
+		07D75D8A29BB4F4F0082A4A5 /* ReportsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsPage.swift; sourceTree = "<group>"; };
+		07D75D8C29BB4F680082A4A5 /* Consult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consult.swift; sourceTree = "<group>"; };
+		07D75D8E29BB4FA00082A4A5 /* Payments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payments.swift; sourceTree = "<group>"; };
+		07D75D9029BB528A0082A4A5 /* DiseasePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiseasePage.swift; sourceTree = "<group>"; };
+		07D75D9229BB564A0082A4A5 /* SurgeryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurgeryView.swift; sourceTree = "<group>"; };
+		07D75D9529BB7AC40082A4A5 /* Symptoms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symptoms.swift; sourceTree = "<group>"; };
+		07D75D9729BB7D6A0082A4A5 /* ImageAndLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,11 +197,37 @@
 			isa = PBXGroup;
 			children = (
 				07D75D7129B9CB840082A4A5 /* RegisterController.swift */,
+				07D75D7D29BAEDEC0082A4A5 /* RegisterSecondPage.swift */,
 				07D75D7529BA0F840082A4A5 /* LoginPage.swift */,
+				07D75D7F29BAEE120082A4A5 /* LabelAndField.swift */,
+				07D75D9729BB7D6A0082A4A5 /* ImageAndLabel.swift */,
 				07D75D7729BA25AD0082A4A5 /* ForgetPasswordPage.swift */,
 				07D75D7929BA3C4B0082A4A5 /* ResetPasswordPage.swift */,
+				07D75D8929BB4F150082A4A5 /* Patient */,
 			);
 			path = "UI ";
+			sourceTree = "<group>";
+		};
+		07D75D8929BB4F150082A4A5 /* Patient */ = {
+			isa = PBXGroup;
+			children = (
+				07D75D8729BB48D40082A4A5 /* PatientHomePage.swift */,
+				07D75D8A29BB4F4F0082A4A5 /* ReportsPage.swift */,
+				07D75D8C29BB4F680082A4A5 /* Consult.swift */,
+				07D75D8E29BB4FA00082A4A5 /* Payments.swift */,
+				07D75D9029BB528A0082A4A5 /* DiseasePage.swift */,
+				07D75D9429BB7A750082A4A5 /* HomePage */,
+			);
+			path = Patient;
+			sourceTree = "<group>";
+		};
+		07D75D9429BB7A750082A4A5 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				07D75D9229BB564A0082A4A5 /* SurgeryView.swift */,
+				07D75D9529BB7AC40082A4A5 /* Symptoms.swift */,
+			);
+			path = HomePage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +303,12 @@
 				07D75D5729B71E850082A4A5 /* PatientDAO.swift in Sources */,
 				07D75D4229B61A5D0082A4A5 /* Report.swift in Sources */,
 				07D75D6129B743D30082A4A5 /* AdminDAO.swift in Sources */,
+				07D75D9129BB528A0082A4A5 /* DiseasePage.swift in Sources */,
 				07D75D5F29B742B80082A4A5 /* ReceptionistDAO.swift in Sources */,
 				07D75D2129B607480082A4A5 /* ViewController.swift in Sources */,
+				07D75D8829BB48D40082A4A5 /* PatientHomePage.swift in Sources */,
+				07D75D7E29BAEDEC0082A4A5 /* RegisterSecondPage.swift in Sources */,
+				07D75D8D29BB4F680082A4A5 /* Consult.swift in Sources */,
 				07D75D1D29B607480082A4A5 /* AppDelegate.swift in Sources */,
 				07D75D6929B8AFAA0082A4A5 /* ReportDAO.swift in Sources */,
 				07D75D1F29B607480082A4A5 /* SceneDelegate.swift in Sources */,
@@ -268,10 +318,14 @@
 				07D75D4C29B624970082A4A5 /* Receptionist.swift in Sources */,
 				07D75D4829B61C600082A4A5 /* Enum.swift in Sources */,
 				07D75D6329B74F240082A4A5 /* AppointmentList.swift in Sources */,
+				07D75D8029BAEE120082A4A5 /* LabelAndField.swift in Sources */,
 				07D75D5329B704170082A4A5 /* BillDAO.swift in Sources */,
+				07D75D9329BB564A0082A4A5 /* SurgeryView.swift in Sources */,
 				07D75D3829B6127C0082A4A5 /* Bill.swift in Sources */,
 				07D75D7829BA25AD0082A4A5 /* ForgetPasswordPage.swift in Sources */,
 				07D75D7629BA0F840082A4A5 /* LoginPage.swift in Sources */,
+				07D75D8F29BB4FA00082A4A5 /* Payments.swift in Sources */,
+				07D75D9629BB7AC40082A4A5 /* Symptoms.swift in Sources */,
 				07D75D6D29B8C9B90082A4A5 /* DoctorAvailability.swift in Sources */,
 				07D75D6B29B8BC460082A4A5 /* ReviewDAO.swift in Sources */,
 				07D75D3C29B614970082A4A5 /* Patient.swift in Sources */,
@@ -279,9 +333,11 @@
 				07D75D5D29B734140082A4A5 /* CashierDAO.swift in Sources */,
 				07D75D6729B786900082A4A5 /* Register.swift in Sources */,
 				07D75D3E29B615840082A4A5 /* Protocols.swift in Sources */,
+				07D75D9829BB7D6A0082A4A5 /* ImageAndLabel.swift in Sources */,
 				07D75D7A29BA3C4B0082A4A5 /* ResetPasswordPage.swift in Sources */,
 				07D75D5B29B72F250082A4A5 /* VisitorDAO.swift in Sources */,
 				07D75D4A29B623170082A4A5 /* Visitors.swift in Sources */,
+				07D75D8B29BB4F4F0082A4A5 /* ReportsPage.swift in Sources */,
 				07D75D3A29B614150082A4A5 /* Cashier.swift in Sources */,
 				07D75D3429B60CAE0082A4A5 /* Appointment.swift in Sources */,
 				07D75D5529B712600082A4A5 /* DoctorDAO.swift in Sources */,
