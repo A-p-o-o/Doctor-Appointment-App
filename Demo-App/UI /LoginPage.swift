@@ -209,7 +209,7 @@ extension LoginPage : UITextFieldDelegate{
         switch textField  {
         case email.textField : password.textField.becomeFirstResponder()
         case password.textField : password.textField.resignFirstResponder()
-        default : true
+        default : return true
         }
         return true
     }
