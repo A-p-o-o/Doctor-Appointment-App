@@ -61,10 +61,11 @@ class DiseaseAndNameCCell: UICollectionViewCell {
 
     
     NSLayoutConstraint.activate([
-        imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-        imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-        imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+        //imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+        //imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         imageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75),
+        imageView.widthAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75),
         
         label.topAnchor.constraint(equalTo: imageView.bottomAnchor),
         label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

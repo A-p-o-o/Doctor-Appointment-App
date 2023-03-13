@@ -69,12 +69,18 @@ class PatientHomePage: UIViewController {
         stack.addArrangedSubview(surgery)
         surgery.translatesAutoresizingMaskIntoConstraints = false
         surgery.layer.cornerRadius = 10
-        surgery.navigationController = navigationController
+       
         
         NSLayoutConstraint.activate([
             surgery.heightAnchor.constraint(equalTo: view.heightAnchor,multiplier: 0.30),
             surgery.widthAnchor.constraint(equalTo: stack.widthAnchor,multiplier: 0.97)
         ])
+        
+        surgery.isUserInteractionEnabled = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(surgeryViewTapped))
+        surgery.addGestureRecognizer(tapGesture)
+        
        
     }
     
@@ -121,11 +127,7 @@ class PatientHomePage: UIViewController {
         findDoctors.footer.addTarget(self, action: #selector(viewAllSpecialist), for: .touchUpInside)
     }
     
-    @objc func viewAllSpecialist(){
-        print("button")
-        let vc = Consult()
-        navigationController?.pushViewController(vc, animated: true)
-    }
+    
     
     func setArticles(){
         articles.layer.cornerRadius = 10
@@ -149,6 +151,16 @@ class PatientHomePage: UIViewController {
         gradientLayer2.colors = [UIColor(named: "black")!.cgColor,UIColor(named:"white")!.cgColor,UIColor.blue.cgColor]
         gradientLayer2.startPoint = CGPoint(x: 0, y: 0)
         view.layer.insertSublayer(gradientLayer2, at: 0)
+    }
+    
+    @objc func viewAllSpecialist(){
+        print("button")
+        let vc = Consult()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func surgeryViewTapped(){
+        tabBarController?.selectedIndex = 1
     }
     
  

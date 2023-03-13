@@ -20,7 +20,12 @@ enum Sex{
 }
 
 enum Department{
-    case neurologist
+    
+    static var allCases:[Department]{
+        return [.Neurologist,.Cardiologist,.General_Physician,.Orthopedist,.Dermatologist,.Ear_Nose_throat,.Urologist,.Psychiatry,.Diabetology,.Nephrology,.Rheumatology]
+    }
+    
+    case Neurologist,Cardiologist,General_Physician,Orthopedist,Dermatologist,Ear_Nose_throat,Urologist,Psychiatry,Diabetology,Nephrology,Rheumatology
 }
 
 enum Slot : Equatable{

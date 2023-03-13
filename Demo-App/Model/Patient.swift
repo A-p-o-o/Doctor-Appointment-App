@@ -117,6 +117,14 @@ struct Patient : Person,User{
         return billDAO.get(forPatientId: patientId)
     }
     
+    func searchDoctor(text : String)->[Doctor]{
+       return  doctorDAO.searchDoctor(searchText: text)
+    }
+    
+    func searchDepartmentDoctor(department: Department)->[Doctor]{
+        return doctorDAO.searchDepartment(department: department)
+    }
+    
     private let patientDAO = PatientDAO()
     private let doctorDAO = DoctorDAO()
     private let appointmentDAO = AppointmentDAO()

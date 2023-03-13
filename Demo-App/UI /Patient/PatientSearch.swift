@@ -18,17 +18,27 @@ class PatientSearch: UIViewController {
         return search
     }()
     
+    
+    let calendar : UICalendarView = {
+        let calendar =  UICalendarView()
+        calendar.translatesAutoresizingMaskIntoConstraints = false
+        return calendar
+    }()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
         setSearchBar()
+        setCalendar()
     }
     
     
     func setSearchBar(){
         
         view.addSubview(searchField)
-        
+        searchField.delegate = self
         
         NSLayoutConstraint.activate([
             searchField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -38,6 +48,28 @@ class PatientSearch: UIViewController {
         ])
         
     }
+    
+    func setCalendar(){
+        
+        view.addSubview(calendar)
+        
+        NSLayoutConstraint.activate([
+        calendar.topAnchor.constraint(equalTo: searchField.bottomAnchor,constant: 20),
+        calendar.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor),
+        calendar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        calendar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+        ])
+    }
 
 
+}
+
+extension PatientSearch : UISearchBarDelegate{
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        let vc = PatientSearchController()
+        vc.view.backgroundColor = .green
+        vc.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(vc, animated: false)
+        return false
+    }
 }

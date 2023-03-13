@@ -118,8 +118,8 @@ extension SelectDoctors : UICollectionViewDataSource ,UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorCell.identifier, for: indexPath)
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorCell.identifier, for: indexPath) as! DoctorCell
+        cell.imageview.layer.cornerRadius = cell.frame.height / 2
         return cell
     }
    

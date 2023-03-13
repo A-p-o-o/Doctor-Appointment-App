@@ -202,20 +202,21 @@ extension SymptomsView : UICollectionViewDataSource ,UICollectionViewDelegateFlo
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
+        6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiseaseAndNameCCell.identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiseaseAndNameCCell.identifier, for: indexPath) as! DiseaseAndNameCCell
         cell.layer.cornerRadius = 10
-        cell.layer.borderColor = UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0).cgColor
-        cell.layer.borderWidth = 2
-        
+        cell.imageView.layer.borderColor = UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0).cgColor
+        cell.imageView.layer.borderWidth = 2
+        cell.imageView.layer.cornerRadius = cell.bounds.height * 0.75 / 2
+        //cell.backgroundColor = .red
         return cell
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.bounds.width / 2) - 20
+        let cellWidth = (collectionView.bounds.width / 3) - 20
         let cellHeight = (collectionView.bounds.height - (2 * collectionView.bounds.height * (1 / 10))) / 2 - 20
         
             return CGSize(width: cellWidth, height:cellHeight)

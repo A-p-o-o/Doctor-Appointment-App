@@ -9,7 +9,8 @@ import UIKit
 
 class SurgeryView: UIView {
     
-    var navigationController : UINavigationController?
+   
+    
     
     let images = [UIImage(named: "neckSurgery"),UIImage(named: "kneeSurgery"),UIImage(named: "cardiacSurgery"),UIImage(named: "handSurgery")]
     
@@ -72,6 +73,7 @@ class SurgeryView: UIView {
         return label
     }()
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setMiddleView()
@@ -101,6 +103,7 @@ class SurgeryView: UIView {
         
         
         
+        
         NSLayoutConstraint.activate([
             titleLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.25),
             titleLabel.widthAnchor.constraint(equalTo: widthAnchor,constant: -40),
@@ -116,7 +119,7 @@ class SurgeryView: UIView {
         ])
        
         
-
+        
        
     }
     

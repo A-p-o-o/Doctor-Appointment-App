@@ -73,6 +73,30 @@ struct DoctorDAO{
         return availableDoctors.count != 0 ? availableDoctors : nil
     }
     
+    func searchDoctor(searchText : String)->[Doctor]{
+        var matchedDoctors = [Doctor]()
+        let allDoctors = Array(Storage.storage.doctorList.values)
+        
+        for doctor in allDoctors {
+            if (doctor.name.range(of: searchText, options: .caseInsensitive) != nil) {
+                matchedDoctors.append(doctor)
+            }
+        }
+        return matchedDoctors
+    }
+    
+    func searchDepartment(department : Department)->[Doctor]{
+        var matchedDoctors = [Doctor]()
+        let allDoctors = Array(Storage.storage.doctorList.values)
+        
+        for doctor in allDoctors {
+            if doctor.department == department {
+                matchedDoctors.append(doctor)
+            }
+        }
+        return matchedDoctors
+    }
+    
     
     
   
