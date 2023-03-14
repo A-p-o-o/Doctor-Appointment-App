@@ -73,6 +73,51 @@ struct DoctorDAO{
         return availableDoctors.count != 0 ? availableDoctors : nil
     }
     
+    func getDoctorAvailableDates(doctorId : String)->[String]{
+        var dates = [String]()
+        for day in 0...7{
+            let date = Calendar.current.date(byAdding: .day, value: day, to: Date())!
+            
+            guard let doctorsAvailableInDate : [DoctorAvailability] = Storage.storage.availableDoctors[dateFormat(date: date)] else {
+                return dates
+            }
+            
+            
+            for doctor in doctorsAvailableInDate {
+                if doctor.doctorId == doctorId {
+                    dates.append(dateFormat(date: date))
+                }
+                
+            }
+        }
+        return dates
+    }
+    
+    func getAvailableSlots(for date: Date,doctorId : String)->[Time]{
+        var times : [Time] = []
+        
+        guard let doctors :[DoctorAvailability] = Storage.storage.availableDoctors[dateFormat(date: date)] else {
+            return  times
+        }
+        
+        for doctor in doctors {
+            if  doctor.doctorId == doctorId {
+                let slots : [Slot] = doctor.slots
+                
+                for slot in slots{
+                    switch slot {
+                    case .slot( _,let time,let isBooked) : if !isBooked {
+                        times.append(time)
+                    }
+                        
+                    }
+                }
+                
+            }
+        }
+        return times
+    }
+    
     func searchDoctor(searchText : String)->[Doctor]{
         var matchedDoctors = [Doctor]()
         let allDoctors = Array(Storage.storage.doctorList.values)
@@ -84,6 +129,7 @@ struct DoctorDAO{
         }
         return matchedDoctors
     }
+    
     
     func searchDepartment(department : Department)->[Doctor]{
         var matchedDoctors = [Doctor]()
@@ -106,4 +152,12 @@ func dateFormat(date : Date)->String{
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "dd-MM-yyyy"
    return dateFormatter.string(from: date)
+}
+
+func formatDate(date: String)->Date{
+    
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd-MM-yyyy"
+    return dateFormatter.date(from: date)!
+     
 }

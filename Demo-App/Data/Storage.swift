@@ -70,6 +70,10 @@ class Storage {
     
     func availDoc(){
         doctorList["D1"] = Doctor(userName: "Doc", password: "Doc", UserId: "Doc", employeeId: "D1", dateJoined: Date(), education: "Doc", role: .Doctor, name: "Doc", phoneNumber: "Doc", sex: .Male, mail: "Doc", address: "Doc", department: .Neurologist, experience: 23)
+        doctorList["D2"] = Doctor(userName: "Naveen kumar Dugar", password: "Doc", UserId: "Doc", employeeId: "D2", dateJoined: Date(), education: "Doc", role: .Doctor, name: "Naveen Kumar Duagar", phoneNumber: "Doc", sex: .Male, mail: "Doc", address: "Doc", department: .Cardiologist, experience: 2)
+        doctorList["D3"] = Doctor(userName: "Guhan", password: "Doc", UserId: "Doc", employeeId: "D3", dateJoined: Date(), education: "Doc", role: .Doctor, name: "Guhan", phoneNumber: "Doc", sex: .Male, mail: "Doc", address: "Doc", department: .Cardiologist, experience: 12)
+        doctorList["D4"] = Doctor(userName: "User name", password: "Doc", UserId: "Doc", employeeId: "D4", dateJoined: Date(), education: "Doc", role: .Doctor, name: "Arun Prasanth M", phoneNumber: "Doc", sex: .Male, mail: "Doc", address: "Doc", department: .Orthopedist, experience: 2)
+        
     }
     
 }

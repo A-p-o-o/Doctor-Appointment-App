@@ -19,7 +19,7 @@ class PatientTabBarController: UITabBarController {
    let home = PatientHomePage()
    let reports = ReportsPage()
    let consult = Consult()
-   let search = PatientSearch()
+   let search = PatientSearchController()
     
     func set(){
         

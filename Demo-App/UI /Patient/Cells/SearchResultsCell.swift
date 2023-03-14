@@ -13,24 +13,26 @@ class SearchResultsCell: UITableViewCell {
     
     let leftLabel : UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "black")
         label.text = "Left"
         label.font = UIFont(name: "Avenir next", size: 25)
         label.textAlignment = .left
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
+        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let rightLabel : UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "black")
         label.text = "Right"
         label.font = UIFont(name: "Avenir next", size: 25)
         label.textAlignment = .right
         label.layer.cornerRadius = 10
         label.clipsToBounds = true
+        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,15 +62,15 @@ class SearchResultsCell: UITableViewCell {
     func setConstrains(){
         
         NSLayoutConstraint.activate([
-            leftLabel.topAnchor.constraint(equalTo: topAnchor),
-            leftLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            leftLabel.topAnchor.constraint(equalTo: topAnchor,constant: 5),
+            leftLabel.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -5),
             leftLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
             leftLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4)
         ])
         
         NSLayoutConstraint.activate([
-            rightLabel.topAnchor.constraint(equalTo: topAnchor),
-            rightLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            rightLabel.topAnchor.constraint(equalTo: topAnchor,constant: 5),
+            rightLabel.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -5),
             rightLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10),
             rightLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4)
         ])

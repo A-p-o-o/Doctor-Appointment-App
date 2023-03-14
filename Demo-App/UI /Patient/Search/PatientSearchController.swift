@@ -10,6 +10,7 @@ import UIKit
 class PatientSearchController: UIViewController {
     
     let patient : Patient? = Patient(userName: "", password: "", UserId: "", role: .Patient, name: "", phoneNumber: "", sex: .Male, mail: "", address: "", patientId: "", weight: 02, height: 2, AllergyTo: "")
+    
 
     let searchField : UISearchBar = {
         let search = UISearchBar()
@@ -52,6 +53,7 @@ class PatientSearchController: UIViewController {
         tableView.dataSource = self
         
         tableView.register(SearchResultsCell.self, forCellReuseIdentifier: SearchResultsCell.identifier)
+        tableView.separatorInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         tableView.register(ResultDoctorCell.self, forCellReuseIdentifier: ResultDoctorCell.identifier)
         
         NSLayoutConstraint.activate([
@@ -67,14 +69,14 @@ class PatientSearchController: UIViewController {
 extension PatientSearchController : UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchBar.text)
+       
         guard let text = searchBar.text else {return}
         guard let patient else {return}
         data = []
         data.append(contentsOf: patient.searchDoctor(text: text))
         let search = Search()
         data.append(contentsOf: search.searchDepartment(text: text))
-        print(data)
+    
         tableView.reloadData()
     }
     
@@ -83,8 +85,6 @@ extension PatientSearchController : UISearchBarDelegate {
 extension PatientSearchController : UITableViewDataSource ,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        print(data.count)
         return data.count
     }
     
@@ -111,7 +111,8 @@ extension PatientSearchController : UITableViewDataSource ,UITableViewDelegate{
             let doctor = indexValue as! Doctor
             cell.name.text = doctor.name
             cell.department.text = "\(doctor.department)".capitalized
-            cell.profile.layer.cornerRadius = cell.frame.height / 2
+            cell.experience.text = "\(doctor.experience) years of experience"
+            cell.profile.layer.cornerRadius = (cell.contentView.frame.height - 10) / 2
             return cell
         }
         
@@ -133,7 +134,7 @@ extension PatientSearchController : UITableViewDataSource ,UITableViewDelegate{
         let indexValue = data[indexPath.row]
         
         if indexValue is Doctor {
-            return CGFloat(70)
+            return CGFloat(80)
         }
         return CGFloat(40)
     }
@@ -143,8 +144,16 @@ extension PatientSearchController : UITableViewDataSource ,UITableViewDelegate{
         let item = data[indexPath.row]
         
         if item is Doctor {
-            let i = item as! Doctor
-           
+            let doc = item as! Doctor
+            let viewController = ViewDoctor()
+            viewController.doctor = doc
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+        if item is Department {
+            let department = item as! Department
+            let viewController = ViewDepartment()
+            viewController.department = "\(department)".lowercased()
+            navigationController?.pushViewController(viewController, animated: false)
         }
     }
     
