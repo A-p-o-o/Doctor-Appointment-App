@@ -35,6 +35,11 @@ class Slots: UICollectionViewCell {
         setviews()
     }
     
+    override func prepareForReuse() {
+        layer.borderWidth = 0.0
+        layer.borderColor = nil
+    }
+    
     func setviews(){
         contentView.addSubview(titleLabel)
         

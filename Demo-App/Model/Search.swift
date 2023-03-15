@@ -28,38 +28,24 @@ struct Search{
         return doctorDao.getDoctorAvailableDates(doctorId: doctorId)
     }
     
-    func doctorSlots(date:String,doctorId:String)->[String]{
-        var slottime = [String]()
+    func doctorSlots(date:String,doctorId:String)->(start :[String],end :[String],slotNo:[Int]){
+        var startTime = [String]()
+        var endTime = [String]()
         let times =  doctorDao.getAvailableSlots(for: formatDate(date: date), doctorId: doctorId)
         
-        for time in times {
+        for time in times.time {
             switch time {
-            case .time1(let start,let end) :
-                slottime.append("\(start) - \(end)")
-                
-            case .time2(let start,let end) :
-                slottime.append("\(start) - \(end)")
-                
-            case .time3(let start,let end) :
-                slottime.append("\(start) - \(end)")
-                
-            case .time4(let start,let end) :
-                slottime.append("\(start) - \(end)")
-                
-            case .time5(let start,let end) :
-                slottime.append("\(start) - \(end)")
-                
-            case .coustomtime(let start,let end) :
-                slottime.append("\(start) - \(end)")
-                
+            case .time(let start,let end) :
+                startTime.append(start)
+                endTime.append(end)
             }
         }
-        return slottime
+        return (startTime,endTime,times.slotNo)
     }
     
     
-    func dateAndslots(dates:[String],doctorId : String)->[String:[String]]{
-        var dateAndSlots = [String:[String]]()
+    func dateAndslots(dates:[String],doctorId : String)->[String:([String],[String],[Int])]{
+        var dateAndSlots = [String:([String],[String],[Int])]()
         for date in dates{
             dateAndSlots[date] = doctorSlots(date: date, doctorId: doctorId)
         }

@@ -93,11 +93,12 @@ struct DoctorDAO{
         return dates
     }
     
-    func getAvailableSlots(for date: Date,doctorId : String)->[Time]{
+    func getAvailableSlots(for date: Date,doctorId : String)->(time:[Time],slotNo:[Int]){
         var times : [Time] = []
+        var slotNos : [Int] = []
         
         guard let doctors :[DoctorAvailability] = Storage.storage.availableDoctors[dateFormat(date: date)] else {
-            return  times
+            return  (times,slotNos)
         }
         
         for doctor in doctors {
@@ -106,8 +107,9 @@ struct DoctorDAO{
                 
                 for slot in slots{
                     switch slot {
-                    case .slot( _,let time,let isBooked) : if !isBooked {
+                    case .slot(let slotNo ,let time,let isBooked) : if !isBooked {
                         times.append(time)
+                        slotNos.append(slotNo)
                     }
                         
                     }
@@ -115,7 +117,8 @@ struct DoctorDAO{
                 
             }
         }
-        return times
+        
+        return (times,slotNos)
     }
     
     func searchDoctor(searchText : String)->[Doctor]{

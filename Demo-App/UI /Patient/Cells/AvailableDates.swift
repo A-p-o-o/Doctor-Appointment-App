@@ -52,6 +52,11 @@ class AvailableDates: UICollectionViewCell {
         setViews()
     }
     
+    override func prepareForReuse() {
+        layer.borderWidth = 0.0
+        layer.borderColor = nil
+    }
+    
     
    func setViews(){
       

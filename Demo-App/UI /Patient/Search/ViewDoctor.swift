@@ -9,17 +9,19 @@ import UIKit
 
 class ViewDoctor: UIViewController {
     
-    var doctor : Doctor? = nil
-    var patient : Patient? = nil
+    let doctor : Doctor
+    let patient : Patient
     
-    var slots : [String] = []
+    var selectDate :String? = nil
+    
+    var slots : (startTime:[String],endTime:[String],slotNo:[Int]) = ([],[],[])
     
     var availableDatesOfDoctor : [String] {
-        search.doctorAvailableDates(doctorId: doctor!.employeeId)
+        search.doctorAvailableDates(doctorId: doctor.employeeId)
     }
     
-    var dateAndSlots : [String : [String] ] {
-        search.dateAndslots(dates: availableDatesOfDoctor, doctorId: doctor!.employeeId)
+    var dateAndSlots : [String:(startTime:[String],endTime:[String],slotno:[Int])] {
+        search.dateAndslots(dates: availableDatesOfDoctor, doctorId: doctor.employeeId)
     }
     
     
@@ -27,12 +29,12 @@ class ViewDoctor: UIViewController {
     let dao = DoctorDAO()
     //Doctor Profile
 
-    let topView = UIView()
+    let topView : DoctorProfile
     let photo : UIImageView = {
         let imageView = UIImageView()
          imageView.image = UIImage(named: "image6")
-         imageView.contentMode = .scaleAspectFill
-
+         imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = UIColor(named: "black")
          imageView.clipsToBounds = true
          imageView.translatesAutoresizingMaskIntoConstraints = false
          return imageView
@@ -96,6 +98,26 @@ class ViewDoctor: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         setViews()
+        
+        
+        availableSlots.reloadData()
+        availableDates.reloadData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        availableSlots.reloadData()
+        availableDates.reloadData()
+    }
+    
+     init(doctor: Doctor? = nil, patient: Patient? = nil) {
+         self.doctor = doctor!
+         self.patient = patient!
+         self.topView = DoctorProfile(doctor: doctor!)
+         super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setViews(){
@@ -121,6 +143,7 @@ class ViewDoctor: UIViewController {
             
         ])
         
+        topView.photo.layer.cornerRadius = (view.bounds.height) * 0.15 * 0.8 / 2
         
         
         NSLayoutConstraint.activate([
@@ -137,7 +160,7 @@ class ViewDoctor: UIViewController {
             bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        setTopView()
+        //setTopView()
         setMiddleView()
         setbottomView()
     }
@@ -150,9 +173,9 @@ class ViewDoctor: UIViewController {
         topView.addSubview(department)
         topView.addSubview(experience)
         
-        name.text = "Dr \(doctor!.name)"
-        department.text = "\(doctor!.department)".uppercased()
-        experience.text = "\(doctor!.experience) years of experience"
+        name.text = "Dr \(doctor.name)"
+        department.text = "\(doctor.department)".uppercased()
+        experience.text = "\(doctor.experience) years of experience"
         
         
         
@@ -246,9 +269,10 @@ class ViewDoctor: UIViewController {
         availableSlots.register(Slots.self, forCellWithReuseIdentifier: Slots.identifier)
 
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
+        flowLayout.scrollDirection = .vertical
         flowLayout.minimumInteritemSpacing = 20
         flowLayout.minimumLineSpacing = 20
+        flowLayout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
 
         availableSlots.translatesAutoresizingMaskIntoConstraints = false
 
@@ -284,7 +308,7 @@ extension ViewDoctor : UICollectionViewDataSource,UICollectionViewDelegateFlowLa
         }
         else {
             
-            return slots.count
+            return slots.startTime.count
         }
     }
     
@@ -297,15 +321,14 @@ extension ViewDoctor : UICollectionViewDataSource,UICollectionViewDelegateFlowLa
             let date = availableDatesOfDoctor[indexPath.row]
             cell.titleLabel.text = date
             
-            let slots : Int = dateAndSlots[date]?.count ?? 0
+            let slots : Int = dateAndSlots[date]?.startTime.count ?? 0
             cell.infoLabel.text = slots == 0 ? "No slots Available" : "\(slots) slots Available"
-            
             return cell
         }
         else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Slots.identifier, for: indexPath) as! Slots
             
-            cell.titleLabel.text  =  slots[indexPath.row]
+            cell.titleLabel.text  =  "\(slots.startTime[indexPath.row]) - \(slots.endTime[indexPath.row])"
             
             return cell
         }
@@ -323,10 +346,10 @@ extension ViewDoctor : UICollectionViewDataSource,UICollectionViewDelegateFlowLa
             return CGSize(width: width, height: height)
         }
         else {
-            let height = collectionView.frame.height  / 6
-            let width = collectionView.frame.width / 3 - 30
+            let height = collectionView.frame.height  / 7
+            let width = collectionView.frame.width / 3 - 40
             
-            return CGSize(width: height, height: width)
+            return CGSize(width: width, height: height)
         }
     }
     
@@ -346,10 +369,18 @@ extension ViewDoctor : UICollectionViewDelegate {
             cell.layer.borderColor = UIColor.green.cgColor
             cell.layer.borderWidth = 2
             selectedDate.text = cell.titleLabel.text!
+            selectDate = cell.titleLabel.text!
             slots = dateAndSlots[cell.titleLabel.text!]!
             availableSlots.reloadData()
             
-            print(slots)
+        }
+        
+        else if collectionView.tag == 2{
+            collectionView.deselectItem(at: indexPath, animated: false)
+            
+            
+            let viewController = BookAppointment(doctor: self.doctor, patient: self.patient, startTime: slots.startTime[indexPath.row],endTime: slots.endTime[indexPath.row], date: selectDate!,slotNo: slots.[indexPath.row])
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
     

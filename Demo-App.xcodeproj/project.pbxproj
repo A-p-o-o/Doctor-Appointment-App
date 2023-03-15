@@ -72,6 +72,7 @@
 		07D75DBC29C079480082A4A5 /* Slots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DBB29C079480082A4A5 /* Slots.swift */; };
 		07D75DC029C0A5AE0082A4A5 /* ViewDepartment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DBF29C0A5AE0082A4A5 /* ViewDepartment.swift */; };
 		07D75DC229C0B03B0082A4A5 /* BookAppointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DC129C0B03B0082A4A5 /* BookAppointment.swift */; };
+		07D75DC429C17D9C0082A4A5 /* DoctorProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DC329C17D9C0082A4A5 /* DoctorProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -142,6 +143,7 @@
 		07D75DBB29C079480082A4A5 /* Slots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slots.swift; sourceTree = "<group>"; };
 		07D75DBF29C0A5AE0082A4A5 /* ViewDepartment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDepartment.swift; sourceTree = "<group>"; };
 		07D75DC129C0B03B0082A4A5 /* BookAppointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointment.swift; sourceTree = "<group>"; };
+		07D75DC329C17D9C0082A4A5 /* DoctorProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +258,7 @@
 				07D75DAB29BF20620082A4A5 /* PatientSearch.swift */,
 				07D75D8E29BB4FA00082A4A5 /* Payments.swift */,
 				07D75D9029BB528A0082A4A5 /* DiseasePage.swift */,
+				07D75DC129C0B03B0082A4A5 /* BookAppointment.swift */,
 				07D75DAE29BF35330082A4A5 /* Cells */,
 				07D75DAD29BF35210082A4A5 /* Search */,
 				07D75D9429BB7A750082A4A5 /* HomePage */,
@@ -281,7 +284,7 @@
 				07D75DAF29BF38F00082A4A5 /* PatientSearchController.swift */,
 				07D75DB729BF888F0082A4A5 /* ViewDoctor.swift */,
 				07D75DBF29C0A5AE0082A4A5 /* ViewDepartment.swift */,
-				07D75DC129C0B03B0082A4A5 /* BookAppointment.swift */,
+				07D75DC329C17D9C0082A4A5 /* DoctorProfile.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				07D75D9A29BD7F110082A4A5 /* DiseaseAndNameCCell.swift in Sources */,
 				07D75D9C29BD8F140082A4A5 /* SymptomsView.swift in Sources */,
 				07D75DA229BE13B10082A4A5 /* SpecialistCell.swift in Sources */,
+				07D75DC429C17D9C0082A4A5 /* DoctorProfile.swift in Sources */,
 				07D75DBC29C079480082A4A5 /* Slots.swift in Sources */,
 				07D75D3C29B614970082A4A5 /* Patient.swift in Sources */,
 				07D75D4029B6195C0082A4A5 /* Doctor.swift in Sources */,

@@ -20,6 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 window = UIWindow(frame: windowScene.coordinateSpace.bounds)
                 window?.windowScene = windowScene
+              
+                let doctordao = DoctorDAO()
+        let doc = doctordao.getDoctor(doctorId: "D1")
                 let rootViewController = PatientTabBarController()
                 let navigationController = UINavigationController(rootViewController: rootViewController)
                 window?.rootViewController = navigationController

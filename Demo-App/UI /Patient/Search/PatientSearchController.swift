@@ -30,6 +30,13 @@ class PatientSearchController: UIViewController {
         view.backgroundColor = .gray
         setSearchBar()
         setTableView()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        searchField.text = ""
+        data = []
+        tableView.reloadData()
     }
     
     func setSearchBar(){
@@ -145,13 +152,12 @@ extension PatientSearchController : UITableViewDataSource ,UITableViewDelegate{
         
         if item is Doctor {
             let doc = item as! Doctor
-            let viewController = ViewDoctor()
-            viewController.doctor = doc
+            let viewController = ViewDoctor(doctor: doc,patient: self.patient)
             navigationController?.pushViewController(viewController, animated: true)
         }
         if item is Department {
             let department = item as! Department
-            let viewController = ViewDepartment()
+            let viewController = ViewDepartment(patient: self.patient!)
             viewController.department = "\(department)".lowercased()
             navigationController?.pushViewController(viewController, animated: false)
         }

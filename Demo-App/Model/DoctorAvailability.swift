@@ -26,11 +26,12 @@ struct DoctorAvailability{
     
     private mutating func setSlot(){
         
-        var number = 1
         
-        for time in Time.allCases{
-            self.slots.append(.slot(number: number, time: time))
-            number += 1
+        let startTime = ["09:00-AM","09:30-AM","10:00-AM","10:30-AM","02:00-PM","02:30-PM"]
+        let endTime   = ["09:25-AM","09:55-AM","10:25-AM","10:55-AM","02:25-PM","02:55-PM"]
+        for index in 0...5{
+            self.slots.append(.slot(number: index + 1, time: .time(start: startTime[index], end: endTime[index])))
+           
         }
     }
     

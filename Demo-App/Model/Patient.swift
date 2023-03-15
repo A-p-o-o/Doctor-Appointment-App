@@ -92,7 +92,6 @@ struct Patient : Person,User{
     func createAppointment(doctor: Doctor, date: Date,slot : Slot)->Bool{
         
         var appointment = Appointment(patientId: self.patientId, patientName: self.name, patientMobileNumber: self.phoneNumber,doctor: doctor, date: date, slot:slot )
-        
        return appointmentDAO.add(appointment: &appointment)
     }
     

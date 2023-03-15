@@ -14,7 +14,9 @@ struct AppointmentDAO {
     func add( appointment : inout Appointment)->Bool{
         
         let booking = slotBookingAndCancelling(date: appointment.date, doctor: appointment.doctor, slot: appointment.slot, bookSlot: true)
+    
         guard booking.isBooked else {
+            
             return false
         }
         
@@ -28,6 +30,7 @@ struct AppointmentDAO {
         }
         appointment.slot = booking.slot!
         List.append(appointment)
+        
         Storage.storage.appointmentList[dateFormat(date: appointment.date)] = List
         return true
     }
@@ -136,7 +139,11 @@ struct AppointmentDAO {
     }
     
     private func slotBookingAndCancelling(date : Date,doctor : Doctor,slot : Slot,bookSlot : Bool)->(isBooked :Bool,slot : Slot?){
-        guard let availableDoctors = Storage.storage.availableDoctors[dateFormat(date: date)] else { return (false,nil) }
+        guard let availableDoctors = Storage.storage.availableDoctors[dateFormat(date: date)] else {
+            
+            return (false,nil)
+            
+        }
         var doctorAvailability = [DoctorAvailability]()
         var value : Slot?
         for var doc in availableDoctors {
@@ -146,11 +153,13 @@ struct AppointmentDAO {
                 case .slot(let slotNo,let time,let isbooked) :
                     if (bookSlot){
                         guard !isbooked else {
+                           
                             return (false,nil)
                         }
                     }
                   doc.slots[slotNo-1] = .slot(number: slotNo, time: time, isBooked: bookSlot)
                   value = doc.slots[slotNo-1]
+                   
                 }
             }
            doctorAvailability.append(doc)

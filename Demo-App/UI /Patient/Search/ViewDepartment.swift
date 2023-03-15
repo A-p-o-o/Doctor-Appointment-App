@@ -9,6 +9,7 @@ import UIKit
 
 class ViewDepartment: UIViewController {
     
+    let patient : Patient
     let tableView = UITableView()
     var department = ""
     var doctorsInDepartments : [Doctor] {
@@ -23,6 +24,16 @@ class ViewDepartment: UIViewController {
         setTableView()
         view.backgroundColor = .white
         title = department.capitalized
+    }
+    
+    init(patient: Patient, department: String = "") {
+        self.patient = patient
+        self.department = department
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -51,8 +62,9 @@ extension ViewDepartment : UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        let viewController = ViewDoctor()
-        viewController.doctor = doctorsInDepartments[indexPath.row]
+        let doctor = doctorsInDepartments[indexPath.row]
+        let viewController = ViewDoctor(doctor: doctor,patient: self.patient)
+        
         navigationController?.pushViewController(viewController, animated: true)
     }
     
