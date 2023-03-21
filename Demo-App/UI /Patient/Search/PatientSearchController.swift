@@ -9,7 +9,7 @@ import UIKit
 
 class PatientSearchController: UIViewController {
     
-    let patient : Patient? = Patient(userName: "", password: "", UserId: "", role: .Patient, name: "", phoneNumber: "", sex: .Male, mail: "", address: "", patientId: "", weight: 02, height: 2, AllergyTo: "")
+    let patient : Patient
     
 
     let searchField : UISearchBar = {
@@ -25,6 +25,16 @@ class PatientSearchController: UIViewController {
     
     let tableView = UITableView()
     
+    
+    init(patient: Patient) {
+        self.patient = patient
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
@@ -38,6 +48,8 @@ class PatientSearchController: UIViewController {
         data = []
         tableView.reloadData()
     }
+    
+    
     
     func setSearchBar(){
         
@@ -78,7 +90,7 @@ extension PatientSearchController : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
        
         guard let text = searchBar.text else {return}
-        guard let patient else {return}
+//        guard let patient else {return}
         data = []
         data.append(contentsOf: patient.searchDoctor(text: text))
         let search = Search()
@@ -157,7 +169,7 @@ extension PatientSearchController : UITableViewDataSource ,UITableViewDelegate{
         }
         if item is Department {
             let department = item as! Department
-            let viewController = ViewDepartment(patient: self.patient!)
+            let viewController = ViewDepartment(patient: self.patient)
             viewController.department = "\(department)".lowercased()
             navigationController?.pushViewController(viewController, animated: false)
         }

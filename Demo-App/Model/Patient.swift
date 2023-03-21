@@ -99,7 +99,7 @@ struct Patient : Person,User{
        return  appointmentDAO.cancelAppointment(appointment: appointment)
     }
     
-    func viewAppointment()->(upcoming:[Appointment]? , completed:[Appointment]?){
+    func viewAppointment()->(upcoming:[Appointment] , completed:[Appointment]){
        return appointmentDAO.getAppointment(patientId: patientId)
     }
     

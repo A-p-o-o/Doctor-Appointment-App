@@ -48,7 +48,7 @@
 		07D75D8029BAEE120082A4A5 /* LabelAndField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D7F29BAEE120082A4A5 /* LabelAndField.swift */; };
 		07D75D8829BB48D40082A4A5 /* PatientHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8729BB48D40082A4A5 /* PatientHomePage.swift */; };
 		07D75D8B29BB4F4F0082A4A5 /* ReportsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8A29BB4F4F0082A4A5 /* ReportsPage.swift */; };
-		07D75D8D29BB4F680082A4A5 /* Consult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8C29BB4F680082A4A5 /* Consult.swift */; };
+		07D75D8D29BB4F680082A4A5 /* MyAppointments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8C29BB4F680082A4A5 /* MyAppointments.swift */; };
 		07D75D8F29BB4FA00082A4A5 /* Payments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D8E29BB4FA00082A4A5 /* Payments.swift */; };
 		07D75D9129BB528A0082A4A5 /* DiseasePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D9029BB528A0082A4A5 /* DiseasePage.swift */; };
 		07D75D9329BB564A0082A4A5 /* SurgeryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D9229BB564A0082A4A5 /* SurgeryView.swift */; };
@@ -73,6 +73,13 @@
 		07D75DC029C0A5AE0082A4A5 /* ViewDepartment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DBF29C0A5AE0082A4A5 /* ViewDepartment.swift */; };
 		07D75DC229C0B03B0082A4A5 /* BookAppointment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DC129C0B03B0082A4A5 /* BookAppointment.swift */; };
 		07D75DC429C17D9C0082A4A5 /* DoctorProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DC329C17D9C0082A4A5 /* DoctorProfile.swift */; };
+		07D75DC629C9869C0082A4A5 /* AppointmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DC529C9869C0082A4A5 /* AppointmentCell.swift */; };
+		07D75DC929C9EACF0082A4A5 /* DoctorHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DC829C9EACF0082A4A5 /* DoctorHomePage.swift */; };
+		07D75DCB29C9EFBA0082A4A5 /* GenerateReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DCA29C9EFBA0082A4A5 /* GenerateReport.swift */; };
+		07D75DCD29C9EFD30082A4A5 /* ViewReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DCC29C9EFD30082A4A5 /* ViewReport.swift */; };
+		07D75DCF29C9EFEB0082A4A5 /* ChangeAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DCE29C9EFEB0082A4A5 /* ChangeAvailability.swift */; };
+		07D75DD129C9F0130082A4A5 /* CoustomSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DD029C9F0130082A4A5 /* CoustomSlot.swift */; };
+		07D75DD329C9F02A0082A4A5 /* ViewAppointments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DD229C9F02A0082A4A5 /* ViewAppointments.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,7 +126,7 @@
 		07D75D7F29BAEE120082A4A5 /* LabelAndField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndField.swift; sourceTree = "<group>"; };
 		07D75D8729BB48D40082A4A5 /* PatientHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientHomePage.swift; sourceTree = "<group>"; };
 		07D75D8A29BB4F4F0082A4A5 /* ReportsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsPage.swift; sourceTree = "<group>"; };
-		07D75D8C29BB4F680082A4A5 /* Consult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consult.swift; sourceTree = "<group>"; };
+		07D75D8C29BB4F680082A4A5 /* MyAppointments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppointments.swift; sourceTree = "<group>"; };
 		07D75D8E29BB4FA00082A4A5 /* Payments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payments.swift; sourceTree = "<group>"; };
 		07D75D9029BB528A0082A4A5 /* DiseasePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiseasePage.swift; sourceTree = "<group>"; };
 		07D75D9229BB564A0082A4A5 /* SurgeryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurgeryView.swift; sourceTree = "<group>"; };
@@ -144,6 +151,13 @@
 		07D75DBF29C0A5AE0082A4A5 /* ViewDepartment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDepartment.swift; sourceTree = "<group>"; };
 		07D75DC129C0B03B0082A4A5 /* BookAppointment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAppointment.swift; sourceTree = "<group>"; };
 		07D75DC329C17D9C0082A4A5 /* DoctorProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfile.swift; sourceTree = "<group>"; };
+		07D75DC529C9869C0082A4A5 /* AppointmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentCell.swift; sourceTree = "<group>"; };
+		07D75DC829C9EACF0082A4A5 /* DoctorHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomePage.swift; sourceTree = "<group>"; };
+		07D75DCA29C9EFBA0082A4A5 /* GenerateReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateReport.swift; sourceTree = "<group>"; };
+		07D75DCC29C9EFD30082A4A5 /* ViewReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReport.swift; sourceTree = "<group>"; };
+		07D75DCE29C9EFEB0082A4A5 /* ChangeAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAvailability.swift; sourceTree = "<group>"; };
+		07D75DD029C9F0130082A4A5 /* CoustomSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoustomSlot.swift; sourceTree = "<group>"; };
+		07D75DD229C9F02A0082A4A5 /* ViewAppointments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAppointments.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +257,7 @@
 				07D75D9729BB7D6A0082A4A5 /* ImageAndLabel.swift */,
 				07D75D7729BA25AD0082A4A5 /* ForgetPasswordPage.swift */,
 				07D75D7929BA3C4B0082A4A5 /* ResetPasswordPage.swift */,
+				07D75DC729C9E7630082A4A5 /* Doctor */,
 				07D75D8929BB4F150082A4A5 /* Patient */,
 			);
 			path = "UI ";
@@ -254,7 +269,7 @@
 				07D75DA929BF09BD0082A4A5 /* PatientTabBarController.swift */,
 				07D75D8729BB48D40082A4A5 /* PatientHomePage.swift */,
 				07D75D8A29BB4F4F0082A4A5 /* ReportsPage.swift */,
-				07D75D8C29BB4F680082A4A5 /* Consult.swift */,
+				07D75D8C29BB4F680082A4A5 /* MyAppointments.swift */,
 				07D75DAB29BF20620082A4A5 /* PatientSearch.swift */,
 				07D75D8E29BB4FA00082A4A5 /* Payments.swift */,
 				07D75D9029BB528A0082A4A5 /* DiseasePage.swift */,
@@ -299,8 +314,22 @@
 				07D75DB529BF77C80082A4A5 /* ResultDoctorCell.swift */,
 				07D75DB929C043E20082A4A5 /* AvailableDates.swift */,
 				07D75DBB29C079480082A4A5 /* Slots.swift */,
+				07D75DC529C9869C0082A4A5 /* AppointmentCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		07D75DC729C9E7630082A4A5 /* Doctor */ = {
+			isa = PBXGroup;
+			children = (
+				07D75DC829C9EACF0082A4A5 /* DoctorHomePage.swift */,
+				07D75DD229C9F02A0082A4A5 /* ViewAppointments.swift */,
+				07D75DD029C9F0130082A4A5 /* CoustomSlot.swift */,
+				07D75DCE29C9EFEB0082A4A5 /* ChangeAvailability.swift */,
+				07D75DCC29C9EFD30082A4A5 /* ViewReport.swift */,
+				07D75DCA29C9EFBA0082A4A5 /* GenerateReport.swift */,
+			);
+			path = Doctor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,15 +404,18 @@
 			files = (
 				07D75DA629BE3A6E0082A4A5 /* SelectDoctors.swift in Sources */,
 				07D75DAC29BF20620082A4A5 /* PatientSearch.swift in Sources */,
+				07D75DC929C9EACF0082A4A5 /* DoctorHomePage.swift in Sources */,
 				07D75D5729B71E850082A4A5 /* PatientDAO.swift in Sources */,
 				07D75D4229B61A5D0082A4A5 /* Report.swift in Sources */,
 				07D75D6129B743D30082A4A5 /* AdminDAO.swift in Sources */,
+				07D75DCD29C9EFD30082A4A5 /* ViewReport.swift in Sources */,
 				07D75D9129BB528A0082A4A5 /* DiseasePage.swift in Sources */,
 				07D75D5F29B742B80082A4A5 /* ReceptionistDAO.swift in Sources */,
 				07D75D2129B607480082A4A5 /* ViewController.swift in Sources */,
 				07D75D8829BB48D40082A4A5 /* PatientHomePage.swift in Sources */,
 				07D75D7E29BAEDEC0082A4A5 /* RegisterSecondPage.swift in Sources */,
-				07D75D8D29BB4F680082A4A5 /* Consult.swift in Sources */,
+				07D75DCF29C9EFEB0082A4A5 /* ChangeAvailability.swift in Sources */,
+				07D75D8D29BB4F680082A4A5 /* MyAppointments.swift in Sources */,
 				07D75D1D29B607480082A4A5 /* AppDelegate.swift in Sources */,
 				07D75DB429BF57A40082A4A5 /* Search.swift in Sources */,
 				07D75DAA29BF09BD0082A4A5 /* PatientTabBarController.swift in Sources */,
@@ -406,6 +438,7 @@
 				07D75D3829B6127C0082A4A5 /* Bill.swift in Sources */,
 				07D75D7829BA25AD0082A4A5 /* ForgetPasswordPage.swift in Sources */,
 				07D75D7629BA0F840082A4A5 /* LoginPage.swift in Sources */,
+				07D75DD129C9F0130082A4A5 /* CoustomSlot.swift in Sources */,
 				07D75D8F29BB4FA00082A4A5 /* Payments.swift in Sources */,
 				07D75DB829BF888F0082A4A5 /* ViewDoctor.swift in Sources */,
 				07D75D6D29B8C9B90082A4A5 /* DoctorAvailability.swift in Sources */,
@@ -414,10 +447,13 @@
 				07D75DB629BF77C80082A4A5 /* ResultDoctorCell.swift in Sources */,
 				07D75D9A29BD7F110082A4A5 /* DiseaseAndNameCCell.swift in Sources */,
 				07D75D9C29BD8F140082A4A5 /* SymptomsView.swift in Sources */,
+				07D75DD329C9F02A0082A4A5 /* ViewAppointments.swift in Sources */,
+				07D75DC629C9869C0082A4A5 /* AppointmentCell.swift in Sources */,
 				07D75DA229BE13B10082A4A5 /* SpecialistCell.swift in Sources */,
 				07D75DC429C17D9C0082A4A5 /* DoctorProfile.swift in Sources */,
 				07D75DBC29C079480082A4A5 /* Slots.swift in Sources */,
 				07D75D3C29B614970082A4A5 /* Patient.swift in Sources */,
+				07D75DCB29C9EFBA0082A4A5 /* GenerateReport.swift in Sources */,
 				07D75D4029B6195C0082A4A5 /* Doctor.swift in Sources */,
 				07D75D9E29BD973C0082A4A5 /* Demo.swift in Sources */,
 				07D75DA429BE378C0082A4A5 /* DoctorCell.swift in Sources */,

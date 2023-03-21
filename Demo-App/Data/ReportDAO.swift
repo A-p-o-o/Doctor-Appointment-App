@@ -11,12 +11,12 @@ struct ReportDAO{
     
     
     func addReport(report:Report){
-        if var reports = Storage.storage.reportsList[report.PatientId]{
+        if var reports = Storage.storage.reportsList[report.patient.patientId]{
             reports.append(report)
-            Storage.storage.reportsList[report.PatientId] = reports
+            Storage.storage.reportsList[report.patient.patientId] = reports
         }
         else{
-            Storage.storage.reportsList[report.PatientId] = [report]
+            Storage.storage.reportsList[report.patient.patientId] = [report]
         }
     }
     

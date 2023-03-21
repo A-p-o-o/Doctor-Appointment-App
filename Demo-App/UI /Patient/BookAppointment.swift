@@ -16,6 +16,7 @@ class BookAppointment: UIViewController {
     let date : String
     let doctorProfile : DoctorProfile
     let slotNo : Int
+    let appointment : Appointment?
     
     let appointmentView = UIView()
     let imageView : UIImageView = {
@@ -96,6 +97,17 @@ class BookAppointment: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    let cancelButton : UIButton = {
+        let button = UIButton()
+        button.configuration = .filled()
+        button.setTitle("Cancel", for: .normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.configuration?.baseBackgroundColor = .red
+        button.configuration?.baseForegroundColor = .black
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
    
     
     
@@ -104,7 +116,7 @@ class BookAppointment: UIViewController {
         super.viewDidLoad()
         setProfile()
         title = "BOOK APPOINTMENT"
-        view.backgroundColor = .purple
+        view.backgroundColor = .black
         setViews()
         setButton()
         dateLabel.text      = "Date of Appointment : \(date)"
@@ -121,8 +133,21 @@ class BookAppointment: UIViewController {
         self.endTime = endTime
         self.date = date
         self.slotNo = slotNo
+        self.appointment = nil
         super.init(nibName: nil, bundle: nil)
         
+    }
+    
+    init(appointment : Appointment,patient : Patient){
+        self.doctor = appointment.doctor
+        self.patient = patient
+        self.doctorProfile = DoctorProfile(doctor: appointment.doctor)
+        self.starTime = appointment.getTime().start
+        self.endTime = appointment.getTime().end
+        self.date = dateFormat(date: appointment.getdate()!)
+        self.appointment = appointment
+        self.slotNo = -1
+        super.init(nibName: nil, bundle: nil)
     }
     
     
@@ -227,6 +252,7 @@ class BookAppointment: UIViewController {
     
     func setButton(){
         view.addSubview(confirmButton)
+        view.addSubview(cancelButton)
         
         let buttonHeight = view.frame.height * 0.05
         let buttonwidth  = view.frame.width * 0.3
@@ -238,7 +264,15 @@ class BookAppointment: UIViewController {
             confirmButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -view.frame.width*0.05)
         ])
         
+        NSLayoutConstraint.activate([
+            cancelButton.topAnchor.constraint(equalTo: appointmentView.bottomAnchor,constant: 100),
+            cancelButton.heightAnchor.constraint(equalToConstant: buttonHeight),
+            cancelButton.widthAnchor.constraint(equalToConstant: buttonwidth),
+            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -view.frame.width*0.05)
+        ])
+        
         confirmButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(cancel), for: .touchUpInside)
     }
     
     func calculateRemainingTime(){
@@ -259,16 +293,16 @@ class BookAppointment: UIViewController {
     
     @objc func confirm(){
         
-        let _ = patient.createAppointment(doctor: doctor, date: formatDate(date: date), slot: .slot(number: 2, time: .time(start: starTime, end: endTime)))
-        
-        print(starTime,endTime)
+        let _ = patient.createAppointment(doctor: doctor, date: formatDate(date: date), slot: .slot(number: slotNo, time: .time(start: starTime, end: endTime)))
         navigationController!.popToViewController(navigationController!.viewControllers[0], animated: true)
-        
-        
-        
             }
         
-
+    @objc func cancel(){
+        
+        let status = patient.cancelAppointment(appointment: appointment!)
+        
+        print(status)
+    }
         
     
     

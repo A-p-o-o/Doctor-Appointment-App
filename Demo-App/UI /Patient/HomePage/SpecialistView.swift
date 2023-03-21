@@ -10,24 +10,21 @@ import UIKit
 class SpecialistView: UIView {
     
     weak var viewController : UIViewController?
+    let patient : Patient
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(patient : Patient) {
+        self.patient = patient
+        super.init(frame: .zero)
         setCollectionView()
     }
-    
-   
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setCollectionView()
+        fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     func setCollectionView(){
         addSubview(collectionView)
@@ -58,6 +55,8 @@ class SpecialistView: UIView {
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+        
+        collectionView.tag = 1
         
     }
     
@@ -104,9 +103,12 @@ extension SpecialistView : UICollectionViewDataSource ,UICollectionViewDelegateF
     
     @objc func viewAllSpecialist(){
         print("button")
-        let vc = Consult()
+        let vc = PatientSearchController(patient: patient)
+        vc.searchField.placeholder = "Enter department Name"
         viewController?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         
@@ -118,5 +120,7 @@ extension SpecialistView : UICollectionViewDataSource ,UICollectionViewDelegateF
         let HeaderHeight = collectionView.bounds.height * (1 / 10)
         return CGSize(width: collectionView.bounds.width, height: HeaderHeight)
     }
+    
+    
     
 }

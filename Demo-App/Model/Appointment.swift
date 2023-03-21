@@ -81,4 +81,14 @@ struct Appointment : Equatable{
     func getdate()->Date?{
         date
     }
+    
+    func getTime()->(start:String,end:String){
+        switch slot{
+        case .slot(_, let time ,_) :
+            switch time {
+            case .time(let start, let end ) :
+                return (start,end)
+            }
+        }
+    }
 }

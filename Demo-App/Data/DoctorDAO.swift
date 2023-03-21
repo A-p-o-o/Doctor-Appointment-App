@@ -105,11 +105,24 @@ struct DoctorDAO{
             if  doctor.doctorId == doctorId {
                 let slots : [Slot] = doctor.slots
                 
+                let currentTime = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd-MM-yyyy hh:mm-a"
+
+                
+                
                 for slot in slots{
                     switch slot {
-                    case .slot(let slotNo ,let time,let isBooked) : if !isBooked {
-                        times.append(time)
-                        slotNos.append(slotNo)
+                    case .slot(let slotNo ,let Time,let isBooked) : if !isBooked  {
+                        
+                        switch Time {
+                        case .time(let time,_) : if currentTime.compare(dateFormatter.date(from: "\(dateFormat(date: date)) \(time)")!) == .orderedAscending {
+                            times.append(Time)
+                            slotNos.append(slotNo)
+                             }
+                            
+                        }
+                        
                     }
                         
                     }

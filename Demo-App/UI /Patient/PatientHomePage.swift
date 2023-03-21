@@ -13,9 +13,12 @@ class PatientHomePage: UIViewController {
     let stack = UIStackView()
     let surgery = SurgeryView()
     let sysmptoms = SymptomsView()
-    let specialist = SpecialistView()
+    let specialist : SpecialistView
     let findDoctors = SelectDoctors()
     let articles = ArticleView()
+    
+    
+    let patient : Patient
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +31,19 @@ class PatientHomePage: UIViewController {
         setSpecialist()
         setDoctors()
         setArticles()
+        
+        findDoctors.patient = self.patient
+        
+    }
+    
+    init(patient : Patient){
+        self.patient = patient
+        self.specialist = SpecialistView(patient: patient)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
    
@@ -107,8 +123,9 @@ class PatientHomePage: UIViewController {
             specialist.widthAnchor.constraint(equalTo: stack.widthAnchor,multiplier: 0.97)
         ])
         
-        specialist.viewController = self
         
+        
+        specialist.viewController = self
         
         
     }
@@ -125,7 +142,10 @@ class PatientHomePage: UIViewController {
             findDoctors.widthAnchor.constraint(equalTo: stack.widthAnchor,multiplier: 0.97)
         ])
         
+        findDoctors.viewController = self
+        
         findDoctors.footer.addTarget(self, action: #selector(viewAllSpecialist), for: .touchUpInside)
+        
     }
     
     
@@ -140,7 +160,7 @@ class PatientHomePage: UIViewController {
             articles.heightAnchor.constraint(equalTo: view.heightAnchor,multiplier: 0.55),
             articles.widthAnchor.constraint(equalTo: stack.widthAnchor,multiplier: 0.97)
         ])
-
+        
     }
     
     func setGradient(){
@@ -156,7 +176,8 @@ class PatientHomePage: UIViewController {
     
     @objc func viewAllSpecialist(){
         print("button")
-        let vc = Consult()
+        let vc = PatientSearchController(patient: patient)
+        vc.searchField.placeholder = "Enter Doctor Name"
         navigationController?.pushViewController(vc, animated: true)
     }
     

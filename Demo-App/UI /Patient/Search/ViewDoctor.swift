@@ -14,7 +14,7 @@ class ViewDoctor: UIViewController {
     
     var selectDate :String? = nil
     
-    var slots : (startTime:[String],endTime:[String],slotNo:[Int]) = ([],[],[])
+    var slots : (startTime:[String],endTime:[String],slotno:[Int]) = ([],[],[])
     
     var availableDatesOfDoctor : [String] {
         search.doctorAvailableDates(doctorId: doctor.employeeId)
@@ -379,7 +379,8 @@ extension ViewDoctor : UICollectionViewDelegate {
             collectionView.deselectItem(at: indexPath, animated: false)
             
             
-            let viewController = BookAppointment(doctor: self.doctor, patient: self.patient, startTime: slots.startTime[indexPath.row],endTime: slots.endTime[indexPath.row], date: selectDate!,slotNo: slots.[indexPath.row])
+            let viewController = BookAppointment(doctor: self.doctor, patient: self.patient, startTime: slots.startTime[indexPath.row],endTime: slots.endTime[indexPath.row], date: selectDate!,slotNo: slots.slotno[indexPath.row])
+            viewController.cancelButton.isHidden = true
             navigationController?.pushViewController(viewController, animated: true)
         }
     }

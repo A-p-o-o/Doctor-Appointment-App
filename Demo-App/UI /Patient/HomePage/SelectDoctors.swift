@@ -9,6 +9,14 @@ import UIKit
 
 class SelectDoctors: UIView {
     
+
+    var patient : Patient? = nil
+    var viewController : UIViewController? = nil
+    var doctorData :[Doctor] {
+        Array(Storage.storage.doctorList.values)
+        
+    }
+    
     let stack = UIStackView()
     let header : UILabel = {
         let label = UILabel()
@@ -41,14 +49,11 @@ class SelectDoctors: UIView {
         setCollectionView()
         setFooter()
     }
-    
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setStack()
-        setHeader()
-        setCollectionView()
-        setFooter()
+        fatalError("init(coder:) has not been implemented")
     }
+    
+    
     
     func setStack(){
         addSubview(stack)
@@ -88,14 +93,7 @@ class SelectDoctors: UIView {
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.setCollectionViewLayout(layout, animated: false)
         
-  //     collectionView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        NSLayoutConstraint.activate([
-//            collectionView.topAnchor.constraint(equalTo: topAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-//            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-//            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
-//        ])
+        collectionView.tag = 2
         
     }
     
@@ -114,11 +112,14 @@ extension SelectDoctors : UICollectionViewDataSource ,UICollectionViewDelegateFl
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+        doctorData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorCell.identifier, for: indexPath) as! DoctorCell
+        cell.name.text = "Dr. \(doctorData[indexPath.row].name)"
+        cell.department.text = "\(doctorData[indexPath.row].department)"
+        cell.experience.text = "\(doctorData[indexPath.row].experience) years of experience"
         cell.imageview.layer.cornerRadius = cell.frame.height / 2
         return cell
     }
@@ -129,5 +130,13 @@ extension SelectDoctors : UICollectionViewDataSource ,UICollectionViewDelegateFl
         
             return CGSize(width: cellWidth, height:cellHeight)
         }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        print("SD selected")
+        let viewController = ViewDoctor(doctor: doctorData[indexPath.row],patient: patient)
+        self.viewController?.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
     
 }

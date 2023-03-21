@@ -11,18 +11,20 @@ import Foundation
 struct Report{
     
     let reportId : String
-    let PatientId : String
+    let patient : Patient
     let generatedOn : Date
     let description : String
     let treatmentProvided : String
     let medicinePrescribed : String
+    let generatedBy : Doctor
     
-    init(reportId: String, PatientId: String, generatedOn: Date, description: String, treatmentProvided: String, medicinePrescribed: String) {
+    init(reportId: String, patient: Patient, generatedOn: Date, description: String, treatmentProvided: String, medicinePrescribed: String,generatedBy : Doctor) {
         self.reportId = reportId
-        self.PatientId = PatientId
+        self.patient = patient
         self.generatedOn = generatedOn
         self.description = description
         self.treatmentProvided = treatmentProvided
         self.medicinePrescribed = medicinePrescribed
+        self.generatedBy = generatedBy
     }
 }

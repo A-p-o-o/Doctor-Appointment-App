@@ -108,8 +108,8 @@ struct Doctor : Employee,User,Equatable{
         doctorDAO.changeDoctorAvailability(date: date, doctors: availability)
     }
     
-    func generateReport(reportId: String, PatientId: String, generatedOn: Date, description: String, treatmentProvided: String, medicinePrescribed: String){
-       let report = Report(reportId: reportId, PatientId: PatientId, generatedOn: generatedOn, description: description, treatmentProvided: treatmentProvided, medicinePrescribed: medicinePrescribed)
+    func generateReport(reportId: String, patient: Patient, description: String, treatmentProvided: String, medicinePrescribed: String){
+       let report = Report(reportId: reportId, patient: patient, generatedOn: Date(), description: description, treatmentProvided: treatmentProvided, medicinePrescribed: medicinePrescribed,generatedBy: self)
         reportDAO.addReport(report: report)
     }
     

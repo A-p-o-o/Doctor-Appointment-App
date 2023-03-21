@@ -35,7 +35,7 @@ struct AppointmentDAO {
         return true
     }
     
-    func getAppointment(patientId : String )->(upcoming :[Appointment]?,completed :[Appointment]?){
+    func getAppointment(patientId : String )->(upcoming :[Appointment],completed :[Appointment]){
         var upComing = [Appointment]()
         var completed = [Appointment]()
         
@@ -53,7 +53,7 @@ struct AppointmentDAO {
                 }
             }
         }
-        return (upComing.isEmpty ? nil : upComing , completed.isEmpty ? nil : completed)
+        return (upComing,completed)
     }
     
     func getAppointment(forPatientName name : String )->[Appointment]?{

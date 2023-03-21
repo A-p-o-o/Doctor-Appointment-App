@@ -8,6 +8,8 @@
 import UIKit
 
 class PatientSearch: UIViewController {
+    
+    let patient : Patient
 
     let searchField : UISearchBar = {
         let search = UISearchBar()
@@ -32,6 +34,15 @@ class PatientSearch: UIViewController {
         view.backgroundColor = .gray
         setSearchBar()
         setCalendar()
+    }
+    
+    init(patient: Patient) {
+        self.patient = patient
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -66,7 +77,7 @@ class PatientSearch: UIViewController {
 
 extension PatientSearch : UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        let vc = PatientSearchController()
+        let vc = PatientSearchController(patient: self.patient)
         vc.view.backgroundColor = .green
         vc.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(vc, animated: false)

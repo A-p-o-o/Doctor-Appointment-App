@@ -23,7 +23,7 @@ class DoctorCell: UICollectionViewCell {
     
     let name : UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .gray
         label.text = "Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
