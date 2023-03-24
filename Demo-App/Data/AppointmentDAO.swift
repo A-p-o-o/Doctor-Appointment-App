@@ -114,7 +114,7 @@ struct AppointmentDAO {
         return true
     }
     
-    func getAppointment(doctor : Doctor)->(upcoming :[String : [Appointment]]? ,completed : [String : [Appointment]]?){
+    func getAppointment(doctor : Doctor)->(upcoming :[String : [Appointment]] ,completed : [String : [Appointment]]){
         var upcomingAppointments = [String : [Appointment]]()
         var completedAppointments = [String : [Appointment]]()
             
@@ -131,8 +131,8 @@ struct AppointmentDAO {
                         completed.append(appointment)
                     }
                 }
-                upcomingAppointments[date] = upcoming.isEmpty ? nil : upcoming
-                completedAppointments[date] = completed.isEmpty ? nil : completed
+                upcomingAppointments[date] = upcoming
+                completedAppointments[date] = completed
             }
         }
         return (upcomingAppointments , completedAppointments)

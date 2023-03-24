@@ -10,9 +10,16 @@ import UIKit
 class GenerateReport: UIViewController {
 
     let doctor : Doctor
+  //  let patient : Patient
     
+    
+//    let treatementProvided
+//    let medicinePrescribed
+//    let description
+//
     init (doctor : Doctor){
         self.doctor = doctor
+     //   self.patient = patient
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -22,7 +29,7 @@ class GenerateReport: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+     
         
     }
     

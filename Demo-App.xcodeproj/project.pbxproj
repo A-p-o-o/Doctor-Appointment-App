@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		076A966D29CDC54A00275299 /* LabelImageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A966C29CDC54A00275299 /* LabelImageLabel.swift */; };
 		07D75D1D29B607480082A4A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D1C29B607480082A4A5 /* AppDelegate.swift */; };
 		07D75D1F29B607480082A4A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D1E29B607480082A4A5 /* SceneDelegate.swift */; };
 		07D75D2129B607480082A4A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75D2029B607480082A4A5 /* ViewController.swift */; };
@@ -80,9 +81,14 @@
 		07D75DCF29C9EFEB0082A4A5 /* ChangeAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DCE29C9EFEB0082A4A5 /* ChangeAvailability.swift */; };
 		07D75DD129C9F0130082A4A5 /* CoustomSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DD029C9F0130082A4A5 /* CoustomSlot.swift */; };
 		07D75DD329C9F02A0082A4A5 /* ViewAppointments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DD229C9F02A0082A4A5 /* ViewAppointments.swift */; };
+		07D75DD529CAC3630082A4A5 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DD429CAC3630082A4A5 /* CalendarCell.swift */; };
+		07D75DD729CAFD870082A4A5 /* ChangeAvailabilityAndSlots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DD629CAFD870082A4A5 /* ChangeAvailabilityAndSlots.swift */; };
+		07D75DD929CB110A0082A4A5 /* SlotTimingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DD829CB110A0082A4A5 /* SlotTimingsCell.swift */; };
+		07D75DDB29CC14290082A4A5 /* EditCurrentSlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D75DDA29CC14290082A4A5 /* EditCurrentSlot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		076A966C29CDC54A00275299 /* LabelImageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelImageLabel.swift; sourceTree = "<group>"; };
 		07D75D1929B607480082A4A5 /* Demo-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07D75D1C29B607480082A4A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07D75D1E29B607480082A4A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +164,10 @@
 		07D75DCE29C9EFEB0082A4A5 /* ChangeAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAvailability.swift; sourceTree = "<group>"; };
 		07D75DD029C9F0130082A4A5 /* CoustomSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoustomSlot.swift; sourceTree = "<group>"; };
 		07D75DD229C9F02A0082A4A5 /* ViewAppointments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAppointments.swift; sourceTree = "<group>"; };
+		07D75DD429CAC3630082A4A5 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		07D75DD629CAFD870082A4A5 /* ChangeAvailabilityAndSlots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeAvailabilityAndSlots.swift; sourceTree = "<group>"; };
+		07D75DD829CB110A0082A4A5 /* SlotTimingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotTimingsCell.swift; sourceTree = "<group>"; };
+		07D75DDA29CC14290082A4A5 /* EditCurrentSlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCurrentSlot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,8 +265,10 @@
 				07D75D7529BA0F840082A4A5 /* LoginPage.swift */,
 				07D75D7F29BAEE120082A4A5 /* LabelAndField.swift */,
 				07D75D9729BB7D6A0082A4A5 /* ImageAndLabel.swift */,
+				076A966C29CDC54A00275299 /* LabelImageLabel.swift */,
 				07D75D7729BA25AD0082A4A5 /* ForgetPasswordPage.swift */,
 				07D75D7929BA3C4B0082A4A5 /* ResetPasswordPage.swift */,
+				07D75DAE29BF35330082A4A5 /* Cells */,
 				07D75DC729C9E7630082A4A5 /* Doctor */,
 				07D75D8929BB4F150082A4A5 /* Patient */,
 			);
@@ -274,7 +286,6 @@
 				07D75D8E29BB4FA00082A4A5 /* Payments.swift */,
 				07D75D9029BB528A0082A4A5 /* DiseasePage.swift */,
 				07D75DC129C0B03B0082A4A5 /* BookAppointment.swift */,
-				07D75DAE29BF35330082A4A5 /* Cells */,
 				07D75DAD29BF35210082A4A5 /* Search */,
 				07D75D9429BB7A750082A4A5 /* HomePage */,
 			);
@@ -315,6 +326,8 @@
 				07D75DB929C043E20082A4A5 /* AvailableDates.swift */,
 				07D75DBB29C079480082A4A5 /* Slots.swift */,
 				07D75DC529C9869C0082A4A5 /* AppointmentCell.swift */,
+				07D75DD429CAC3630082A4A5 /* CalendarCell.swift */,
+				07D75DD829CB110A0082A4A5 /* SlotTimingsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -327,7 +340,9 @@
 				07D75DD029C9F0130082A4A5 /* CoustomSlot.swift */,
 				07D75DCE29C9EFEB0082A4A5 /* ChangeAvailability.swift */,
 				07D75DCC29C9EFD30082A4A5 /* ViewReport.swift */,
+				07D75DD629CAFD870082A4A5 /* ChangeAvailabilityAndSlots.swift */,
 				07D75DCA29C9EFBA0082A4A5 /* GenerateReport.swift */,
+				07D75DDA29CC14290082A4A5 /* EditCurrentSlot.swift */,
 			);
 			path = Doctor;
 			sourceTree = "<group>";
@@ -417,10 +432,12 @@
 				07D75DCF29C9EFEB0082A4A5 /* ChangeAvailability.swift in Sources */,
 				07D75D8D29BB4F680082A4A5 /* MyAppointments.swift in Sources */,
 				07D75D1D29B607480082A4A5 /* AppDelegate.swift in Sources */,
+				076A966D29CDC54A00275299 /* LabelImageLabel.swift in Sources */,
 				07D75DB429BF57A40082A4A5 /* Search.swift in Sources */,
 				07D75DAA29BF09BD0082A4A5 /* PatientTabBarController.swift in Sources */,
 				07D75DC029C0A5AE0082A4A5 /* ViewDepartment.swift in Sources */,
 				07D75DA829BEFACD0082A4A5 /* ArticleView.swift in Sources */,
+				07D75DDB29CC14290082A4A5 /* EditCurrentSlot.swift in Sources */,
 				07D75D6929B8AFAA0082A4A5 /* ReportDAO.swift in Sources */,
 				07D75D1F29B607480082A4A5 /* SceneDelegate.swift in Sources */,
 				07D75D5129B6F3140082A4A5 /* AppointmentDAO.swift in Sources */,
@@ -433,6 +450,7 @@
 				07D75D6329B74F240082A4A5 /* AppointmentList.swift in Sources */,
 				07D75D8029BAEE120082A4A5 /* LabelAndField.swift in Sources */,
 				07D75DB029BF38F00082A4A5 /* PatientSearchController.swift in Sources */,
+				07D75DD529CAC3630082A4A5 /* CalendarCell.swift in Sources */,
 				07D75D5329B704170082A4A5 /* BillDAO.swift in Sources */,
 				07D75D9329BB564A0082A4A5 /* SurgeryView.swift in Sources */,
 				07D75D3829B6127C0082A4A5 /* Bill.swift in Sources */,
@@ -452,6 +470,7 @@
 				07D75DA229BE13B10082A4A5 /* SpecialistCell.swift in Sources */,
 				07D75DC429C17D9C0082A4A5 /* DoctorProfile.swift in Sources */,
 				07D75DBC29C079480082A4A5 /* Slots.swift in Sources */,
+				07D75DD729CAFD870082A4A5 /* ChangeAvailabilityAndSlots.swift in Sources */,
 				07D75D3C29B614970082A4A5 /* Patient.swift in Sources */,
 				07D75DCB29C9EFBA0082A4A5 /* GenerateReport.swift in Sources */,
 				07D75D4029B6195C0082A4A5 /* Doctor.swift in Sources */,
@@ -461,6 +480,7 @@
 				07D75D6729B786900082A4A5 /* Register.swift in Sources */,
 				07D75D3E29B615840082A4A5 /* Protocols.swift in Sources */,
 				07D75D9829BB7D6A0082A4A5 /* ImageAndLabel.swift in Sources */,
+				07D75DD929CB110A0082A4A5 /* SlotTimingsCell.swift in Sources */,
 				07D75D7A29BA3C4B0082A4A5 /* ResetPasswordPage.swift in Sources */,
 				07D75DBA29C043E20082A4A5 /* AvailableDates.swift in Sources */,
 				07D75D5B29B72F250082A4A5 /* VisitorDAO.swift in Sources */,

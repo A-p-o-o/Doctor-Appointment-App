@@ -47,7 +47,7 @@ struct Doctor : Employee,User,Equatable{
     
     var experience : Int
     
-    var appointments : (upcoming :[String : [Appointment]]? ,completed : [String : [Appointment]]?) {
+    var appointments : (upcoming :[String : [Appointment]] ,completed : [String : [Appointment]]) {
         appointmentDAO.getAppointment(doctor: self)
     }
     
@@ -108,6 +108,22 @@ struct Doctor : Employee,User,Equatable{
         doctorDAO.changeDoctorAvailability(date: date, doctors: availability)
     }
     
+    func getAvailableDates()->[(Date,Bool,[Slot])]{
+       return doctorDAO.getAvailabilityDates(doctor: self)
+    }
+    
+    func getAvailableSlots(date:Date)->[Slot]{
+        let dates : [(date:Date,availability:Bool,slot:[Slot])] = doctorDAO.getAvailabilityDates(doctor: self)
+        
+        for availableDate in dates {
+            let singleDate = availableDate.date
+            if  dateFormat(date: singleDate) == dateFormat(date: date) {
+                return availableDate.slot
+            }
+        }
+        return [Slot]()
+    }
+    
     func generateReport(reportId: String, patient: Patient, description: String, treatmentProvided: String, medicinePrescribed: String){
        let report = Report(reportId: reportId, patient: patient, generatedOn: Date(), description: description, treatmentProvided: treatmentProvided, medicinePrescribed: medicinePrescribed,generatedBy: self)
         reportDAO.addReport(report: report)
@@ -117,15 +133,23 @@ struct Doctor : Employee,User,Equatable{
         reportDAO.getReports(patientId: patientId)
     }
     
-    func changeSlot(date : Date,noOfSlot : Int,slots : [Slot]){
+    func changeSlot(date : Date,slots : [Slot]){
         guard let availableDoctors = doctorDAO.getAvailableDoctors(on: date) else {
             return
         }
+        
+        var changedSlots = slots
+        
+        for index in 0..<changedSlots.count{
+            changedSlots[index].number = index+1
+        }
+        
         var doctorAvailability = [DoctorAvailability]()
         for var doctor in availableDoctors {
             if doctor.doctorId.caseInsensitiveCompare(self.employeeId) == .orderedSame &&
                 doctor.department == self.department {
-                doctor.slots = slots
+                doctor.slots = []
+                doctor.slots = changedSlots
             }
             doctorAvailability.append(doctor)
         }

@@ -12,6 +12,25 @@ class SpecialistView: UIView {
     weak var viewController : UIViewController?
     let patient : Patient
     
+    let title : UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.text = "Specialist Category"
+        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
+        label.layer.cornerRadius = 10
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let viewAllButton : UIButton = {
+         let button = UIButton()
+         button.configuration = .plain()
+         button.setTitle("View All", for: .normal)
+         button.titleLabel?.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
+         button.translatesAutoresizingMaskIntoConstraints = false
+         return button
+     }()
+    
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     
@@ -19,6 +38,7 @@ class SpecialistView: UIView {
     init(patient : Patient) {
         self.patient = patient
         super.init(frame: .zero)
+        setHeader()
         setCollectionView()
     }
     
@@ -26,35 +46,54 @@ class SpecialistView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setHeader(){
+        addSubview(title)
+        addSubview(viewAllButton)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            title.topAnchor.constraint(equalTo: topAnchor),
+            title.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09),
+            title.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
+            title.widthAnchor.constraint(equalTo: widthAnchor,multiplier: 0.7)
+        ])
+        
+        NSLayoutConstraint.activate([
+            viewAllButton.topAnchor.constraint(equalTo: topAnchor),
+            viewAllButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.07),
+            viewAllButton.leadingAnchor.constraint(equalTo: title.trailingAnchor),
+            viewAllButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
+        ])
+    }
+    
     func setCollectionView(){
         addSubview(collectionView)
         
         collectionView.register(SpecialistCell.self, forCellWithReuseIdentifier: SpecialistCell.identifier)
         
-        collectionView.register(CollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionHeaderView.identifier)
-        
-        collectionView.register(CollectionFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionFooterView.identifier)
-        
-        collectionView.isScrollEnabled = false
+     
         collectionView.dataSource = self
         collectionView.delegate = self
     
         collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
         
         let layout = UICollectionViewFlowLayout()
-        
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 15
+       
         collectionView.setCollectionViewLayout(layout, animated: false)
         
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.topAnchor.constraint(equalTo: title.bottomAnchor,constant: 10),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
         ])
+        
         
         collectionView.tag = 1
         
@@ -67,39 +106,24 @@ extension SpecialistView : UICollectionViewDataSource ,UICollectionViewDelegateF
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        4
+        10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SpecialistCell.identifier, for: indexPath)
-        cell.layer.cornerRadius = 10
-        cell.layer.borderColor = UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0).cgColor
-        cell.layer.borderWidth = 2
+        
         
         return cell
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.bounds.width / 2) - 20
-        let cellHeight = (collectionView.bounds.height - (2 * collectionView.bounds.height * (1 / 10))) / 2 - 20
+        let cellWidth = (collectionView.bounds.width / 2.2) - 20
+        let cellHeight = collectionView.frame.height - 20
         
             return CGSize(width: cellWidth, height:cellHeight)
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
-        if kind == UICollectionView.elementKindSectionHeader{
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionHeaderView.identifier, for: indexPath) as! CollectionHeaderView
-            
-            return header
-        }
-        
-        else {
-            let Footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionFooterView.identifier, for: indexPath) as! CollectionFooterView
-            Footer.button.addTarget(self, action: #selector(viewAllSpecialist), for: .touchUpInside)
-            return Footer
-        }
-    }
+
     
     @objc func viewAllSpecialist(){
         print("button")
@@ -110,17 +134,7 @@ extension SpecialistView : UICollectionViewDataSource ,UICollectionViewDelegateF
     
     
    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        
-        let HeaderHeight = collectionView.bounds.height * (1 / 10)
-        return CGSize(width: collectionView.bounds.width, height: HeaderHeight)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        
-        let HeaderHeight = collectionView.bounds.height * (1 / 10)
-        return CGSize(width: collectionView.bounds.width, height: HeaderHeight)
-    }
-    
+
     
     
 }

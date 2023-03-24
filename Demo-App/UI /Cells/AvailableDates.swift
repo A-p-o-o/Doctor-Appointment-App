@@ -12,13 +12,6 @@ class AvailableDates: UICollectionViewCell {
     static let identifier = "availableDates"
     
     
-    let button : UIButton = {
-        let button = UIButton()
-         button.configuration = .borderedTinted()
-         button.translatesAutoresizingMaskIntoConstraints = false
-         return button
-     }()
-    
 
     let titleLabel : UILabel = {
         let label = UILabel()

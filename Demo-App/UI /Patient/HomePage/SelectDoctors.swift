@@ -13,20 +13,18 @@ class SelectDoctors: UIView {
     var patient : Patient? = nil
     var viewController : UIViewController? = nil
     var doctorData :[Doctor] {
-        Array(Storage.storage.doctorList.values)
-        
+        var doc : [Doctor] = []
+        doc.append(contentsOf: Array(Storage.storage.doctorList.values))
+        doc.append(contentsOf: Array(Storage.storage.doctorList.values))
+        return doc
     }
     
-    let stack = UIStackView()
-    let header : UILabel = {
+    let Title : UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.text = "Title"
-        label.font = UIFont(name: "Avenir next", size: 25)
-        label.textAlignment = .center
-        label.backgroundColor = UIColor.white.withAlphaComponent(0.7)
+        label.text = "Popular Doctors"
+        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         label.layer.cornerRadius = 10
-        label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -34,20 +32,20 @@ class SelectDoctors: UIView {
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    let footer : UIButton = {
-        let button = UIButton()
-         button.configuration = .borderedTinted()
-         button.setTitle("View All Doctors", for: .normal)
+    let viewAllButton : UIButton = {
+         let button = UIButton()
+         button.configuration = .plain()
+         button.setTitle("View All", for: .normal)
+         button.titleLabel?.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
          button.translatesAutoresizingMaskIntoConstraints = false
          return button
      }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setStack()
         setHeader()
         setCollectionView()
-        setFooter()
+        
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -55,55 +53,70 @@ class SelectDoctors: UIView {
     
     
     
-    func setStack(){
-        addSubview(stack)
-        stack.axis = .vertical
-        
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            stack.topAnchor.constraint(equalTo: topAnchor,constant: 10),
-            stack.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10),
-            stack.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
-            stack.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
-        ])
-    }
+    
     
     func setHeader(){
-        stack.addArrangedSubview(header)
-        header.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(Title)
+        addSubview(viewAllButton)
+        Title.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            header.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
+            Title.topAnchor.constraint(equalTo: topAnchor),
+            Title.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.04),
+            Title.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
+            Title.widthAnchor.constraint(equalTo: widthAnchor,multiplier: 0.7)
+        ])
+        
+        NSLayoutConstraint.activate([
+            viewAllButton.topAnchor.constraint(equalTo: topAnchor),
+            viewAllButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.04),
+            viewAllButton.leadingAnchor.constraint(equalTo: Title.trailingAnchor),
+            viewAllButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
         ])
     }
     
     func setCollectionView(){
-        stack.addArrangedSubview(collectionView)
+        addSubview(collectionView)
         collectionView.register(DoctorCell.self, forCellWithReuseIdentifier: DoctorCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
-        
+        collectionView.showsHorizontalScrollIndicator = false
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 20
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         collectionView.setCollectionViewLayout(layout, animated: false)
         
         collectionView.tag = 2
         
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: Title.bottomAnchor,constant: 10),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
+        ])
+        
+    }
+   
+    
+    @objc func bookselected(_ sender : UIButton){
+        
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        
+        let viewController = ViewDoctor(doctor: doctorData[indexPath.row],patient: patient)
+        self.viewController?.navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func setFooter(){
-        stack.addArrangedSubview(footer)
-        footer.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            footer.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15)
-        ])
+    @objc func favouriteViewTap(_ sender: UITapGestureRecognizer) {
+        let tappedView = sender.view!
+            
+            guard let cell = tappedView.superview?.superview as? DoctorCell else {
+                return
+            }
+            
+        cell.favouriteImage.isHidden = !cell.favouriteImage.isHidden
+            cell.favouriteImageSelected.isHidden = !cell.favouriteImageSelected.isHidden
     }
     
 }
@@ -117,26 +130,27 @@ extension SelectDoctors : UICollectionViewDataSource ,UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorCell.identifier, for: indexPath) as! DoctorCell
-        cell.name.text = "Dr. \(doctorData[indexPath.row].name)"
-        cell.department.text = "\(doctorData[indexPath.row].department)"
-        cell.experience.text = "\(doctorData[indexPath.row].experience) years of experience"
-        cell.imageview.layer.cornerRadius = cell.frame.height / 2
+        
+        let doctor = doctorData[indexPath.row]
+        cell.name.text = "Dr.\(doctor.name)"
+        cell.department.text = "\(doctor.department)"
+        cell.bookButton.addTarget(self, action: #selector(bookselected), for: .touchUpInside)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(favouriteViewTap))
+        cell.favouriteView.addGestureRecognizer(tapGesture)
+
         return cell
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width * (3/4)
-        let cellHeight = collectionView.bounds.height / 2 - 20
+        let cellWidth = collectionView.bounds.width / 2.2 - 20
+        let cellHeight = collectionView.bounds.height / 2 - 10
         
             return CGSize(width: cellWidth, height:cellHeight)
         }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        print("SD selected")
-        let viewController = ViewDoctor(doctor: doctorData[indexPath.row],patient: patient)
-        self.viewController?.navigationController?.pushViewController(viewController, animated: true)
-        
+        print("Selected")
     }
     
 }

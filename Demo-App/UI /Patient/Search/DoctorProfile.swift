@@ -25,11 +25,11 @@ class DoctorProfile: UIView {
         let label = UILabel()
         label.textColor = UIColor(named: "black")
         label.text = "Dr. Naveen Kumar Dugar "
+        label.textAlignment = .center
         label.numberOfLines = 0
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont(name: "Avenir Next", size: 30)
+        label.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
-       // label.backgroundColor = .red
         return label
     }()
     
@@ -37,25 +37,25 @@ class DoctorProfile: UIView {
         let label = UILabel()
         label.textColor = UIColor(named: "black")
         label.text = "Department"
-        label.font = UIFont(name: "Avenir Next", size: 20)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         label.adjustsFontSizeToFitWidth = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-       // label.backgroundColor = .blue
-        return label
-    }()
-    
-    let experience :  UILabel = {
-        let label = UILabel()
-        label.textColor = UIColor(named: "black")
-        label.font = UIFont(name: "Avenir next", size: 20)
-        label.adjustsFontSizeToFitWidth = true
-        label.text = "2 years of experience"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
+    let stack : UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.spacing = 20
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
     
-    
+    let experience = LabelImageLabel()
+    let patients = LabelImageLabel()
+    let rating = LabelImageLabel()
     
      init(doctor : Doctor) {
          self.doctor = doctor
@@ -69,54 +69,65 @@ class DoctorProfile: UIView {
     }
     
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print(frame.height)
+    }
+    
+    
     
     func setViews(){
         
         addSubview(photo)
         addSubview(name)
         addSubview(department)
-        addSubview(experience)
+        addSubview(stack)
         
         name.text = "Dr \(doctor!.name)"
         department.text = "\(doctor!.department)".uppercased()
-        experience.text = "\(doctor!.experience) years of experience"
         
+        NSLayoutConstraint.activate([
+            photo.topAnchor.constraint(equalTo: topAnchor),
+            photo.centerXAnchor.constraint(equalTo: centerXAnchor),
+            photo.heightAnchor.constraint(equalTo : heightAnchor,multiplier: 0.65),
+            photo.widthAnchor.constraint(equalTo : heightAnchor,multiplier: 0.65),
+        ])
+        
+        photo.layer.cornerRadius = photo.frame.width / 2
         
         
         NSLayoutConstraint.activate([
-            photo.centerYAnchor.constraint(equalTo: centerYAnchor),
-            photo.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
-            photo.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
-            photo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
-        ])
-        
-        
-        photo.layer.cornerRadius = (bounds.height)  * 0.8 / 2
-        
-        NSLayoutConstraint.activate([
-            name.leadingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 10),
-            name.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            name.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            name.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.35)
-        ])
-        
-        
-        
-        NSLayoutConstraint.activate([
-            department.leadingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 10),
-            department.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            department.topAnchor.constraint(equalTo: name.bottomAnchor,constant: -10),
-            department.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.35)
+            name.topAnchor.constraint(equalTo: photo.bottomAnchor,constant: 10),
+            name.centerXAnchor.constraint(equalTo: centerXAnchor),
+            name.heightAnchor.constraint(equalTo : heightAnchor,multiplier: 0.06),
+            name.widthAnchor.constraint(equalTo : widthAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            experience.leadingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 10),
-            experience.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            experience.topAnchor.constraint(equalTo: department.bottomAnchor,constant: -10),
-            experience.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2)
+            department.topAnchor.constraint(equalTo: name.bottomAnchor,constant: 10),
+            department.centerXAnchor.constraint(equalTo: centerXAnchor),
+            department.heightAnchor.constraint(equalTo : heightAnchor,multiplier: 0.06),
+            department.widthAnchor.constraint(equalTo : widthAnchor),
         ])
         
+       
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: department.bottomAnchor,constant: 10),
+            stack.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
+            stack.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10),
+            stack.bottomAnchor.constraint(equalTo : bottomAnchor,constant: -10),
+        ])
         
-
+        stack.addArrangedSubview(experience)
+        stack.addArrangedSubview(patients)
+        stack.addArrangedSubview(rating)
+        
+        patients.titleLabel.text = "Patients"
+        patients.infoLabel.text = "480+"
+        patients.image.image = UIImage(systemName: "person.3.fill")!.withTintColor(.blue, renderingMode: .alwaysOriginal)
+        
+        rating.titleLabel.text = "Rating"
+        rating.infoLabel.text = "3.5"
+        rating.image.image = UIImage(systemName: "star.fill")!.withTintColor(UIColor(named: "ratings")!, renderingMode: .alwaysOriginal)
     }
 }

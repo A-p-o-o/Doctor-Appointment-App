@@ -38,6 +38,27 @@ struct DoctorDAO{
         return Array(Storage.storage.doctorList.values)
     }
     
+    
+    func getAvailabilityDates(doctor:Doctor)->[(Date,Bool,[Slot])]{
+        
+        var availability : [(Date,Bool,[Slot])] = []
+        for day in 7...14 {
+            
+            
+           
+            let date = Calendar.current.date(byAdding: .day, value: day, to: Date())!
+            let availableDoctorsOnDate : [DoctorAvailability] = Storage.storage.availableDoctors[dateFormat(date: date)]!
+            
+            for doc in availableDoctorsOnDate {
+                if doc.doctorId == doctor.employeeId {
+                    availability.append((date,doc.isAvailable,doc.slots))
+                }
+            }
+        }
+        
+        return availability
+    }
+    
     func getDoctor(name : String)->Doctor?{
         
         let allDoctors = Array(Storage.storage.doctorList.values)

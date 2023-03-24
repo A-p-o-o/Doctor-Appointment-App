@@ -23,7 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               
                 let doctordao = DoctorDAO()
         let doc = doctordao.getDoctor(doctorId: "D1")
-        let rootViewController = DoctorHomePage(doctor: doc!)
+      let d = doc!.getAvailableDates()
+        let rootViewController = ViewController()
                 let navigationController = UINavigationController(rootViewController: rootViewController)
                 window?.rootViewController = navigationController
                 window?.makeKeyAndVisible()

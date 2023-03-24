@@ -13,7 +13,8 @@ class DiseaseAndNameCCell: UICollectionViewCell {
     
     let imageView : UIImageView = {
         let imageview = UIImageView()
-        imageview.image = UIImage(named: "image")
+        imageview.image = UIImage(named: "fever")
+        imageview.backgroundColor = .white
         imageview.contentMode = .scaleAspectFit
         imageview.clipsToBounds = true
         imageview.layer.cornerRadius = imageview.frame.width / 2 // Make the image view circular
@@ -24,8 +25,8 @@ class DiseaseAndNameCCell: UICollectionViewCell {
 
     let label : UILabel = {
         let label = UILabel()
-        label.text = "Heart"
-        label.textColor = .white
+        label.text = "Fever"
+        label.textColor = .black
         label.textAlignment = .center
         label.font = UIFont(name: "futura", size: 15)
         label.numberOfLines = 1
@@ -50,10 +51,19 @@ class DiseaseAndNameCCell: UICollectionViewCell {
 
 
     func setConstrains(){
-        addSubview(imageView)
-        addSubview(label)
+        contentView.addSubview(imageView)
+        contentView.addSubview(label)
 
-        clipsToBounds = true
+        layer.cornerRadius = 10
+        layer.shadowColor = UIColor(named: "shadow")?.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 5
+         
+         contentView.backgroundColor = .white
+         contentView.layer.cornerRadius = 10
+        
+        contentView.clipsToBounds = true
 
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = imageView.widthAnchor.constraint(equalTo: widthAnchor).constant / 2

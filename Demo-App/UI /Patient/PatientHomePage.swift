@@ -22,7 +22,7 @@ class PatientHomePage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = UIColor(named: "background")
        // setGradient()
         setScroll()
         setStack()
@@ -108,7 +108,7 @@ class PatientHomePage: UIViewController {
        sysmptoms.translatesAutoresizingMaskIntoConstraints = false
        
        NSLayoutConstraint.activate([
-        sysmptoms.heightAnchor.constraint(equalTo: view.heightAnchor,multiplier: 0.45),
+        sysmptoms.heightAnchor.constraint(equalTo: view.heightAnchor,multiplier: 0.18),
            sysmptoms.widthAnchor.constraint(equalTo: stack.widthAnchor,multiplier: 0.97)
        ])
     }
@@ -119,7 +119,7 @@ class PatientHomePage: UIViewController {
         stack.addArrangedSubview(specialist)
 
         NSLayoutConstraint.activate([
-            specialist.heightAnchor.constraint(equalTo: view.heightAnchor,multiplier: 0.75),
+            specialist.heightAnchor.constraint(equalTo: view.heightAnchor,multiplier: 0.3),
             specialist.widthAnchor.constraint(equalTo: stack.widthAnchor,multiplier: 0.97)
         ])
         
@@ -138,13 +138,13 @@ class PatientHomePage: UIViewController {
         stack.addArrangedSubview(findDoctors)
 
         NSLayoutConstraint.activate([
-            findDoctors.heightAnchor.constraint(equalTo: view.heightAnchor,multiplier: 0.30),
+            findDoctors.heightAnchor.constraint(equalTo: view.heightAnchor,multiplier: 0.60),
             findDoctors.widthAnchor.constraint(equalTo: stack.widthAnchor,multiplier: 0.97)
         ])
         
         findDoctors.viewController = self
         
-        findDoctors.footer.addTarget(self, action: #selector(viewAllSpecialist), for: .touchUpInside)
+        findDoctors.viewAllButton.addTarget(self, action: #selector(viewAllSpecialist), for: .touchUpInside)
         
     }
     
@@ -163,16 +163,7 @@ class PatientHomePage: UIViewController {
         
     }
     
-    func setGradient(){
-        if view.layer.sublayers?.count != nil {
-            view.layer.sublayers![0].removeFromSuperlayer()
-        }
-        let gradientLayer2 = CAGradientLayer()
-        gradientLayer2.frame = view.bounds
-        gradientLayer2.colors = [UIColor(named: "black")!.cgColor,UIColor(named:"white")!.cgColor,UIColor.blue.cgColor]
-        gradientLayer2.startPoint = CGPoint(x: 0, y: 0)
-        view.layer.insertSublayer(gradientLayer2, at: 0)
-    }
+  
     
     @objc func viewAllSpecialist(){
         print("button")

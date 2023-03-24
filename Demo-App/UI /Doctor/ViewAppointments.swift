@@ -11,6 +11,10 @@ class ViewAppointments: UIViewController {
     
     let doctor : Doctor
     
+    var appoitments: (upcoming :[String : [Appointment]] ,completed : [String : [Appointment]]) {
+        doctor.appointments
+    }
+    
     init (doctor : Doctor){
         self.doctor = doctor
         super.init(nibName: nil, bundle: nil)

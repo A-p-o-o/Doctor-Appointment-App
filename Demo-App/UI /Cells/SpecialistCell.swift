@@ -13,8 +13,8 @@ class SpecialistCell: UICollectionViewCell {
     
     let doctorImage : UIImageView = {
        let imageView = UIImageView()
-        imageView.image = UIImage(named: "image6")
-        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "heart")
+        imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,32 +54,41 @@ class SpecialistCell: UICollectionViewCell {
     
     
     func setConstrains(){
-        addSubview(doctorImage)
-        addSubview(departmentName)
-        addSubview(departDescription)
+        contentView.addSubview(doctorImage)
+        contentView.addSubview(departmentName)
+        contentView.addSubview(departDescription)
         
-       
+        layer.cornerRadius = 10
+        layer.shadowColor = UIColor(named: "shadow")?.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 5
+         
+         contentView.backgroundColor = .white
+         contentView.layer.cornerRadius = 10
         
         NSLayoutConstraint.activate([
-           doctorImage.topAnchor.constraint(equalTo: topAnchor),
-           doctorImage.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7),
-           doctorImage.widthAnchor.constraint(equalTo: widthAnchor),
-           doctorImage.leadingAnchor.constraint(equalTo: leadingAnchor),
-           doctorImage.trailingAnchor.constraint(equalTo: trailingAnchor)
+            doctorImage.topAnchor.constraint(equalTo: contentView.topAnchor),
+            doctorImage.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7),
+            doctorImage.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            doctorImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            doctorImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+        
+        doctorImage.backgroundColor = .white
         
         NSLayoutConstraint.activate([
             departmentName.topAnchor.constraint(equalTo: doctorImage.bottomAnchor),
-           departmentName.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1),
-           departmentName.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
-           departmentName.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
+            departmentName.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.1),
+            departmentName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
+            departmentName.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10)
         ])
         
         NSLayoutConstraint.activate([
             departDescription.topAnchor.constraint(equalTo: departmentName.bottomAnchor),
-           departDescription.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.2),
-           departDescription.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
-           departDescription.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
+            departDescription.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.2),
+            departDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
+            departDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10)
         ])
         
     }
@@ -150,6 +159,14 @@ class CollectionFooterView: UICollectionReusableView {
     
     func setConstrains(){
         addSubview(button)
+        
+        
+        layer.cornerRadius = 10
+        layer.shadowColor = UIColor(named: "shadow")?.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 5
+        
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: topAnchor,constant: 10),
             button.bottomAnchor.constraint(equalTo: bottomAnchor),

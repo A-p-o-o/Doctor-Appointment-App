@@ -30,8 +30,69 @@ enum Department{
 
 enum Slot : Equatable{
     case slot(number : Int, time : Time, isBooked : Bool = false)
+    
+    var number: Int {
+        set {
+            self = .slot(number: newValue, time: self.time)
+        }
+        get{
+            switch self {
+            case .slot(let number, _,_):
+                return number
+            }
+            
+        }
+        }
+    
+    var time: Time {
+        set {
+            self = .slot(number: self.number, time: newValue)
+        }
+        get{
+            switch self {
+            case .slot(_, let time,_):
+                return time
+            }
+        }
+    }
+    
+    var isBooked: Bool {
+        set {
+            self = .slot(number: self.number, time: self.time,isBooked: newValue)
+        }
+        get{
+            switch self {
+            case .slot(_, _, let isBooked):
+                return isBooked
+            }
+        }
+    }
 }
 
 enum Time : Equatable{
     case time(start:String,end:String)
+    
+    var startTime : String {
+        set {
+            self = .time(start: newValue, end: self.endTime)
+        }
+        get{
+            switch self {
+            case .time(let startTime,_) :
+                return startTime
+            }
+        }
+    }
+    
+    var endTime : String {
+        set {
+            self = .time(start: self.startTime, end: newValue)
+        }
+        get{
+            switch self {
+            case .time(_,let endTime) :
+                return endTime
+            }
+        }
+    }
 }
