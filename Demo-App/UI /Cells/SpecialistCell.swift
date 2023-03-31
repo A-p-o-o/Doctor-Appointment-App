@@ -11,7 +11,7 @@ class SpecialistCell: UICollectionViewCell {
     
     static let identifier = "SpecialistCell"
     
-    let doctorImage : UIImageView = {
+    let departmentImage : UIImageView = {
        let imageView = UIImageView()
         imageView.image = UIImage(named: "heart")
         imageView.contentMode = .scaleAspectFit
@@ -21,24 +21,25 @@ class SpecialistCell: UICollectionViewCell {
         return imageView
     }()
     
-    let departmentName : UILabel = {
+    let departmentName :  UILabel = {
         let label = UILabel()
+       
+        label.lineBreakMode = .byTruncatingTail
         label.textColor = .black
-        label.text = "Department Name"
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let departDescription : UILabel = {
-        let label = UILabel()
-        label.textColor = .lightGray
-        label.numberOfLines = 3
-        label.lineBreakMode = .byWordWrapping
-        label.font = UIFont(name: "Avenir next", size: 16)
-        label.text = "Book appointment for bleeding gums, toothache, cavities and more "
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    
     
     
     
@@ -54,9 +55,9 @@ class SpecialistCell: UICollectionViewCell {
     
     
     func setConstrains(){
-        contentView.addSubview(doctorImage)
+        contentView.addSubview(departmentImage)
         contentView.addSubview(departmentName)
-        contentView.addSubview(departDescription)
+       
         
         layer.cornerRadius = 10
         layer.shadowColor = UIColor(named: "shadow")?.cgColor
@@ -68,29 +69,24 @@ class SpecialistCell: UICollectionViewCell {
          contentView.layer.cornerRadius = 10
         
         NSLayoutConstraint.activate([
-            doctorImage.topAnchor.constraint(equalTo: contentView.topAnchor),
-            doctorImage.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.7),
-            doctorImage.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            doctorImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            doctorImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            departmentImage.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 5),
+            departmentImage.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.8),
+            departmentImage.widthAnchor.constraint(equalTo: contentView.widthAnchor ,constant: -10),
+            departmentImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 5),
+            departmentImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -5)
         ])
         
-        doctorImage.backgroundColor = .white
+        departmentImage.backgroundColor = .white
         
         NSLayoutConstraint.activate([
-            departmentName.topAnchor.constraint(equalTo: doctorImage.bottomAnchor),
-            departmentName.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.1),
+            departmentName.topAnchor.constraint(equalTo: departmentImage.bottomAnchor),
+          //  departmentName.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.1),
             departmentName.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-            departmentName.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10)
+            departmentName.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
+            departmentName.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
         
-        NSLayoutConstraint.activate([
-            departDescription.topAnchor.constraint(equalTo: departmentName.bottomAnchor),
-            departDescription.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.2),
-            departDescription.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-            departDescription.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10)
-        ])
-        
+        contentView.sizeToFit()
     }
 }
 
@@ -108,15 +104,18 @@ class CollectionHeaderView: UICollectionReusableView {
         setConstrains()
     }
     
-    let title : UILabel = {
+    let title :  UILabel = {
         let label = UILabel()
+        label.lineBreakMode = .byWordWrapping
         label.textColor = .black
-        label.text = "Title"
-        label.font = UIFont(name: "Avenir next", size: 25)
         label.textAlignment = .center
-        label.backgroundColor = UIColor.white.withAlphaComponent(0.7)
-        label.layer.cornerRadius = 10
-        label.clipsToBounds = true
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .body)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -125,12 +124,21 @@ class CollectionHeaderView: UICollectionReusableView {
     func setConstrains(){
           
         addSubview(title)
+        title.backgroundColor = .white
+        
+        layer.cornerRadius = 10
+        layer.shadowColor = UIColor(named: "shadow")?.cgColor
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 5
+        
+        clipsToBounds = true
         
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: topAnchor,constant: 10),
+            title.topAnchor.constraint(equalTo: topAnchor),
             title.bottomAnchor.constraint(equalTo: bottomAnchor),
-            title.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
-            title.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
+            title.leadingAnchor.constraint(equalTo: leadingAnchor),
+            title.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

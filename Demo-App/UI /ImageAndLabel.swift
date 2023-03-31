@@ -18,18 +18,22 @@ class ImageAndLabel: UIView {
         return imageview
     }()
     
-    let label : UILabel = {
+    let label :  UILabel = {
         let label = UILabel()
-        label.text = "Heart"
-        label.textColor = .white
-        label.textAlignment = .center
-        label.font = UIFont(name: "futura", size: 15)
-        label.numberOfLines = 2
+        label.text = "label"
         label.lineBreakMode = .byWordWrapping
+        label.textColor = .black
+        label.adjustsFontSizeToFitWidth = true
+
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,9 +64,9 @@ class ImageAndLabel: UIView {
            label.topAnchor.constraint(equalTo: imageView.bottomAnchor),
            label.leadingAnchor.constraint(equalTo: leadingAnchor),
            label.trailingAnchor.constraint(equalTo: trailingAnchor),
-         //  label.bottomAnchor.constraint(equalTo: bottomAnchor)
+           label.bottomAnchor.constraint(equalTo: bottomAnchor)
        ])
-       imageView.layer.masksToBounds = true
+       
         
     }
 }

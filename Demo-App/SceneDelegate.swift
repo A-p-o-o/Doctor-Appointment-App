@@ -23,11 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               
                 let doctordao = DoctorDAO()
         let doc = doctordao.getDoctor(doctorId: "D1")
+        let patient = Patient(userName: "deepak", password: "", UserId: "", role: .Admin, name: "Arnold", phoneNumber: "", sex: .Female, mail: "", address: "", patientId: "", weight: 2, height: 2, AllergyTo: "")
       let d = doc!.getAvailableDates()
-        let rootViewController = ViewController()
-                let navigationController = UINavigationController(rootViewController: rootViewController)
-                window?.rootViewController = navigationController
-                window?.makeKeyAndVisible()
+        let app = Appointment(patientId: patient.patientId, patientName: patient.patientId, patientMobileNumber: patient.patientId, doctor: doc!, date: Date(), slot: .slot(number: 1, time: .time(start: "", end: "")))
+        
+        
+        let rootViewController = PatientTabBarController()
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

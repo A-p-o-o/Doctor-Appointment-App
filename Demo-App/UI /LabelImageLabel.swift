@@ -13,8 +13,14 @@ class LabelImageLabel: UIView {
         let label = UILabel()
         label.textColor = .black
         label.text = "Experience"
+        label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+       
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .title2)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -24,7 +30,12 @@ class LabelImageLabel: UIView {
         label.textColor = .black
         label.text = "4 Year+"
         label.adjustsFontSizeToFitWidth = true
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .body)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -75,10 +86,10 @@ class LabelImageLabel: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,constant: 5 ),
-            image.heightAnchor.constraint(equalTo: heightAnchor,multiplier : 0.35),
-            image.leadingAnchor.constraint(equalTo:leadingAnchor,constant: 5),
-            image.widthAnchor.constraint(equalTo: heightAnchor,multiplier : 0.35)
+            image.topAnchor.constraint(equalTo: titleLabel.bottomAnchor,constant: 3),
+            image.heightAnchor.constraint(equalTo: heightAnchor,multiplier : 0.4),
+            image.leadingAnchor.constraint(equalTo:leadingAnchor,constant: 10),
+            image.widthAnchor.constraint(equalTo: heightAnchor,multiplier : 0.4)
         ])
         
         NSLayoutConstraint.activate([

@@ -9,7 +9,21 @@ import UIKit
 
 class LabelAndField: UIView {
     
-    let label = UILabel()
+    let label  :  UILabel = {
+        let label = UILabel()
+        label.text = "label"
+        label.lineBreakMode = .byWordWrapping
+        label.textColor = .black
+       // label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 20, weight: .light)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .body)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     let textField = UITextField()
     let errorLabel = UILabel()
     
@@ -28,14 +42,10 @@ class LabelAndField: UIView {
     func setupSubviews() {
         //LABEL
         addSubview(label)
-        label.text = "Label"
-        label.textColor = .systemBlue
-        label.font = UIFont(name: "Avenir Next", size: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
+       
         //FIELD
         addSubview(textField)
-        textField.placeholder = "Enter text here"
+        textField.placeholder = ""
         textField.borderStyle = .roundedRect
         textField.textColor = UIColor(named: "TextFieldColor")
         textField.backgroundColor = .lightGray
@@ -50,30 +60,31 @@ class LabelAndField: UIView {
     }
     
     func setupConstraints() {
-        heightAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+        heightAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
         
         //LABEL
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: topAnchor),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor),
-            label.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
+            label.topAnchor.constraint(equalTo: topAnchor,constant: 10),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10),
+            label.widthAnchor.constraint(equalTo: widthAnchor,constant: -20)
         ])
         
         //FIELD
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: label.bottomAnchor),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textField.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textField.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
+            textField.topAnchor.constraint(equalTo: label.bottomAnchor,constant: 5),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
+            textField.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10),
+            textField.widthAnchor.constraint(equalTo: widthAnchor,constant: -20)
         ])
         
         //ERROR LABEL
         NSLayoutConstraint.activate([
             errorLabel.topAnchor.constraint(equalTo: textField.bottomAnchor),
-            errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            errorLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            errorLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
+            errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
+            errorLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10),
+            errorLabel.widthAnchor.constraint(equalTo: widthAnchor,constant: -20),
+            errorLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
     }
 

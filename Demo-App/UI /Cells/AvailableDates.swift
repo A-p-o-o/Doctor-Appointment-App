@@ -53,22 +53,27 @@ class AvailableDates: UICollectionViewCell {
     
    func setViews(){
       
-       addSubview(titleLabel)
-        addSubview(infoLabel)
+       contentView.addSubview(titleLabel)
+       contentView.addSubview(infoLabel)
        
-       
+       backgroundColor = .white
+       layer.shadowColor = UIColor(named: "shadow")?.cgColor
+       layer.shadowOpacity = 0.7
+       layer.shadowOffset = CGSize(width: 2, height: 2)
+       layer.shadowRadius = 5
+       layer.cornerRadius = 10
        
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
        
        NSLayoutConstraint.activate([
-            infoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+        infoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             infoLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            infoLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            infoLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8)
+        infoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+        infoLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
        ])
 
     }

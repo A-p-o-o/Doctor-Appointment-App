@@ -13,6 +13,8 @@ struct Doctor : Employee,User,Equatable{
     
     typealias MyType = Doctor
     
+    var image : String
+    
     var userName: String
     
     var password: String
@@ -47,6 +49,10 @@ struct Doctor : Employee,User,Equatable{
     
     var experience : Int
     
+    var languagesKnown : String
+    
+    var appointmentFee : Int
+    
     var appointments : (upcoming :[String : [Appointment]] ,completed : [String : [Appointment]]) {
         appointmentDAO.getAppointment(doctor: self)
     }
@@ -57,7 +63,7 @@ struct Doctor : Employee,User,Equatable{
     
     
     
-    init(userName: String, password: String, UserId: String, employeeId: String, dateJoined: Date, education: String, role: Role, name: String, age: Int? = nil, bloodGroup: BloodGroup? = nil, phoneNumber: String, sex: Sex, dateOfBirth: Date? = nil, mail: String, address: String, department: Department, experience: Int) {
+    init(userName: String, password: String, UserId: String, employeeId: String, dateJoined: Date, education: String, role: Role, name: String, age: Int? = nil, bloodGroup: BloodGroup? = nil, phoneNumber: String, sex: Sex, dateOfBirth: Date? = nil, mail: String, address: String, department: Department, experience: Int,languagesKnown : String,appointmentFee : Int,image : String) {
         self.userName = userName
         self.UserId = UserId
         self.employeeId = employeeId
@@ -75,7 +81,9 @@ struct Doctor : Employee,User,Equatable{
         self.department = department
         self.experience = experience
         self.password = password
-        
+        self.languagesKnown = languagesKnown
+        self.appointmentFee = appointmentFee
+        self.image = image
     }
     
     static func == (lhs: Doctor, rhs: Doctor) -> Bool {

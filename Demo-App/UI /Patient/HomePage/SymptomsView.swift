@@ -8,65 +8,89 @@
 import UIKit
 
 class SymptomsView: UIView {
-
+    
+    let SymptomsData :  [String] = Symptomps().allDepartmentAndSymptoms[.General_Physician]!
+    
+    weak var viewController : UIViewController? = nil
+    
+    var patient : Patient
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+
     
-    let title : UILabel = {
+    let title  :  UILabel = {
         let label = UILabel()
+        label.text = "Not Feeling Well ?"
+        label.lineBreakMode = .byWordWrapping
         label.textColor = .black
-        label.text = "Not feeling well ?"
-        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
-        label.layer.cornerRadius = 10
-        let fontMetrics = UIFontMetrics.default
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 20, weight: .ultraLight)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
         label.font = fontMetrics.scaledFont(for: label.font)
-        label.sizeToFit()
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let viewAllButton : UIButton = {
-         let button = UIButton()
-         button.configuration = .plain()
-         button.setTitle("View All", for: .normal)
-         button.titleLabel?.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
-         button.translatesAutoresizingMaskIntoConstraints = false
-         return button
-     }()
+    let viewAll  :  UILabel = {
+        let label = UILabel()
+        label.text = "View All"
+        label.textAlignment = .right
+        label.lineBreakMode = .byWordWrapping
+        label.textColor = UIColor(named: "book")
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 20, weight: .ultraLight)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
-   
+    let height : CGFloat
+    let width : CGFloat
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(patient : Patient,height : CGFloat,width : CGFloat ) {
+        self.patient = patient
+        self.height = height
+        self.width = width
+         super.init(frame: .zero)
         setHeader()
         setCollectionView()
        
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setCollectionView()
+        fatalError("init(coder:) has not been implemented")
     }
     
     
     func setHeader(){
         addSubview(title)
-        addSubview(viewAllButton)
+        addSubview(viewAll)
         title.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: topAnchor),
-            title.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.15),
+            title.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.15),
             title.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
             title.widthAnchor.constraint(equalTo: widthAnchor,multiplier: 0.7)
         ])
         
+
+        
         NSLayoutConstraint.activate([
-            viewAllButton.topAnchor.constraint(equalTo: topAnchor),
-            viewAllButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.07),
-            viewAllButton.leadingAnchor.constraint(equalTo: title.trailingAnchor),
-            viewAllButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
+            viewAll.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            viewAll.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.15),
+            viewAll.leadingAnchor.constraint(equalTo: title.trailingAnchor),
+            viewAll.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10),
+            
         ])
+        self.sizeToFit()
         
     }
     
@@ -99,33 +123,38 @@ class SymptomsView: UIView {
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
         ])
-        
+        self.sizeToFit()
     }
     
 }
 
 
-extension SymptomsView : UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout{
+extension SymptomsView : UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate{
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        SymptomsData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiseaseAndNameCCell.identifier, for: indexPath) as! DiseaseAndNameCCell
         cell.layer.cornerRadius = 10
+        cell.label.text = self.SymptomsData[indexPath.row]
+        cell.imageView.image = UIImage(named: "\(SymptomsData[indexPath.row])")
         return cell
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.bounds.width / 3) - 20
-        let cellHeight = collectionView.bounds.height
+        let cellWidth = (width / 3) - 20
+        let cellHeight = height * 0.7
         
             return CGSize(width: cellWidth, height:cellHeight)
     }
     
-   
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = ViewDepartment(patient: patient,department: Department.General_Physician.departmentName)
+        self.viewController?.navigationController?.pushViewController(viewController, animated: true)
+    }
   
 }
 

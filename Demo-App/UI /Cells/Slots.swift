@@ -14,14 +14,18 @@ class Slots: UICollectionViewCell {
     
     let titleLabel : UILabel = {
         let label = UILabel()
-        label.text = "Time"
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "dd-MM-yyyy"
+        label.lineBreakMode = .byWordWrapping
+        label.textColor = .black
         label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 16, weight: .light)
+        label.textAlignment = .center
         
-        label.clipsToBounds = true
-       
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -43,9 +47,13 @@ class Slots: UICollectionViewCell {
     func setviews(){
         contentView.addSubview(titleLabel)
         
+        layer.shadowColor = UIColor(named: "shadow")?.cgColor
+        layer.shadowOpacity = 0.7
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 5
         layer.cornerRadius = 10
-        backgroundColor = .white.withAlphaComponent(0.5)
-        clipsToBounds = true
+        
+        backgroundColor = .white
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 5),

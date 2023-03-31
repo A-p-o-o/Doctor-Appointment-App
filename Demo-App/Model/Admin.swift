@@ -99,9 +99,10 @@ struct Admin : Employee,User{
         userDAO.adduser(user: admin)
     }
     
-    func addDoctor(userName: String, password: String, UserId: String, employeeId: String, dateJoined: Date, education: String, name: String, age: Int? = nil, bloodGroup: BloodGroup? = nil, phoneNumber: String, sex: Sex, dateOfBirth: Date? = nil, mail: String, address: String, department: Department, experience: Int){
+    func addDoctor(userName: String, password: String, UserId: String, employeeId: String, dateJoined: Date, education: String, name: String, age: Int? = nil, bloodGroup: BloodGroup? = nil, phoneNumber: String, sex: Sex, dateOfBirth: Date? = nil, mail: String, address: String, department: Department, experience: Int,languagesKnown : String,appointmentFee : Int){
         
-        let doctor = Doctor(userName: userName, password: password, UserId: UserId, employeeId: employeeId, dateJoined: dateJoined, education: education, role: .Doctor, name: name, phoneNumber: phoneNumber, sex: sex, mail: mail, address: address, department: department, experience: experience)
+        let doctor = Doctor(userName: userName, password: password, UserId: UserId, employeeId: employeeId, dateJoined: dateJoined, education: education, role: .Doctor, name: name, phoneNumber: phoneNumber, sex: sex, mail: mail, address: address, department: department, experience: experience,languagesKnown:languagesKnown,appointmentFee: appointmentFee,image: "")
+        
         doctorDAO.add(doctor: doctor)
         userDAO.adduser(user: doctor)
     }

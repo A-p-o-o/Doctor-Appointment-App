@@ -43,6 +43,45 @@ struct Search{
         return (startTime,endTime,times.slotNo)
     }
     
+    func availableDoctorsOn(date : String,department : Department,time : String)->[Doctor]{
+        var availableDoctors : [Doctor] = []
+        
+        let doctors =   doctorsInDepartment(dept: department.departmentName)
+        
+        for doctor in doctors {
+            
+            let availableDates = doctorAvailableDates(doctorId: doctor.employeeId)
+                
+            for availableDate in availableDates {
+                
+                if date == availableDate {
+                    
+                    let availableSlots = doctorSlots(date: availableDate , doctorId: doctor.employeeId)
+                    
+                    for startTime in availableSlots.start {
+                        
+                        if startTime == time {
+                            availableDoctors.append(doctor)
+                        }
+                    }
+                }
+            }
+        }
+        return availableDoctors
+    }
+    
+    func getEndtimeAndSlot(doctor : Doctor,date : String , startTime : String)->(endtime : String , slotNo : Int){
+        
+        let allSlots =  doctorSlots(date: date, doctorId: doctor.employeeId)
+        
+        
+        for index in 0..<allSlots.start.count {
+            if allSlots.start[index] == startTime {
+                return (allSlots.end[index],allSlots.slotNo[index])
+            }
+        }
+        return ("",0)
+    }
     
     func dateAndslots(dates:[String],doctorId : String)->[String:([String],[String],[Int])]{
         var dateAndSlots = [String:([String],[String],[Int])]()
@@ -56,7 +95,7 @@ struct Search{
         var doctors = [Doctor]()
         
         for department in Department.allCases{
-            let departmentname = "\(department)".lowercased()
+            let departmentname = department.departmentName.lowercased()
             
             if departmentname.contains(dept.lowercased()){
                 doctors.append(contentsOf: doctorDao.searchDepartment(department: department))

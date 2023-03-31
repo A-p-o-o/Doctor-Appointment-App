@@ -21,13 +21,13 @@ class PatientSearch: UIViewController {
     }()
     
     
-    let calendar : UICalendarView = {
-        let calendar =  UICalendarView()
-        calendar.translatesAutoresizingMaskIntoConstraints = false
-        return calendar
-    }()
-    
-    
+//    let calendar : UICalendarView = {
+//        let calendar =  UICalendarView()
+//        calendar.translatesAutoresizingMaskIntoConstraints = false
+//        return calendar
+//    }()
+//
+//
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,15 +61,15 @@ class PatientSearch: UIViewController {
     }
     
     func setCalendar(){
-        
-        view.addSubview(calendar)
-        
-        NSLayoutConstraint.activate([
-        calendar.topAnchor.constraint(equalTo: searchField.bottomAnchor,constant: 20),
-        calendar.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor),
-        calendar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-        calendar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
-        ])
+//        
+//        view.addSubview(calendar)
+//        
+//        NSLayoutConstraint.activate([
+//        calendar.topAnchor.constraint(equalTo: searchField.bottomAnchor,constant: 20),
+//        calendar.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor),
+//        calendar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+//        calendar.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+//        ])
     }
 
 
@@ -77,7 +77,8 @@ class PatientSearch: UIViewController {
 
 extension PatientSearch : UISearchBarDelegate{
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        let vc = PatientSearchController(patient: self.patient)
+        let vc = BookAppointmentOfYourChoiceController()
+        vc.patient = self.patient
         vc.view.backgroundColor = .green
         vc.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(vc, animated: false)

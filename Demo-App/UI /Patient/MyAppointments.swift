@@ -49,31 +49,43 @@ class MyAppointments: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "background")
         
         setTitle()
         setSegement()
         setTable()
         upcomingAndCompleted.selectedSegmentIndex = 0
-       
+        appointmentsTable.backgroundColor = .clear
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         appointmentsTable.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = false
+        
+        navigationController?.navigationBar.tintColor = .black
+    }
+    
+    lazy var Viewheight = view.frame.height < view.frame.width ? view.frame.width : view.frame.height
+    lazy var viewWidth = view.frame.width > view.frame.height ? view.frame.height : view.frame.width
+       
     
     func setTitle(){
         
-        let height = view.frame.height * 0.07
-        let width  = view.frame.width
+        let height = Viewheight * 0.07
+        let width  = viewWidth
         
         view.addSubview(myTitle)
         
         NSLayoutConstraint.activate([
             myTitle.heightAnchor.constraint(equalToConstant: height),
             myTitle.widthAnchor.constraint(equalToConstant: width),
-            myTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -50)
+            myTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
         
     }
@@ -81,8 +93,8 @@ class MyAppointments: UIViewController {
     
     func setSegement(){
         view.addSubview(upcomingAndCompleted)
-        let height = view.frame.height * 0.04
-        let width  = view.frame.width
+        let height = Viewheight * 0.04
+        let width  = viewWidth
         
         NSLayoutConstraint.activate([
             upcomingAndCompleted.heightAnchor.constraint(equalToConstant: height),
@@ -141,10 +153,14 @@ extension MyAppointments : UITableViewDataSource{
         
         
         let cell = tableView.dequeueReusableCell(withIdentifier: AppointmentCell.identifier) as! AppointmentCell
+        
         if upcomingAndCompleted.selectedSegmentIndex == 0 {
+            
             let appointment = appointments.upcoming[indexPath.row]
-            cell.doctorName.text = "Dr. \(appointment.doctor.name)   Department : \(appointment.doctor.department)"
-            cell.time.text = "Date : \(dateFormat(date: appointment.date))"
+            cell.doctorName.text = "Dr. \(appointment.doctor.name)   \(appointment.doctor.department.departmentName)"
+            cell.time.text = " \(dateFormat(date: appointment.date))"
+            cell.doctorImage.image = UIImage(named: appointment.doctor.image)
+            
         }
         
         return cell
@@ -160,8 +176,7 @@ extension MyAppointments : UITableViewDelegate {
         
         if upcomingAndCompleted.selectedSegmentIndex == 0 {
             print("Selected")
-            let viewController = BookAppointment(appointment: appointments.upcoming[indexPath.row], patient: self.patient!)
-            viewController.confirmButton.isHidden = true
+            let viewController = AppointmentDetailsController(appointment: appointments.upcoming[indexPath.row], patient: self.patient!)
             navigationController?.pushViewController(viewController, animated: true)
         }
         else {

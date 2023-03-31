@@ -22,11 +22,51 @@ enum Sex{
 enum Department{
     
     static var allCases:[Department]{
-        return [.Neurologist,.Cardiologist,.General_Physician,.Orthopedist,.Dermatologist,.Ear_Nose_throat,.Urologist,.Psychiatry,.Diabetology,.Nephrology,.Rheumatology]
+        return [.Neurologist,.Cardiologist,.General_Physician,.Orthopedist,.Dermatologist,.Ear_Nose_throat,.Psychiatry,.Diabetology,.Nephrology,.Rheumatology,.Dentist,.Veterinary,.Ophthalmologist,.Gynaecologist,.Andrologist,.Paediatrician,.Dietitian]
     }
     
-    case Neurologist,Cardiologist,General_Physician,Orthopedist,Dermatologist,Ear_Nose_throat,Urologist,Psychiatry,Diabetology,Nephrology,Rheumatology
+    case Neurologist,
+         Cardiologist,
+         General_Physician,
+         Orthopedist,
+         Dermatologist ,
+         Ear_Nose_throat,
+         Psychiatry,
+         Diabetology,
+         Nephrology,
+         Rheumatology,
+         Dentist,
+         Veterinary,
+         Ophthalmologist ,
+         Gynaecologist ,
+         Andrologist,
+         Paediatrician ,
+         Dietitian
+    
+    var departmentName : String {
+        switch self {
+        case .Neurologist : return "Neurologist"
+        case .Cardiologist : return "Cardiologist"
+        case .General_Physician : return "General Physician"
+        case .Orthopedist : return "Orthopedist"
+        case .Dermatologist  : return "Dermatologist"
+        case .Ear_Nose_throat : return "Ear Nose throat"
+        case .Psychiatry : return "Psychiatry"
+        case .Diabetology : return "Diabetology"
+        case .Nephrology : return "Nephrology"
+        case .Rheumatology : return "Rheumatology"
+        case .Dentist : return "Dentist"
+        case .Veterinary : return "Veterinary"
+        case .Ophthalmologist  : return "Ophthalmologist"
+        case .Gynaecologist  : return "Gynaecologist"
+        case .Andrologist : return "Andrologist"
+        case .Paediatrician  : return "Paediatrician"
+        case .Dietitian  : return "Dietitian"
+        }
+    }
 }
+
+
 
 enum Slot : Equatable{
     case slot(number : Int, time : Time, isBooked : Bool = false)

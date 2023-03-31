@@ -9,7 +9,6 @@ import UIKit
 
 class SurgeryView: UIView {
     
-   
     
     
     let images = [UIImage(named: "neckSurgery"),UIImage(named: "kneeSurgery"),UIImage(named: "cardiacSurgery"),UIImage(named: "handSurgery")]
@@ -148,9 +147,10 @@ class SurgeryView: UIView {
         for i in 0...3{
             let image = UIImageView()
             image.image =    images[i]
-            image.contentMode = .scaleAspectFill
+            image.contentMode = .scaleToFill
             image.clipsToBounds = true
             stackView.addArrangedSubview(image)
+
         }
         
         NSLayoutConstraint.activate([
@@ -194,10 +194,15 @@ class SurgeryView: UIView {
         
     }
     
+    
+    
     @objc func changePage(){
         let offset = CGFloat(pageControl.currentPage) * scrollView.frame.width
         scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: true)
     }
+    
+   
+
 }
 
 extension SurgeryView: UIScrollViewDelegate{

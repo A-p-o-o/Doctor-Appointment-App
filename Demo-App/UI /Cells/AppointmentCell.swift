@@ -24,7 +24,7 @@ class AppointmentCell: UITableViewCell {
     let doctorImage : UIImageView = {
         let imageView = UIImageView()
          imageView.image = UIImage(named: "image6")
-         imageView.contentMode = .scaleAspectFill
+         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = imageView.frame.height / 2
          imageView.clipsToBounds = true
          imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +77,8 @@ class AppointmentCell: UITableViewCell {
         ])
         
         doctorImage.layer.cornerRadius = width / 2
-        
+        doctorImage.layer.borderWidth = 2
+        doctorImage.layer.borderColor = UIColor(named: "radius")?.cgColor
         
         NSLayoutConstraint.activate([
             doctorName.leadingAnchor.constraint(equalTo: doctorImage.trailingAnchor, constant: widthEdge),

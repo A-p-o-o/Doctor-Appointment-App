@@ -12,19 +12,31 @@ class SelectDoctors: UIView {
 
     var patient : Patient? = nil
     var viewController : UIViewController? = nil
-    var doctorData :[Doctor] {
+    let doctorData :[Doctor] = {
         var doc : [Doctor] = []
-        doc.append(contentsOf: Array(Storage.storage.doctorList.values))
-        doc.append(contentsOf: Array(Storage.storage.doctorList.values))
+        var doctors =  Array(Storage.storage.doctorList.values)
+        
+        for _ in 1...10{
+            doc.append(doctors.randomElement()!)
+        }
+       
         return doc
-    }
+    }()
     
-    let Title : UILabel = {
+    var favouriteDoctors : [Doctor] { (patient?.getFavouriteDoctors())! }
+    
+    let Title  :  UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.text = "Popular Doctors"
-        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
-        label.layer.cornerRadius = 10
+        label.lineBreakMode = .byWordWrapping
+        label.textColor = .black
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 20, weight: .ultraLight)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -32,17 +44,29 @@ class SelectDoctors: UIView {
 
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    let viewAllButton : UIButton = {
-         let button = UIButton()
-         button.configuration = .plain()
-         button.setTitle("View All", for: .normal)
-         button.titleLabel?.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
-         button.translatesAutoresizingMaskIntoConstraints = false
-         return button
-     }()
+    let viewAll  :  UILabel = {
+        let label = UILabel()
+        label.text = "View All"
+        label.textAlignment = .right
+        label.lineBreakMode = .byWordWrapping
+        label.textColor = UIColor(named: "book")
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 20, weight: .ultraLight)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    let height : CGFloat
+    let width : CGFloat
+    init(height : CGFloat,width : CGFloat) {
+        self.height = height
+        self.width = width
+        super.init(frame: .zero)
         setHeader()
         setCollectionView()
         
@@ -53,26 +77,28 @@ class SelectDoctors: UIView {
     
     
     
-    
-    
     func setHeader(){
         addSubview(Title)
-        addSubview(viewAllButton)
+        addSubview(viewAll)
         Title.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             Title.topAnchor.constraint(equalTo: topAnchor),
-            Title.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.04),
+            Title.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.04),
             Title.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
             Title.widthAnchor.constraint(equalTo: widthAnchor,multiplier: 0.7)
         ])
+       
+    
         
         NSLayoutConstraint.activate([
-            viewAllButton.topAnchor.constraint(equalTo: topAnchor),
-            viewAllButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.04),
-            viewAllButton.leadingAnchor.constraint(equalTo: Title.trailingAnchor),
-            viewAllButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
+            viewAll.centerYAnchor.constraint(equalTo: Title.centerYAnchor),
+            viewAll.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.04),
+            viewAll.leadingAnchor.constraint(equalTo: Title.trailingAnchor),
+            viewAll.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
         ])
+        
+        
     }
     
     func setCollectionView(){
@@ -86,10 +112,10 @@ class SelectDoctors: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumInteritemSpacing = 20
+        
         collectionView.setCollectionViewLayout(layout, animated: false)
         
         collectionView.tag = 2
-        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: Title.bottomAnchor,constant: 10),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -10),
@@ -97,14 +123,15 @@ class SelectDoctors: UIView {
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
         ])
         
+        collectionView.sizeToFit()
     }
    
     
     @objc func bookselected(_ sender : UIButton){
         
         let indexPath = IndexPath(row: sender.tag, section: 0)
-        
-        let viewController = ViewDoctor(doctor: doctorData[indexPath.row],patient: patient)
+        print(indexPath.row)
+        let viewController = DoctorProfileController(doctor: doctorData[indexPath.row],patient: patient!)
         self.viewController?.navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -114,10 +141,31 @@ class SelectDoctors: UIView {
             guard let cell = tappedView.superview?.superview as? DoctorCell else {
                 return
             }
-            
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        
+        if !cell.isFavourite {
+            buttonTapped()
+            patient?.addTofavourites(doctor: doctorData[indexPath.row])
+        }
+        else {
+            patient?.removeFromfavourites(doctor: doctorData[indexPath.row])
+        }
+        cell.isFavourite = !cell.isFavourite
         cell.favouriteImage.isHidden = !cell.favouriteImage.isHidden
-            cell.favouriteImageSelected.isHidden = !cell.favouriteImageSelected.isHidden
+        cell.favouriteImageSelected.isHidden = !cell.favouriteImageSelected.isHidden
     }
+    
+    func buttonTapped() {
+        
+        
+        let alert = UIAlertController(title: "Favourite Added", message: "This Doctor has been added to your favourites.", preferredStyle: .actionSheet)
+        viewController!.present(alert, animated: true, completion: nil)
+        
+        let time = DispatchTime.now() + 0.7
+        DispatchQueue.main.asyncAfter(deadline: time) {
+            alert.dismiss(animated: true, completion: nil)
+               }
+        }
     
 }
 
@@ -132,9 +180,21 @@ extension SelectDoctors : UICollectionViewDataSource ,UICollectionViewDelegateFl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DoctorCell.identifier, for: indexPath) as! DoctorCell
         
         let doctor = doctorData[indexPath.row]
+        cell.imageview.image = UIImage(named: doctor.image)
         cell.name.text = "Dr.\(doctor.name)"
-        cell.department.text = "\(doctor.department)"
-        cell.bookButton.addTarget(self, action: #selector(bookselected), for: .touchUpInside)
+        cell.department.text = doctor.department.departmentName
+        
+        if favouriteDoctors.contains(doctor){
+            cell.favouriteImageSelected.isHidden = false
+            cell.favouriteImage.isHidden = true
+            cell.isFavourite = true
+        }
+        else {
+            cell.favouriteImageSelected.isHidden = true
+            cell.favouriteImage.isHidden = false
+            cell.isFavourite = false
+        }
+        
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(favouriteViewTap))
         cell.favouriteView.addGestureRecognizer(tapGesture)
@@ -143,14 +203,18 @@ extension SelectDoctors : UICollectionViewDataSource ,UICollectionViewDelegateFl
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width / 2.2 - 20
-        let cellHeight = collectionView.bounds.height / 2 - 10
+        let cellWidth = width / 2.2 - 20
+        let cellHeight = height * 0.8
+        
         
             return CGSize(width: cellWidth, height:cellHeight)
         }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected")
+        
+        let viewController = DoctorProfileController(doctor: doctorData[indexPath.row],patient: patient!)
+        self.viewController?.navigationController?.pushViewController(viewController, animated: true)
+        
     }
     
 }

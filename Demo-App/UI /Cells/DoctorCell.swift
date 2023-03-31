@@ -14,8 +14,7 @@ class DoctorCell: UICollectionViewCell {
     
     let imageview : UIImageView = {
         let imageView = UIImageView()
-         imageView.image = UIImage(named: "image6")
-         imageView.contentMode = .scaleAspectFill
+         imageView.contentMode = .scaleAspectFit
          //imageView.layer.cornerRadius = 10
          imageView.clipsToBounds = true
          imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,15 +26,27 @@ class DoctorCell: UICollectionViewCell {
         label.textColor = .black
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .headline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let department: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .darkGray
         label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18, weight: .light)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .title2)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -77,15 +88,25 @@ class DoctorCell: UICollectionViewCell {
         return label
     }()
     
-    let bookButton : UIButton = {
-        let button = UIButton()
-        button.configuration = .filled()
-        button.configuration?.baseBackgroundColor = UIColor(named: "book")
-        button.configuration?.baseForegroundColor = .white
-        button.setTitle("Book", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    let bookButton : UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.textAlignment = .center
+        label.text = "Book"
+        label.backgroundColor = UIColor(named: "book")
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 5
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.adjustsFontSizeToFitWidth = true
+        return label
     }()
+    
+    var isFavourite : Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,6 +117,8 @@ class DoctorCell: UICollectionViewCell {
         super.init(coder: coder)
         setConstrains()
     }
+    
+    
     
     var heightSpace : CGFloat {
         contentView.frame.height * 0.04
@@ -113,6 +136,8 @@ class DoctorCell: UICollectionViewCell {
         contentView.addSubview(ratingLabel)
         contentView.addSubview(ratingImage)
         contentView.addSubview(bookButton)
+        
+        
         
        layer.cornerRadius = 10
        layer.shadowColor = UIColor(named: "shadow")?.cgColor
@@ -170,9 +195,13 @@ class DoctorCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             bookButton.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor,constant: heightSpace),
             bookButton.heightAnchor.constraint(equalToConstant: height),
-            bookButton.widthAnchor.constraint(equalToConstant: contentView.frame.width / 2 ),
+            bookButton.widthAnchor.constraint(equalToConstant: contentView.frame.width / 1.5 ),
             bookButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
+        
+       
+       
+        
         
         NSLayoutConstraint.activate([
             favouriteView.topAnchor.constraint(equalTo: contentView.topAnchor,constant: heightSpace),
@@ -214,3 +243,4 @@ class DoctorCell: UICollectionViewCell {
     
     
 }
+

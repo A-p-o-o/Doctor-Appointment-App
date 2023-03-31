@@ -49,6 +49,7 @@ struct Patient : Person,User{
         reportDAO.getReports(patientId: patientId)
     }
     
+    
     init(userName: String, password: String, UserId: String, role: Role, bloodGroup: BloodGroup? = nil, dateOfBirth: Date? = nil, name: String, phoneNumber: String, sex: Sex, mail: String, address: String, patientId: String, weight: Double, height: Double, AllergyTo: String) {
         self.userName = userName
         self.UserId = UserId
@@ -112,6 +113,20 @@ struct Patient : Person,User{
         reviewDAO.addReview(review: review)
     }
     
+    
+    
+    func addTofavourites(doctor : Doctor){
+         mobileDAO.addToFavourites(doctor: doctor)
+    }
+    
+    func removeFromfavourites(doctor : Doctor){
+        mobileDAO.removeFromFavourites(doctor: doctor)
+    }
+    
+    func getFavouriteDoctors()->[Doctor]{
+       return  mobileDAO.getFavouriteDoctors()
+    }
+    
     func viewBill()->[Bill]?{
         return billDAO.get(forPatientId: patientId)
     }
@@ -131,4 +146,5 @@ struct Patient : Person,User{
     private let userDAO = UserDAO()
     private let reportDAO = ReportDAO()
     private let reviewDAO = ReviewDAO()
+    private let mobileDAO = MobileDAO()
 }

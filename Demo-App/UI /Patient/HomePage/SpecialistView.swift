@@ -12,31 +12,51 @@ class SpecialistView: UIView {
     weak var viewController : UIViewController?
     let patient : Patient
     
-    let title : UILabel = {
+    let departmentData : [Department] = Department.allCases
+    
+    let title  :  UILabel = {
         let label = UILabel()
+        label.text = "Specialist Category "
+        label.lineBreakMode = .byWordWrapping
         label.textColor = .black
-        label.text = "Specialist Category"
-        label.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
-        label.layer.cornerRadius = 10
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 20, weight: .ultraLight)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let viewAllButton : UIButton = {
-         let button = UIButton()
-         button.configuration = .plain()
-         button.setTitle("View All", for: .normal)
-         button.titleLabel?.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
-         button.translatesAutoresizingMaskIntoConstraints = false
-         return button
-     }()
+    let viewAll  :  UILabel = {
+        let label = UILabel()
+        label.text = "View All"
+        label.lineBreakMode = .byWordWrapping
+        label.textColor = UIColor(named: "book")
+        label.textAlignment = .right
+        label.adjustsFontSizeToFitWidth = true
+        label.font = UIFont.systemFont(ofSize: 20, weight: .ultraLight)
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
+    let height : CGFloat
+    let width : CGFloat
     
     
-    init(patient : Patient) {
+    init(patient : Patient,height : CGFloat,width : CGFloat) {
         self.patient = patient
+        self.height = height
+        self.width = width
         super.init(frame: .zero)
         setHeader()
         setCollectionView()
@@ -48,21 +68,21 @@ class SpecialistView: UIView {
     
     func setHeader(){
         addSubview(title)
-        addSubview(viewAllButton)
+        addSubview(viewAll)
         title.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: topAnchor),
-            title.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.09),
+            title.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.09),
             title.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 10),
             title.widthAnchor.constraint(equalTo: widthAnchor,multiplier: 0.7)
         ])
         
         NSLayoutConstraint.activate([
-            viewAllButton.topAnchor.constraint(equalTo: topAnchor),
-            viewAllButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.07),
-            viewAllButton.leadingAnchor.constraint(equalTo: title.trailingAnchor),
-            viewAllButton.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
+            viewAll.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            viewAll.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.07),
+            viewAll.leadingAnchor.constraint(equalTo: title.trailingAnchor),
+            viewAll.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -10)
         ])
     }
     
@@ -102,35 +122,38 @@ class SpecialistView: UIView {
 }
 
 
-extension SpecialistView : UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout{
+extension SpecialistView : UICollectionViewDataSource ,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate{
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SpecialistCell.identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SpecialistCell.identifier, for: indexPath) as! SpecialistCell
+        
+        cell.departmentName.text = "\(departmentData[indexPath.row].departmentName)"
+        cell.departmentImage.image = UIImage(named: "\(departmentData[indexPath.row].departmentName)")
         
         
         return cell
     }
    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (collectionView.bounds.width / 2.2) - 20
-        let cellHeight = collectionView.frame.height - 20
+        let cellWidth = (width / 2.2) - 20
+        let cellHeight = height * 0.8
         
             return CGSize(width: cellWidth, height:cellHeight)
     }
     
 
-    
-    @objc func viewAllSpecialist(){
-        print("button")
-        let vc = PatientSearchController(patient: patient)
-        vc.searchField.placeholder = "Enter department Name"
-        viewController?.navigationController?.pushViewController(vc, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = ViewDepartment(patient: self.patient)
+        viewController.department = departmentData[indexPath.row].departmentName
+        self.viewController?.navigationController?.pushViewController(viewController, animated: false)
     }
+    
+   
     
     
    
