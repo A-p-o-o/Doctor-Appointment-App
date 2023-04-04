@@ -28,7 +28,7 @@ class Storage {
     
     var reportsList      : [ String : [Report] ]
     
-    var appointmentList  : [ String : [Appointment] ]
+    var appointmentList  : [ String : Appointment]
     
     var BillList         : [ String : [Bill] ]
     
@@ -44,7 +44,7 @@ class Storage {
         self.patientList      = [ String : Patient ]()
         self.visitorList      = [ String : [Visitor]]()
         self.reportsList      = [ String : [Report] ]()
-        self.appointmentList  = [ String : [Appointment] ]()
+        self.appointmentList  = [ String : Appointment]()
         self.BillList         = [ String : [Bill] ]()
         self.reviewList       = [ String : [Review] ]()
         
@@ -70,9 +70,12 @@ class Storage {
         }
     }
     
+    
     func availDoc(){
         
-        doctorList["D1"] = Doctor(userName: "Doc", password: "Doc", UserId: "Doc", employeeId: "D1", dateJoined: Date(), education: "Doc", role: .Doctor, name: "Doc", phoneNumber: "Doc", sex: .Male, mail: "Doc", address: "Doc", department: .Neurologist, experience: 23,languagesKnown: "english",appointmentFee: 300,image: "MaleDoctor1")
+         patientList["P1"] = Patient(userName: "", password: "", UserId: "userId", role: .Patient, name: "Steve Rogers", phoneNumber: "8452984578", sex: .Male, mail: "mail@gmail.com", address: "hd,d,dh,fjd", patientId: "P1", weight: 89, height: 182, AllergyTo: "None")
+
+        doctorList["D1"] = Doctor(userName: "Doc", password: "Doc", UserId: "doctorId", employeeId: "D1", dateJoined: Date(), education: "Doc", role: .Doctor, name: "Doc", phoneNumber: "Doc", sex: .Male, mail: "Doc", address: "Doc", department: .Neurologist, experience: 23,languagesKnown: "english",appointmentFee: 300,image: "MaleDoctor1")
         
         doctorList["D2"] = Doctor(userName: "Naveen kumar Dugar", password: "Doc", UserId: "Doc", employeeId: "D2", dateJoined: Date(), education: "Doc", role: .Doctor, name: "Naveen Kumar Duagar", phoneNumber: "Doc", sex: .Male, mail: "Doc", address: "Doc", department: .Cardiologist, experience: 2,languagesKnown: "english",appointmentFee: 300,image: "MaleDoctor2")
         

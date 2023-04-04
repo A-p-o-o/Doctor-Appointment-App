@@ -42,15 +42,5 @@ struct UserDAO{
     }
     
     
-//    func isIdConnected(connectedId : String)->Bool{
-//
-//        let allUsers = Array(Storage.storage.userDetails.values)
-//
-//        for user in allUsers{
-//            if user.connectedId ==
-//
-//
-//        }
-//        return false
-//    }
+
 }

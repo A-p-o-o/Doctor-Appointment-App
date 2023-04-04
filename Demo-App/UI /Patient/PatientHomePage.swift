@@ -95,7 +95,7 @@ class PatientHomePage: UIViewController {
         setSymptomsView()
         setSpecialist()
         setDoctors()
-        setArticles()
+       // setArticles()
         
         findDoctors.patient = self.patient
        
@@ -158,12 +158,6 @@ class PatientHomePage: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
         
-//        if #available(iOS 14.0, *) {
-//                    let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow })
-//                    let statusBarHeight = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-//                    additionalSafeAreaInsets = UIEdgeInsets(top: -statusBarHeight, left: 0, bottom: 0, right: 0)
-//                }
-            
     }
     
     
@@ -214,7 +208,7 @@ class PatientHomePage: UIViewController {
             profileImageView.widthAnchor.constraint(equalToConstant: (topViewheight - 20)),
             profileImageView.heightAnchor.constraint(equalToConstant: topViewheight - 20),
             profileImageView.leadingAnchor.constraint(equalTo: TopView.leadingAnchor,constant: heightSpacing),
-            profileImageView.topAnchor.constraint(equalTo: TopView.topAnchor,constant: heightSpacing)
+            profileImageView.centerYAnchor.constraint(equalTo: TopView.centerYAnchor)
         ])
         
         profileImageView.layer.cornerRadius = (topViewheight - 20) / 2

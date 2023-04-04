@@ -52,7 +52,7 @@ class DoctorProfileController: UIViewController {
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "image6")
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .white
         imageView.layer.cornerRadius = 0.4 * min(imageView.bounds.width, imageView.bounds.height)
         imageView.layer.masksToBounds = true
@@ -387,6 +387,13 @@ class DoctorProfileController: UIViewController {
         scrollView.addSubview(middleView)
         scrollView.addSubview(bottomView)
         
+        if isFavourite {
+            favouriteView.favouritebutton.setImage(UIImage(systemName: "heart.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal), for: .normal)
+        }
+        else {
+            favouriteView.favouritebutton.setImage(UIImage(systemName: "heart")?.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
+        }
+        
         view.addSubview(bookAppointmentButton)
         
         scrollView.delegate = self
@@ -422,7 +429,7 @@ class DoctorProfileController: UIViewController {
             favouriteView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor,constant: -Viewheight * 0.2*0.3)
         ])
         favouriteView.layer.cornerRadius = (Viewheight * 0.05)/2
-        favouriteView.favouritebutton.isSelected = isFavourite
+       // favouriteView.favouritebutton.isSelected = isFavourite
         favouriteView.favouritebutton.addTarget(self, action: #selector(favouriteButtonTapped(_:)), for: .touchUpInside)
         
         
@@ -583,14 +590,15 @@ class DoctorProfileController: UIViewController {
         
         if !isFavourite{
            patient.addTofavourites(doctor: doctor)
+//            
+//            let alert = UIAlertController(title: "Favourite Added", message: "This Doctor has been added to your favourites.", preferredStyle: .actionSheet)
+//            present(alert, animated: true, completion: nil)
+//            
+//            let time = DispatchTime.now() + 0.7
+//            DispatchQueue.main.asyncAfter(deadline: time) {
+//                alert.dismiss(animated: true, completion: nil)
+//            }
             
-            let alert = UIAlertController(title: "Favourite Added", message: "This Doctor has been added to your favourites.", preferredStyle: .actionSheet)
-            present(alert, animated: true, completion: nil)
-            
-            let time = DispatchTime.now() + 0.7
-            DispatchQueue.main.asyncAfter(deadline: time) {
-                alert.dismiss(animated: true, completion: nil)
-            }
             sender.setImage(UIImage(systemName: "heart.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal), for: .normal)
             
         }

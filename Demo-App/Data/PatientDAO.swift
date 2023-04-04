@@ -17,6 +17,17 @@ struct PatientDAO{
       return  Storage.storage.patientList[patientId]
     }
     
+    func getPatient(userId : String)->Patient?{
+        let allPatients = Array(Storage.storage.patientList.values)
+        
+        for patient in allPatients{
+            if(patient.UserId.caseInsensitiveCompare(userId) == .orderedSame){
+                return patient
+            }
+        }
+        return nil
+    }
+    
     func updatePatient(patient : Patient){
         Storage.storage.patientList[patient.patientId] = patient
     }

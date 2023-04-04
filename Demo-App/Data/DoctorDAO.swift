@@ -14,6 +14,17 @@ struct DoctorDAO{
         Storage.storage.doctorList[doctor.employeeId] = doctor
     }
     
+    func getDoctor(userId : String)->Doctor?{
+        let allDoctors = Array(Storage.storage.doctorList.values)
+        
+        for doctor in allDoctors{
+            if(doctor.UserId.caseInsensitiveCompare(userId) == .orderedSame){
+                return doctor
+            }
+        }
+        return nil
+    }
+    
     func getDoctor(doctorId : String )->Doctor?{
         return Storage.storage.doctorList[doctorId]
     }

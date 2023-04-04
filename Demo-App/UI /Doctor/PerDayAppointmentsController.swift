@@ -1,29 +1,35 @@
 //
-//  ViewAppointments.swift
+//  PerDayAppointmentsController.swift
 //  Demo-App
 //
-//  Created by deepak-pt6306 on 21/03/23.
+//  Created by deepak-pt6306 on 03/04/23.
 //
 
 import UIKit
 
-class ViewAppointments: UIViewController {
+class PerDayAppointmentsController: UIViewController {
     
-    let doctor : Doctor
+    var userName : String? = nil
     
-    var appointments: (upcoming :[String : [Appointment]] ,completed : [String : [Appointment]],cancelled: [Appointment]) {
-        doctor.appointments
+    var doctor : Doctor {
+        userDetails.getDoctor(userId: userName!)!
     }
     
-    var upcomingDays : [String] {
-       return Array(appointments.upcoming.keys).sorted(by: >)
-    }
+    private let userDetails : UserDetails = UserDetails()
     
-    var completedDays : [String] {
-        return Array(appointments.completed.keys).sorted(by: >)
-     }
-   
-   lazy var data : [String] = upcomingDays
+    var selectedDate : String? = nil
+    
+    var OnlineAppointments: [Appointment]? = nil
+    var offlineAppointmernts : [Appointment]? = nil
+    
+     var data : [Appointment]? = nil
+    
+    func updatedata(userName : String,selectedDate : String,onlineAppointments : [Appointment],offlineAppointmernts : [Appointment]){
+        self.userName = userName
+        self.selectedDate = selectedDate
+        self.OnlineAppointments = onlineAppointments
+        self.offlineAppointmernts = offlineAppointmernts
+    }
     
     let myTitle : UILabel = {
         let label = UILabel()
@@ -37,23 +43,16 @@ class ViewAppointments: UIViewController {
         return label
     }()
     
-    let upcomingAndCompleted : UISegmentedControl = {
-        let segment = UISegmentedControl(items: ["Up Coming","Completed"])
+    let OfflineAndOnline : UISegmentedControl = {
+        let segment = UISegmentedControl(items: ["Offline","Online"])
         segment.translatesAutoresizingMaskIntoConstraints = false
         segment.selectedSegmentTintColor = .systemBlue
         return segment
     }()
     
     let appointmentsTable = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+   
     
-    init(doctor : Doctor){
-        self.doctor = doctor
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,15 +61,25 @@ class ViewAppointments: UIViewController {
         setTitle()
         setSegement()
         setTable()
-        upcomingAndCompleted.selectedSegmentIndex = 0
+        OfflineAndOnline.selectedSegmentIndex = 0
         appointmentsTable.backgroundColor = .clear
         orientationChanged()
+        
+        myTitle.text = selectedDate!
+        data = offlineAppointmernts
     }
     
     override func viewDidAppear(_ animated: Bool) {
         appointmentsTable.reloadData()
     }
-   
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.navigationController?.navigationBar.isHidden = true
+       // navigationController?.navigationBar.isHidden = true
+       // tabBarController?.tabBar.isHidden = false
+        
+        navigationController?.navigationBar.tintColor = .black
+    }
     
     lazy var Viewheight = view.frame.height < view.frame.width ? view.frame.width : view.frame.height
     lazy var viewWidth = view.frame.width > view.frame.height ? view.frame.height : view.frame.width
@@ -114,17 +123,17 @@ class ViewAppointments: UIViewController {
     
     
     func setSegement(){
-        view.addSubview(upcomingAndCompleted)
+        view.addSubview(OfflineAndOnline)
         let height = Viewheight * 0.04
         
         NSLayoutConstraint.activate([
-            upcomingAndCompleted.heightAnchor.constraint(equalToConstant: height),
-            upcomingAndCompleted.widthAnchor.constraint(equalTo: view.widthAnchor,constant:  -20),
-            upcomingAndCompleted.topAnchor.constraint(equalTo: myTitle.bottomAnchor),
-            upcomingAndCompleted.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            OfflineAndOnline.heightAnchor.constraint(equalToConstant: height),
+            OfflineAndOnline.widthAnchor.constraint(equalTo: view.widthAnchor,constant:  -20),
+            OfflineAndOnline.topAnchor.constraint(equalTo: myTitle.bottomAnchor),
+            OfflineAndOnline.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
-        upcomingAndCompleted.addTarget(self, action: #selector(segmentControlChanged), for: .valueChanged)
+        OfflineAndOnline.addTarget(self, action: #selector(segmentControlChanged), for: .valueChanged)
         
     }
     
@@ -142,7 +151,7 @@ class ViewAppointments: UIViewController {
         appointmentsTable.delegate = self
         
         NSLayoutConstraint.activate([
-            appointmentsTable.topAnchor.constraint(equalTo: upcomingAndCompleted.bottomAnchor,constant: 10),
+            appointmentsTable.topAnchor.constraint(equalTo: OfflineAndOnline.bottomAnchor,constant: 10),
             appointmentsTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             appointmentsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             appointmentsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -156,12 +165,12 @@ class ViewAppointments: UIViewController {
         
         data = []
         
-        if upcomingAndCompleted.selectedSegmentIndex == 0 {
-           data = upcomingDays
+        if OfflineAndOnline.selectedSegmentIndex == 0 {
+           data = offlineAppointmernts
             appointmentsTable.reloadData()
         }
         else {
-            data = completedDays
+            data = OnlineAppointments
             appointmentsTable.reloadData()
         }
         
@@ -172,13 +181,13 @@ class ViewAppointments: UIViewController {
 }
 
 
-extension ViewAppointments : UICollectionViewDataSource {
+extension PerDayAppointmentsController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if upcomingAndCompleted.selectedSegmentIndex == 0 {
-            return data.count
+        if OfflineAndOnline.selectedSegmentIndex == 0 {
+            return data?.count ?? 0
         }
         else {
-            return data.count
+            return data?.count ?? 0
         }
     }
     
@@ -186,11 +195,18 @@ extension ViewAppointments : UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateAndPatientsCell.identifier, for: indexPath) as! DateAndPatientsCell
         
-        if upcomingAndCompleted.selectedSegmentIndex == 0 {
+        cell.leftTitleLabel.text = data![indexPath.row].patientName
+        
+        if OfflineAndOnline.selectedSegmentIndex == 0 {
+            cell.rightTitleLabel.text = "Offline"
+            cell.rightTitleLabel.textColor = .red
+            cell.rightImageView.image = UIImage(named: "circle.fill")?.withTintColor(.red, renderingMode: .alwaysOriginal)
             
-            cell.leftTitleLabel.text = upcomingDays[indexPath.row]
-            cell.rightTitleLabel.text = "\(appointments.upcoming[upcomingDays[indexPath.row]]?.count ?? 0) Appointments"
-            
+        }
+        else {
+            cell.rightTitleLabel.text = "Online"
+            cell.rightTitleLabel.textColor = .green
+            cell.rightImageView.image = UIImage(named: "circle.fill")?.withTintColor(.green, renderingMode: .alwaysOriginal)
         }
         
         
@@ -200,7 +216,7 @@ extension ViewAppointments : UICollectionViewDataSource {
     
 }
 
-extension ViewAppointments : UICollectionViewDelegateFlowLayout{
+extension PerDayAppointmentsController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = Viewheight * 0.07
@@ -209,24 +225,13 @@ extension ViewAppointments : UICollectionViewDelegateFlowLayout{
     }
 }
 
-extension ViewAppointments : UICollectionViewDelegate{
+extension PerDayAppointmentsController : UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if upcomingAndCompleted.selectedSegmentIndex == 0 {
+        if OfflineAndOnline.selectedSegmentIndex == 1 {
             
-            let viewController = PerDayAppointmentsController()
-            
-            let date : String = data[indexPath.row]
-            let onlineAppointments : [Appointment] = {
-                (appointments.upcoming[date]?.filter({$0.type == .Online}))!
-            }()
-            
-            let offlineAppointments : [Appointment] = {
-                (appointments.upcoming[date]?.filter({$0.type == .Offline}))!
-            }()
-            
-            viewController.updatedata(userName: doctor.UserId, selectedDate: date, onlineAppointments: onlineAppointments, offlineAppointmernts: offlineAppointments)
+            let viewController = AppointmentPatientDetailsController()
             navigationController?.pushViewController(viewController, animated: true)
         }
         else {

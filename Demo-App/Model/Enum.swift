@@ -17,6 +17,14 @@ enum Role {
 
 enum Sex{
     case Male,Female,NonBinary
+    
+    var name : String {
+        switch self {
+        case .Male : return "Male"
+        case .Female : return "Female"
+        case .NonBinary : return "Non Binary"
+        }
+    }
 }
 
 enum Department{
@@ -66,7 +74,20 @@ enum Department{
     }
 }
 
+enum AppointmentType : Equatable {
+    case Online,Offline
+}
 
+enum AppointmentStatus : Equatable{
+    case upcoming,completed,missed,doctorCancelled(reason:String),patientCancelled(reason:String)
+
+    var cancellationReason: String? {
+        switch self {
+        case .doctorCancelled(let reason ) ,.patientCancelled(let reason): return reason
+        default : return nil
+        }
+    }
+}
 
 enum Slot : Equatable{
     case slot(number : Int, time : Time, isBooked : Bool = false)

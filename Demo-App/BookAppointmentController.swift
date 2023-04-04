@@ -9,6 +9,8 @@ import UIKit
 
 class BookAppointmentController: UIViewController {
     
+    let genders : [String] = ["Male","Female","Non Binary"]
+    
     let doctor : Doctor
     let patient : Patient
     let starTime : String
@@ -128,17 +130,18 @@ class BookAppointmentController: UIViewController {
     
     let appointmentForWhoLabel : UIButton = {
         let button = UIButton()
-        button.configuration = .filled()
-        button.configuration?.baseBackgroundColor = UIColor(named: "book")
-        button.configuration?.baseForegroundColor = .white
+        button.configuration = .borderedProminent()
+        button.configuration?.baseBackgroundColor = .clear
+        button.configuration?.baseForegroundColor = .black
         button.setTitle("Myself", for: .normal)
-        button.setImage(UIImage(named: "chevron.down"), for: .normal)
+        button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
         
         let buttonFont: UIFont = .systemFont(ofSize: 25, weight: .semibold)
         let fontMetrics = UIFontMetrics(forTextStyle: .headline)
         button.titleLabel?.font = fontMetrics.scaledFont(for: buttonFont)
         button.titleLabel?.adjustsFontForContentSizeCategory = true
-        button.titleLabel?.numberOfLines = 1
+        button.titleLabel?.textAlignment = .left
         button.titleLabel?.lineBreakMode = .byWordWrapping
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -147,7 +150,7 @@ class BookAppointmentController: UIViewController {
     
     let appointmentforWhoImage : UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "chevron.down")
+        imageView.image = UIImage(systemName: "chevron.down")
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -189,6 +192,7 @@ class BookAppointmentController: UIViewController {
         textView.layer.cornerRadius = 10
 //        textView.layer.borderWidth = 1
 //        textView.layer.borderColor = UIColor.black.cgColor
+        textView.font = UIFont.systemFont(ofSize: 20)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor =  UIColor(named: "field_inactive")
         return textView
@@ -339,6 +343,7 @@ class BookAppointmentController: UIViewController {
         return label
     }()
     
+  let genderPickerView = UIPickerView()
     
     
     override func viewDidLoad() {
@@ -357,6 +362,8 @@ class BookAppointmentController: UIViewController {
         navigationController?.navigationBar.isHidden = false 
         
         tabBarController?.tabBar.isHidden = true
+        addTargets()
+        setPickerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -382,6 +389,12 @@ class BookAppointmentController: UIViewController {
         
     }
     
+    
+    func setPickerView(){
+        
+        genderPickerView.delegate = self
+        genderPickerView.dataSource = self
+    }
     
     
     func calculateRemainingTime(){
@@ -487,6 +500,25 @@ class BookAppointmentController: UIViewController {
         setConstrains()
     }
     
+    func addTargets(){
+        let tapgesture1 = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        let tapgesture2 = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        let tapgesture3 = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        let tapgesture4 = UITapGestureRecognizer(target: self, action: #selector(endEditing))
+        
+        doctorInformationView.isUserInteractionEnabled = true
+        patientDetailsView.isUserInteractionEnabled = true
+        bookingView.isUserInteractionEnabled = true
+        reasonView.isUserInteractionEnabled = true
+        
+        doctorInformationView.addGestureRecognizer(tapgesture1)
+        patientDetailsView.addGestureRecognizer(tapgesture2)
+        bookingView.addGestureRecognizer(tapgesture3)
+        reasonView.addGestureRecognizer(tapgesture4)
+    }
+    
+    
+    
     
     func setConstrains(){
         
@@ -558,9 +590,11 @@ class BookAppointmentController: UIViewController {
         NSLayoutConstraint.activate([
             appointmentForWhoLabel.topAnchor.constraint(equalTo: appointmentForWhoLabelTitle.bottomAnchor,constant: heightSpacing/2),
             appointmentForWhoLabel.leadingAnchor.constraint(equalTo: patientDetailsView.leadingAnchor,constant: 10),
-            appointmentForWhoLabel.widthAnchor.constraint(equalToConstant: viewWidth / 0.7),
+            appointmentForWhoLabel.widthAnchor.constraint(equalToConstant: viewWidth * 0.4),
             appointmentForWhoLabel.heightAnchor.constraint(equalToConstant: Viewheight * 0.03)
         ])
+        
+       
         
 
         
@@ -603,6 +637,12 @@ class BookAppointmentController: UIViewController {
         
         setReasonView()
         
+    }
+    
+    @objc func endEditing(){
+        view.endEditing(true)
+        listOfPeopleTableView.isHidden = true
+        print("End Editing")
     }
     
     @objc func myselfClicked(){
@@ -756,16 +796,44 @@ class BookAppointmentController: UIViewController {
     }
     
     
+    func setkeyboard(textfield : UITextField){
+        textfield.returnKeyType = .done
+        switch textfield.tag{
+        case 0 : textfield.keyboardType = .default
+        case 1 : textfield.keyboardType = .numberPad
+        case 2 : textfield.keyboardType = .emailAddress
+        case 3 : textfield.keyboardType = .numberPad
+        case 4 : textfield.keyboardType = .default
+            textfield.inputView = genderPickerView
+        default : textfield.keyboardType = .default
+        }
+    }
+    
     @objc func confirm(){
         
-        let _ = patient.createAppointment(doctor: doctor, date: formatDate(date: date), slot: .slot(number: slotNo, time: .time(start: starTime, end: endTime)))
+        let type : AppointmentType = .Offline
         
         for index in 0..<detailsStackView.arrangedSubviews.count {
             let labelAndField = detailsStackView.arrangedSubviews[index] as! LabelAndField
             patientDetails[details[index]] = labelAndField.textField.text
         }
         patientDetails["Reason"] = reasonForAppointment.text
-        print(patientDetails)
+        
+        if detailsStackView.arrangedSubviews.count == 0 {
+            let _ = patient.createAppointment(patientName: patient.name, patientMobileNumber: patient.phoneNumber, email: patient.mail, age: patient.age!, gender: patient.sex, reason: reasonForAppointment.text, doctor: doctor, date: formatDate(date: date), slot: .slot(number: slotNo, time: .time(start: starTime, end: endTime)),type: type)
+        }
+        else {
+            let name = patientDetails["Name"]!
+            let mobileNumber = patientDetails["Phone Number"]!
+            let mail  = patientDetails["E-mail"]!
+            let age  = Int(patientDetails["Age"]!) ?? 0
+            let gender : Sex = patientDetails["Gender"]! == "male" ? .Male : .Female
+            let reason = patientDetails["Reason"]!
+
+            
+            let _ = patient.createAppointment(patientName: name, patientMobileNumber: mobileNumber, email: mail, age: age, gender: gender, reason: reason, doctor: doctor, date: formatDate(date: date), slot: .slot(number: slotNo, time: .time(start: starTime, end: endTime)),type: type)
+        }
+        
         
         let viewController = BookingConfirmedController()
         viewController.presentedByController = self
@@ -815,8 +883,9 @@ extension BookAppointmentController: UITableViewDataSource, UITableViewDelegate 
                 ])
                 
                 labelAndField.textField.delegate = self
-                labelAndField.textField.tag = index
+                labelAndField.textField.tag = index - 1
                 detailsStackView.addArrangedSubview(labelAndField)
+                setkeyboard(textfield: labelAndField.textField)
                 labelAndField.sizeToFit()
             }
         }
@@ -855,10 +924,16 @@ extension BookAppointmentController : UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         active(textField)
+        textField.becomeFirstResponder()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         inActive(textField)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+       return true
     }
 }
 
@@ -870,6 +945,7 @@ extension BookAppointmentController : UITextViewDelegate{
         textView.layer.cornerRadius = 5
         textView.layer.borderColor = UIColor(named: "blue")?.cgColor
         textView.backgroundColor = .lightGray
+        
     }
     
     
@@ -879,3 +955,27 @@ extension BookAppointmentController : UITextViewDelegate{
     }
 }
 
+
+extension BookAppointmentController : UIPickerViewDelegate{
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return genders[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        guard let view =   detailsStackView.arrangedSubviews[4] as? LabelAndField else { return }
+        view.textField.text = genders[row]
+    }
+}
+
+extension BookAppointmentController : UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        genders.count
+    }
+    
+    
+}

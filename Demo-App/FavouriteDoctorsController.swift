@@ -63,6 +63,15 @@ class FavouriteDoctorsController: UIViewController ,UISearchResultsUpdating,UISe
         noResults.isHidden = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        collectionView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        filtered = favouriteDoctors
+        collectionView.reloadData()
+    }
+    
     func updateSearchResults(for searchController: UISearchController){
         
         guard let text = searchController.searchBar.text else {
@@ -142,7 +151,7 @@ extension  FavouriteDoctorsController : UICollectionViewDelegateFlowLayout,UICol
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
-                let doctor = favouriteDoctors[indexPath.row]
+                let doctor = filtered[indexPath.row]
                 let viewController = DoctorProfileController(doctor: doctor,patient: self.patient)
 
                 navigationController?.pushViewController(viewController, animated: true)

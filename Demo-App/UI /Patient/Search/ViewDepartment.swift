@@ -35,6 +35,7 @@ class ViewDepartment: UIViewController ,UISearchResultsUpdating,UISearchControll
         orientationChanged()
     }
     
+    
     func setSearchController(){
         title = department.uppercased()
         navigationController?.navigationBar.prefersLargeTitles = true

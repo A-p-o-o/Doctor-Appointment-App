@@ -53,13 +53,16 @@ struct Doctor : Employee,User,Equatable{
     
     var appointmentFee : Int
     
-    var appointments : (upcoming :[String : [Appointment]] ,completed : [String : [Appointment]]) {
+    var appointments : (upcoming :[String : [Appointment]] ,completed : [String : [Appointment]],cancelled: [Appointment]) {
         appointmentDAO.getAppointment(doctor: self)
     }
     
     var reviews : [ Review ]? {
         reviewDAO.getReviews(doctorId: employeeId)
     }
+    
+    
+    var MyPatients : [Patient] = []
     
     
     
@@ -139,6 +142,18 @@ struct Doctor : Employee,User,Equatable{
     
     func viewPatientReport(patientId : String)->[Report]?{
         reportDAO.getReports(patientId: patientId)
+    }
+    
+    func cancelAppointment(appointment : Appointment,reason : String)->Bool{
+        var cancelledAppointment = appointment
+        cancelledAppointment.status = .patientCancelled(reason: reason)
+        return  appointmentDAO.cancelAppointment(byPatient: cancelledAppointment)
+    }
+    
+    func attendAppointment(appointment : Appointment){
+        var attendedAppointment = appointment
+        attendedAppointment.status = .completed
+        appointmentDAO.updateAppointment(appointment: attendedAppointment)
     }
     
     func changeSlot(date : Date,slots : [Slot]){

@@ -1,6 +1,6 @@
 import UIKit
 
-class EditPatientDetailsController: UIViewController {
+class EditPatientProfileController: UIViewController {
     
     
     let patient : Patient
@@ -185,7 +185,7 @@ class EditPatientDetailsController: UIViewController {
     }
 }
 
-extension EditPatientDetailsController : UITextFieldDelegate {
+extension EditPatientProfileController : UITextFieldDelegate {
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

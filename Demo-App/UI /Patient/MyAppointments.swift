@@ -11,7 +11,7 @@ class MyAppointments: UIViewController {
     
     let patient : Patient?
     
-    var appointments: (upcoming:[Appointment],completed : [Appointment])  {
+    var appointments: (upcoming:[Appointment],completed : [Appointment],cancelled: [Appointment])  {
         patient!.viewAppointment()
     }
     
@@ -132,6 +132,13 @@ class MyAppointments: UIViewController {
     
     @objc func segmentControlChanged(){
         appointmentsTable.reloadData()
+        
+        if upcomingAndCompleted.selectedSegmentIndex == 0 {
+            data = appointments.upcoming
+        }
+        else {
+            data = appointments.completed
+        }
     }
     
     
@@ -163,6 +170,15 @@ extension MyAppointments : UITableViewDataSource{
             
         }
         
+        else {
+            
+                let appointment = appointments.upcoming[indexPath.row]
+                cell.doctorName.text = "Dr. \(appointment.doctor.name)   \(appointment.doctor.department.departmentName)"
+                cell.time.text = " \(dateFormat(date: appointment.date))"
+                cell.doctorImage.image = UIImage(named: appointment.doctor.image)
+                
+        }
+        
         return cell
     }
     
@@ -175,12 +191,15 @@ extension MyAppointments : UITableViewDelegate {
         
         
         if upcomingAndCompleted.selectedSegmentIndex == 0 {
-            print("Selected")
             let viewController = AppointmentDetailsController(appointment: appointments.upcoming[indexPath.row], patient: self.patient!)
+            
             navigationController?.pushViewController(viewController, animated: true)
         }
         else {
-           print("Completed")
+            let viewController = AppointmentDetailsController(appointment: appointments.completed[indexPath.row], patient: self.patient!)
+            viewController.appointmentTimeRemainingLabel.isHidden = true
+            viewController.cancelView.isHidden = true
+            navigationController?.pushViewController(viewController, animated: true)
         }
     }
 }

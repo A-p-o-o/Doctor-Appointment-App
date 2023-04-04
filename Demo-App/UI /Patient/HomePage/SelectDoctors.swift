@@ -144,7 +144,7 @@ class SelectDoctors: UIView {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         
         if !cell.isFavourite {
-            buttonTapped()
+           //buttonTapped()
             patient?.addTofavourites(doctor: doctorData[indexPath.row])
         }
         else {

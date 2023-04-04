@@ -23,15 +23,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               
                 let doctordao = DoctorDAO()
         let doc = doctordao.getDoctor(doctorId: "D1")
-        let patient = Patient(userName: "deepak", password: "", UserId: "", role: .Admin, name: "Arnold", phoneNumber: "", sex: .Female, mail: "", address: "", patientId: "", weight: 2, height: 2, AllergyTo: "")
-      let d = doc!.getAvailableDates()
-        let app = Appointment(patientId: patient.patientId, patientName: patient.patientId, patientMobileNumber: patient.patientId, doctor: doc!, date: Date(), slot: .slot(number: 1, time: .time(start: "", end: "")))
+        let patient = Patient(userName: "deepak", password: "", UserId: "", role: .Admin,bloodGroup: .O_positive,dateOfBirth: Date(), name: "Arnold", phoneNumber: "", sex: .Female, mail: "", address: "", patientId: "", weight: 2, height: 2, AllergyTo: "")
+        let d = doc!.getAvailableDates()
         
+        patient.createAppointment(patientName: "Arnold", patientMobileNumber: "", email: "", age: 1, gender: .Female, reason: "", doctor: doc!, date: Date(), slot: .slot(number: 1, time: .time(start: "", end: "")),type: .Offline)
+        patient.createAppointment(patientName: "Joseph", patientMobileNumber: "", email: "", age: 1, gender: .Female, reason: "", doctor: doc!, date: Date(), slot: .slot(number: 2, time: .time(start: "", end: "")),type: .Online)
         
         let rootViewController = PatientTabBarController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+                
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

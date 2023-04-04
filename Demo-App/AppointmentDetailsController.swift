@@ -38,9 +38,11 @@ class AppointmentDetailsController: UIViewController {
             self.patient = patient
             self.starTime = appointment.getTime().start
             self.endTime = appointment.getTime().end
-            self.date = dateFormat(date: appointment.getdate()!)
+            self.date = dateFormat(date: appointment.date)
             self.appointment = appointment
-            self.slotNo = -1
+            self.slotNo = appointment.slot.number
+            
+            print(appointment.date)
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -291,6 +293,25 @@ class AppointmentDetailsController: UIViewController {
             button.translatesAutoresizingMaskIntoConstraints = false
             return button
         }()
+    
+    
+    let attendButton : UIButton = {
+        let button = UIButton()
+        button.configuration = .filled()
+        button.configuration?.baseBackgroundColor = .green
+        button.configuration?.baseForegroundColor = .white
+        button.setTitle("Attend Appointment", for: .normal)
+        
+        let buttonFont: UIFont = .systemFont(ofSize: 25, weight: .semibold)
+        let fontMetrics = UIFontMetrics(forTextStyle: .headline)
+        button.titleLabel?.font = fontMetrics.scaledFont(for: buttonFont)
+        button.titleLabel?.adjustsFontForContentSizeCategory = true
+        button.titleLabel?.numberOfLines = 1
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
         
       
         
@@ -359,7 +380,7 @@ class AppointmentDetailsController: UIViewController {
 
         
         let calendar = Calendar.current
-        let components = calendar.dateComponents([.day, .hour, .minute], from: Date(), to: date!)
+        let components = calendar.dateComponents([.day, .hour, .minute], from: Date(), to: formatDate(date: self.date))
 
         let day = String(format: "%02d", components.day ?? "00")
         let hour = String(format: "%02d", components.hour ?? "00")
@@ -368,7 +389,7 @@ class AppointmentDetailsController: UIViewController {
        let d =  day == "00" ?  "" : "\(day)d"
        let h =  hour == "00" ? "" : "\(hour)h"
        let m =  minutes == "00" ? "" : "\(minutes)m"
-        print("day :",d,"hour :",h,"Minutes :",m)
+        
         
        
         appointmentTimeRemainingLabel.text = "Starts In : \(d) \(h) \(m)"
@@ -570,7 +591,9 @@ class AppointmentDetailsController: UIViewController {
                 detailsStackView.trailingAnchor.constraint(equalTo: patientDetailsView.trailingAnchor,constant: -10),
             ])
             
-            let details : [String] = ["Name  :\(self.appointment?.patientName ?? "None")","gender : Male ","Age : 27","Phone Number : \( appointment?.patientMobileNumber ?? "None")","Mail : uyweyufuy@gmail.com","Reason : i haven't feeling well lately i haven't feeling well lately i haven't feeling well lately i haven't feeling well lately i haven't feeling well lately i haven't feeling well lately"]
+            let gender : String = appointment!.gender.name
+            
+            let details : [String] = ["Name  :\(self.appointment!.patientName)","gender : \(gender)","Age : \(appointment!.age)","Phone Number : \( appointment!.patientMobileNumber)","Mail :\(appointment!.email)","Reason : \(appointment!.reason)"]
             
             for i in 0..<details.count {
                 
@@ -683,14 +706,18 @@ class AppointmentDetailsController: UIViewController {
         
         let okAction = UIAlertAction(title: "OK", style: .destructive) {
             _ in
-          let _ =   self.patient.cancelAppointment(appointment: self.appointment!)
+          let _ =   self.patient.cancelAppointment(appointment: self.appointment!,reason: "reason")
             self.navigationController?.popToRootViewController(animated: true)
             
             
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let reSchedule = UIAlertAction(title: "Re-Schedule", style: .default)
+        let reSchedule = UIAlertAction(title: "Re-Schedule", style: .default){
+             _ in
+            self.patient.attendAppointment(appointment: self.appointment!)
+            self.navigationController?.popToRootViewController(animated: false)
+        }
         alertController.addAction(okAction)
         alertController.addAction(reSchedule)
         alertController.addAction(cancelAction)

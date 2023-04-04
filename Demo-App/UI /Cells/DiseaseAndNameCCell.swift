@@ -17,7 +17,7 @@ class DiseaseAndNameCCell: UICollectionViewCell {
         imageview.backgroundColor = .white
         imageview.contentMode = .scaleAspectFit
         imageview.clipsToBounds = true
-        imageview.layer.cornerRadius = imageview.frame.width / 2 // Make the image view circular
+        imageview.layer.cornerRadius = imageview.frame.width / 2
         imageview.clipsToBounds = true
         imageview.translatesAutoresizingMaskIntoConstraints = false
         return imageview

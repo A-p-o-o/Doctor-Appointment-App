@@ -20,7 +20,7 @@ struct Patient : Person,User{
     var role: Role
     
     var age: Int? {
-        Int(Date().timeIntervalSince(dateOfBirth!)/(86400*365))
+        Int(Date().timeIntervalSince(dateOfBirth ?? Date())/(86400*365))
     }
     
     var bloodGroup: BloodGroup?
@@ -90,18 +90,27 @@ struct Patient : Person,User{
         return self
     }
     
-    func createAppointment(doctor: Doctor, date: Date,slot : Slot)->Bool{
+    func createAppointment(patientName: String, patientMobileNumber: String,email : String,age : Int,gender : Sex,reason : String, doctor: Doctor, date: Date, slot: Slot,type : AppointmentType)->Bool{
         
-        var appointment = Appointment(patientId: self.patientId, patientName: self.name, patientMobileNumber: self.phoneNumber,doctor: doctor, date: date, slot:slot )
-       return appointmentDAO.add(appointment: &appointment)
+        var appointment = Appointment(patientName: patientName, patientMobileNumber: patientMobileNumber, email: email, age: age, gender: gender, reason: reason, doctor: doctor, date: date, slot: slot, bookedBy: self,type: type)
+        appointment.status = .upcoming
+       return appointmentDAO.addAppointment(appointment: &appointment)
     }
     
-    func cancelAppointment(appointment : Appointment)->Bool{
-       return  appointmentDAO.cancelAppointment(appointment: appointment)
+    func cancelAppointment(appointment : Appointment,reason : String)->Bool{
+        var cancelledAppointment = appointment
+        cancelledAppointment.status = .patientCancelled(reason: reason)
+        return  appointmentDAO.cancelAppointment(byPatient: cancelledAppointment)
     }
     
-    func viewAppointment()->(upcoming:[Appointment] , completed:[Appointment]){
-       return appointmentDAO.getAppointment(patientId: patientId)
+    func attendAppointment(appointment : Appointment){
+        var attendedAppointment = appointment
+        attendedAppointment.status = .completed
+        appointmentDAO.updateAppointment(appointment: attendedAppointment)
+    }
+    
+    func viewAppointment()->(upcoming:[Appointment] , completed:[Appointment], cancelled: [Appointment]){
+        return appointmentDAO.getAppointment(patient: self)
     }
     
     func viewReports()->[Report]?{
