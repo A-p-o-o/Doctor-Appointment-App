@@ -14,7 +14,6 @@ class PrescribeMedicineController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.isHidden = false
        setNavigationBar()
        setViews()
         view.backgroundColor = UIColor(named: "background")

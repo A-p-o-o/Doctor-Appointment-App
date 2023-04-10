@@ -22,7 +22,7 @@ struct UserDAO{
     }
     
     func isUserIdExist(userId : String)->Bool{
-      return  Storage.storage.userDetails.contains(where: {$0.key.caseInsensitiveCompare(userId) == .orderedSame})
+      return  Storage.storage.userDetails.contains(where: {$0.key == userId})
     }
     
     func removeUser(userId : String){
@@ -30,6 +30,7 @@ struct UserDAO{
     }
     
     func getPassword(userId : String)->String?{
+        
        return Storage.storage.userDetails[userId]?.password
     }
     

@@ -13,7 +13,7 @@ class ResultDoctorCell: UICollectionViewCell{
     let profile : UIImageView = {
         let imageView = UIImageView()
          imageView.image = UIImage(named: "image6")
-         imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
 
          imageView.clipsToBounds = true
          imageView.translatesAutoresizingMaskIntoConstraints = false

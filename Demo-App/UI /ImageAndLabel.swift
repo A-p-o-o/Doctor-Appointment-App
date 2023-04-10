@@ -11,7 +11,7 @@ class ImageAndLabel: UIView {
 
     let imageView : UIImageView = {
         let imageview = UIImageView()
-        imageview.image = UIImage(named: "image")
+        imageview.image = UIImage(named: "noresults")
         imageview.contentMode = .redraw
         imageview.clipsToBounds = true
         imageview.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +25,7 @@ class ImageAndLabel: UIView {
         label.textColor = .black
         label.adjustsFontSizeToFitWidth = true
 
-        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         
         let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
         label.font = fontMetrics.scaledFont(for: label.font)

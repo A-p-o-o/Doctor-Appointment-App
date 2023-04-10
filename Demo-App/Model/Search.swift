@@ -43,6 +43,52 @@ struct Search{
         return (startTime,endTime,times.slotNo)
     }
     
+    func allAvailableDates()->[String]{
+        return doctorDao.getAvailableDates()
+    }
+    
+    func availableDoctorsOn(date : String,department : Department)->[Doctor]{
+        doctorDao.availableDoctorsOnDate(date: date, department: department)
+    }
+    
+    func availableTimefor(date : String,department : Department)->[String]{
+        let availableDoctors = availableDoctorsOn(date: date, department: department)
+        
+        var time : [String] = []
+        
+        for doctor in availableDoctors {
+            let availableSlots = doctorSlots(date: date , doctorId: doctor.employeeId)
+            
+            for slotsStartTime in availableSlots.start {
+                
+                if !time.contains(slotsStartTime){
+                    time.append(slotsStartTime)
+                }
+            }
+            
+        }
+        
+        let amTime = time.filter {
+            if $0.contains("AM"){
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        let pmTime = time.filter {
+            if $0.contains("PM"){
+                return true
+            }else {
+                return false
+            }
+        }
+        
+        time = amTime
+        time.append(contentsOf: pmTime)
+        return time
+    }
+ 
     func availableDoctorsOn(date : String,department : Department,time : String)->[Doctor]{
         var availableDoctors : [Doctor] = []
         
@@ -101,6 +147,15 @@ struct Search{
                 doctors.append(contentsOf: doctorDao.searchDepartment(department: department))
                 break
             }
+        }
+        return doctors
+    }
+    
+    func allDoctors()->[Doctor]{
+        var doctors : [Doctor] = []
+        
+        for department in Department.allCases{
+            doctors.append(contentsOf: doctorDao.searchDepartment(department: department))
         }
         return doctors
     }

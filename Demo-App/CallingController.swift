@@ -10,6 +10,22 @@ import UIKit
 class CallingController: UIViewController {
 
     
+    let appointment : Appointment
+    let patient : Patient
+    var presentedByController : UIViewController? = nil
+    
+    init(appointment: Appointment,userId : String) {
+        self.appointment = appointment
+
+            let user = UserDAO()
+            self.patient = (user.getUser(userId: userId) as! Patient)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let callerImage : UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "image6")
@@ -51,12 +67,9 @@ class CallingController: UIViewController {
         super.viewDidLoad()
 
         setViews()
-        navigationController?.navigationBar.isHidden = true
+       
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
-    }
+  
     
     func setViews (){
         
@@ -118,7 +131,12 @@ class CallingController: UIViewController {
     }
     
     @objc func callEnded(){
-        let viewController = PrescribeMedicineController()
-        navigationController?.pushViewController(viewController, animated: true)
+        
+        patient.attendAppointment(appointment: appointment)
+        
+        dismiss(animated: false)
+        
+        presentedByController?.navigationController?.popToRootViewController(animated: false)
+        
     }
 }

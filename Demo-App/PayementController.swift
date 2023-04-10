@@ -93,7 +93,7 @@ extension PayementController : UITableViewDataSource,UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: PaymentsCell.identifier, for: indexPath) as! PaymentsCell
         cell.paymentNameLabel.text = "Google Pay"
         cell.backgroundColor = .clear
-        cell.containerView.backgroundColor = .white
+        cell.containerView.backgroundColor = UIColor(named: "white")
         return cell
     }
     

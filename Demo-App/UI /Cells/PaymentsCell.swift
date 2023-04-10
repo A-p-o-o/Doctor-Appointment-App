@@ -40,7 +40,7 @@ class PaymentsCell: UITableViewCell {
     
     let containerView :  UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "white")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

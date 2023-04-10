@@ -27,7 +27,7 @@ class AvailableDates: UICollectionViewCell {
         let label = UILabel()
         label.text = "Info"
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontSizeToFitWidth = true
         return label
@@ -56,7 +56,7 @@ class AvailableDates: UICollectionViewCell {
        contentView.addSubview(titleLabel)
        contentView.addSubview(infoLabel)
        
-       backgroundColor = .white
+       backgroundColor = UIColor(named: "white")
        layer.shadowColor = UIColor(named: "shadow")?.cgColor
        layer.shadowOpacity = 0.7
        layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -66,7 +66,8 @@ class AvailableDates: UICollectionViewCell {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
        
        NSLayoutConstraint.activate([

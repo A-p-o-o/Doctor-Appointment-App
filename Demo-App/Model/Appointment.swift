@@ -22,9 +22,11 @@ struct Appointment : Equatable{
     let slot : Slot
     let type : AppointmentType
     var status : AppointmentStatus
+    let cost : Int
+    let bookedTime : Date
     let bookedBy : Patient
     
-    init( patientName: String, patientMobileNumber: String,email : String,age : Int,gender : Sex,reason : String, doctor: Doctor, date: Date, slot: Slot,bookedBy : Patient,type : AppointmentType) {
+    init( patientName: String, patientMobileNumber: String,email : String,age : Int,gender : Sex,reason : String, doctor: Doctor, date: Date, slot: Slot,bookedBy : Patient,type : AppointmentType,cost : Int,bookedTime : Date) {
         self.patientName = patientName
         self.patientMobileNumber = patientMobileNumber
         self.email = email
@@ -36,6 +38,8 @@ struct Appointment : Equatable{
         self.slot = slot
         self.type = type
         self.status = .upcoming
+        self.cost = cost
+        self.bookedTime = bookedTime
         self.bookedBy = bookedBy
     }
     

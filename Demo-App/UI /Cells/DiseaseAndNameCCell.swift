@@ -14,7 +14,7 @@ class DiseaseAndNameCCell: UICollectionViewCell {
     let imageView : UIImageView = {
         let imageview = UIImageView()
         imageview.image = UIImage(named: "fever")
-        imageview.backgroundColor = .white
+        imageview.backgroundColor = UIColor(named: "white")
         imageview.contentMode = .scaleAspectFit
         imageview.clipsToBounds = true
         imageview.layer.cornerRadius = imageview.frame.width / 2
@@ -60,7 +60,7 @@ class DiseaseAndNameCCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.shadowRadius = 5
          
-         contentView.backgroundColor = .white
+         contentView.backgroundColor = UIColor(named: "white")
          contentView.layer.cornerRadius = 10
         
         contentView.clipsToBounds = true

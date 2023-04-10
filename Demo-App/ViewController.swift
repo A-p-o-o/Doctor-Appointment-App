@@ -1,114 +1,118 @@
 //
-//  ViewController.swift
+//  AppointmentController.swift
 //  Demo-App
 //
-//  Created by deepak-pt6306 on 04/04/23.
+//  Created by deepak-pt6306 on 26/03/23.
 //
 
 import UIKit
-import UserNotifications
-
 
 class ViewController: UIViewController {
-   
-        let reminderTextField: UITextField = {
-            let textField = UITextField()
-            textField.placeholder = "Enter Reminder"
-            textField.borderStyle = .roundedRect
-            textField.translatesAutoresizingMaskIntoConstraints = false
-            return textField
-        }()
-        
-        let datePicker: UIDatePicker = {
-            let datePicker = UIDatePicker()
-            datePicker.datePickerMode = .dateAndTime
-            datePicker.minimumDate = Date()
-            datePicker.translatesAutoresizingMaskIntoConstraints = false
-            return datePicker
-        }()
-        
-        let repeatSegmentedControl: UISegmentedControl = {
-            let segmentedControl = UISegmentedControl(items: ["None", "Daily", "Custom"])
-            segmentedControl.selectedSegmentIndex = 0
-            segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-            return segmentedControl
-        }()
-        
-        let saveButton: UIButton = {
-            let button = UIButton(type: .system)
-            button.configuration = .filled()
-            button.configuration?.baseBackgroundColor = UIColor(named: "book")
-            button.setTitle("Save Reminder", for: .normal)
-            button.addTarget(ViewController.self, action: #selector(saveReminder), for: .touchUpInside)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            return button
-        }()
-        
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            view.backgroundColor = UIColor(named: "background")
-            title = "Create Reminder"
-            setupViews()
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(systemTimeDidChange), name: UIApplication.significantTimeChangeNotification, object: nil)
-        }
     
-    @objc func systemTimeDidChange() {
-        let currentTime = Date()
-        let calendar = Calendar.current
-        let currentHour = calendar.component(.hour, from: currentTime)
-        let currentMinute = calendar.component(.minute, from: currentTime)
-
-        let components = DateComponents(hour: currentHour, minute: currentMinute)
-        let minimumDate = calendar.date(byAdding: components, to: currentTime)
-           datePicker.minimumDate = minimumDate
-        datePicker.date = Date()
-       }
+    let genders : [String] = ["Male","Female","Non Binary"]
     
-        func setupViews() {
-            view.addSubview(reminderTextField)
-            view.addSubview(datePicker)
-            view.addSubview(repeatSegmentedControl)
-            view.addSubview(saveButton)
-            
-            NSLayoutConstraint.activate([
-                reminderTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-                reminderTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                reminderTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                reminderTextField.heightAnchor.constraint(equalToConstant: 44),
-                
-                datePicker.topAnchor.constraint(equalTo: reminderTextField.bottomAnchor, constant: 16),
-                datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                
-                repeatSegmentedControl.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 16),
-                repeatSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                repeatSegmentedControl.heightAnchor.constraint(equalToConstant: 30),
-                
-                saveButton.topAnchor.constraint(equalTo: repeatSegmentedControl.bottomAnchor, constant: 32),
-                saveButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                saveButton.heightAnchor.constraint(equalToConstant: 44),
-                saveButton.widthAnchor.constraint(equalToConstant: 150)
-            ])
-        }
+    
+    let options : [String] = ["Myself","Father","Mother","Brother","Sister","Others"]
+    let details : [String] = ["Name","Phone Number" , "E-mail", "Age" ,"Gender"]
+    var patientDetails : [String:String] = [:]
+    
+    var name : String? = nil
+    var mobileNumber : String? = nil
+    var mail : String? = nil
+    var age : Int? = nil
+    var gender : Sex? = nil
+    var reason : String? = nil
+    
+    
+    let scrollView = UIScrollView()
+    
+    
+    let createVertical = CreateVerticalView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        @objc func saveReminder() {
-            let content = UNMutableNotificationContent()
-            content.title = reminderTextField.text ?? ""
-            content.body = "Reminder"
-            
-            let triggerDate = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute,.second,], from: datePicker.date)
-            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
-            
-            let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
-            
-            let center = UNUserNotificationCenter.current()
-            center.add(request) { (error) in
-                if let error = error {
-                    print("Error scheduling notification: \(error)")
-                } else {
-                    print("Notification scheduled successfully.")
-                }
-            }
-        }
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+       setBackground()
+        setContainerViews()
+        setViews()
     }
+    
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    lazy var Viewheight = view.frame.height < view.frame.width ? view.frame.width : view.frame.height
+    lazy var viewWidth = view.frame.width > view.frame.height ? view.frame.height : view.frame.width
+    
+    var heightSpacing : CGFloat {  Viewheight * 0.02 }
+    var widthSpacing : CGFloat { viewWidth * 0.03 }
+    
+    let stackView = UIStackView()
+    
+    
+    func setBackground(){
+        view.backgroundColor = UIColor(named: "background")
+        
+    }
+    
+    func setContainerViews(){
+        view.addSubview(scrollView)
+        
+        scrollView.bounces = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,constant: -20),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,constant: -20)
+        ])
+        
+        scrollView.addSubview(stackView)
+        stackView.axis = .vertical
+        stackView.spacing = 20
+        stackView.distribution = .fill
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                    stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                    stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor)
+                ])
+    }
+    
+    func setViews(){
+        
+        
+        
+        let appointForView = createVertical.createView(leftSide: ["Appointment For","Myself"], rightSide: ["",""])
+        
+        stackView.addArrangedSubview(appointForView)
+        
+        
+        let left = ["Appointment Timing","Start Time","End Time","Date","Starts In"]
+        let right = ["","Start Time","End Time","Date","Starts In"]
+        
+        let appointmentTiming = createVertical.createView(leftSide: left, rightSide: right)
+        
+        stackView.addArrangedSubview(appointmentTiming)
+        
+//        let deLeft = ["Bill Details","Consultation Fee ","Tax"]
+//
+//        let billDetailsView = createVertical.createView(leftSide: deLeft, rightSide: deLeft)
+        
+       // stackView.addArrangedSubview(billDetailsView)
+        
+    }
+    
+    
+}

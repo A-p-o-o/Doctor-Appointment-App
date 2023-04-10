@@ -71,7 +71,7 @@ struct AppointmentDAO {
                 }
             }
         }
-        return (upcoming,completed,cancelled)
+        return (upcoming.sorted(by: { $0.bookedTime < $1.bookedTime }),completed.sorted(by: { $0.bookedTime < $1.bookedTime }),cancelled.sorted(by: { $0.bookedTime < $1.bookedTime }) )
     }
     
     func getAppointment(doctor : Doctor)->(upcoming :[String : [Appointment]] ,completed : [String : [Appointment]],cancelled : [Appointment]){

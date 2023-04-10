@@ -9,6 +9,10 @@ import Foundation
 
 struct PatientDAO{
     
+    func setPatientId()->String{
+        return String(Storage.storage.patientList.count + 1)
+    }
+    
     func addPatient(patient : Patient){
         Storage.storage.patientList[patient.patientId] = patient
     }
@@ -29,6 +33,8 @@ struct PatientDAO{
     }
     
     func updatePatient(patient : Patient){
+        let user = UserDAO()
+        user.update(user: patient)
         Storage.storage.patientList[patient.patientId] = patient
     }
     

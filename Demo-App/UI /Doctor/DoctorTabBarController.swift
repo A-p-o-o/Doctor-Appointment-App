@@ -36,7 +36,7 @@ class DoctorTabBarController: UITabBarController,UITabBarControllerDelegate {
         modalPresentationStyle = .fullScreen
         
         tabBar.tintColor = .systemBlue
-        tabBar.backgroundColor = .white
+        tabBar.backgroundColor = UIColor(named: "white")
         
         selectedIndex = 0
     }

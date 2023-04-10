@@ -15,7 +15,7 @@ class ViewAllRemainderController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
+    } 
     
     
     func setRemaindersTableView(){

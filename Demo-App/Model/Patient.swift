@@ -52,24 +52,39 @@ struct Patient : Person,User{
     
     init(userName: String, password: String, UserId: String, role: Role, bloodGroup: BloodGroup? = nil, dateOfBirth: Date? = nil, name: String, phoneNumber: String, sex: Sex, mail: String, address: String, patientId: String, weight: Double, height: Double, AllergyTo: String) {
         self.userName = userName
-        self.UserId = UserId
+        self.UserId = UserId.lowercased()
         self.role = role
         self.bloodGroup = bloodGroup
         self.dateOfBirth = dateOfBirth
         self.name = name
         self.phoneNumber = phoneNumber
         self.sex = sex
-        self.mail = mail
+        self.mail = mail.lowercased()
         self.address = address
-        self.patientId = patientId
+        self.patientId = "PA\(patientDAO.setPatientId())"
         self.weight = weight
         self.height = height
         self.AllergyTo = AllergyTo
         self.password = password
+        addUser()
+        addPatient()
     }
     
-    func changePassword(newPassword : String) {
-        userDAO.changePassword(userId: UserId, newPassword: newPassword)
+    func addUser(){
+        userDAO.adduser(user: self)
+    }
+    
+    func addPatient(){
+        patientDAO.addPatient(patient: self)
+    }
+    
+    mutating func changePassword(newPassword : String) {
+        self.password = newPassword
+        patientDAO.updatePatient(patient: self)
+    }
+    
+    func deleteAccount(){
+        userDAO.removeUser(userId: self.UserId)
     }
     
     mutating func UpdateInfo( bloodGroup: BloodGroup? = nil, dateOfBirth: Date? = nil, name: String, phoneNumber: String, sex: Sex, mail: String, address: String, weight: Double, height: Double, AllergyTo: String) {
@@ -79,20 +94,21 @@ struct Patient : Person,User{
         self.phoneNumber = phoneNumber
         self.sex = sex
         self.dateOfBirth = dateOfBirth
-        self.mail = mail
+        self.mail = mail.lowercased()
         self.address = address
         self.weight = weight
         self.height = height
         self.AllergyTo = AllergyTo
+        patientDAO.updatePatient(patient: self)
     }
     
     func viewProfile() -> Patient {
         return self
     }
     
-    func createAppointment(patientName: String, patientMobileNumber: String,email : String,age : Int,gender : Sex,reason : String, doctor: Doctor, date: Date, slot: Slot,type : AppointmentType)->Bool{
+    func createAppointment(patientName: String, patientMobileNumber: String,email : String,age : Int,gender : Sex,reason : String, doctor: Doctor, date: Date, slot: Slot,type : AppointmentType,cost : Int)->Bool{
         
-        var appointment = Appointment(patientName: patientName, patientMobileNumber: patientMobileNumber, email: email, age: age, gender: gender, reason: reason, doctor: doctor, date: date, slot: slot, bookedBy: self,type: type)
+        var appointment = Appointment(patientName: patientName, patientMobileNumber: patientMobileNumber, email: email, age: age, gender: gender, reason: reason, doctor: doctor, date: date, slot: slot, bookedBy: self,type: type,cost: cost ,bookedTime: Date())
         appointment.status = .upcoming
        return appointmentDAO.addAppointment(appointment: &appointment)
     }

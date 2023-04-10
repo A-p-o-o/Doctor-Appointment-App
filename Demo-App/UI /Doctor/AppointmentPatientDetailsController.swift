@@ -50,7 +50,7 @@ class AppointmentPatientDetailsController: UIViewController {
         let button = UIButton()
         button.configuration = .filled()
         button.configuration?.baseBackgroundColor = .red
-        button.configuration?.baseForegroundColor = .white
+        button.configuration?.baseForegroundColor = UIColor(named: "white")
         button.setTitle("Cancel Appointment", for: .normal)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ class AppointmentPatientDetailsController: UIViewController {
         let button = UIButton()
         button.configuration = .filled()
         button.configuration?.baseBackgroundColor = .green
-        button.configuration?.baseForegroundColor = .white
+        button.configuration?.baseForegroundColor = UIColor(named: "white")
         button.setTitle("Attend", for: .normal)
         
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -233,16 +233,16 @@ class AppointmentPatientDetailsController: UIViewController {
             verticalStack.layer.shadowOpacity = 0.5
             verticalStack.layer.shadowOffset = CGSize(width: 2, height: 2)
             verticalStack.layer.shadowRadius = 5
-            verticalStack.backgroundColor = .white
+            verticalStack.backgroundColor = UIColor(named: "white")
     }
     
     @objc func cancelClicked(){
         
     }
     
-    @objc func attendClicked(){
-        let viewController = CallingController()
-        navigationController?.pushViewController(viewController, animated: true)
+   @objc func attendClicked(){
+//        let viewController = CallingController(appointment: )
+//        navigationController?.pushViewController(viewController, animated: true)
     }
 
 

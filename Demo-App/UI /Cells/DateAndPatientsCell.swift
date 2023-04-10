@@ -90,7 +90,7 @@ class DateAndPatientsCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.shadowRadius = 5
         
-        backgroundColor = .white
+        backgroundColor = UIColor(named: "white")
         
         NSLayoutConstraint.activate([
             leftImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: widthSpacing),

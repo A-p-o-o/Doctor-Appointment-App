@@ -51,7 +51,7 @@ class FavouriteView: UIView {
         ])
         favouritebutton.layer.cornerRadius = (viewHeight * 0.9) / 2
         
-        backgroundColor = .white
+        backgroundColor = UIColor(named: "white")
         layer.cornerRadius = 10
         layer.shadowColor = UIColor(named: "shadow")?.cgColor
         layer.shadowOpacity = 0.5

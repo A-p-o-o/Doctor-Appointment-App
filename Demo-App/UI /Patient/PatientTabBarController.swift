@@ -9,23 +9,32 @@ import UIKit
 
 class PatientTabBarController: UITabBarController ,UITabBarControllerDelegate{
 
-    
-    var patient :Patient { Patient(userName: "", password: "", UserId: "", role: .Patient, name: "Arnold", phoneNumber: "", sex: .Male, mail: "", address: "", patientId: "", weight: 02, height: 2, AllergyTo: "") }
-    
+    var patient : Patient! = nil
     
     var home : PatientHomePage? = nil
     var myAppointments : MyAppointments? = nil
     var search : BookAppointmentOfYourChoiceController? = nil
     var profile : MyAccountController? = nil
     
+    init(userId : String) {
+       
+        let user = UserDAO()
+        self.patient = (user.getUser(userId: userId) as! Patient)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        home = PatientHomePage(patient: patient)
-        myAppointments = MyAppointments(patient: patient)
+        home = PatientHomePage(userId: patient.UserId)
+        myAppointments = MyAppointments(userId: patient.UserId)
         search = BookAppointmentOfYourChoiceController()
         search!.patient = patient
-        profile = MyAccountController(patient: patient)
+        profile = MyAccountController(userId: patient.UserId)
         set()
     }
     
@@ -38,14 +47,17 @@ class PatientTabBarController: UITabBarController ,UITabBarControllerDelegate{
         myAppointments!.tabBarItem = UITabBarItem(title: "Appointments", image:UIImage(systemName: "person.badge.clock.fill") , tag: 3)
         profile?.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person.circle.fill"), tag: 4)
         
-       
+       let homeNC = UINavigationController(rootViewController: home!)
+        let searchNC = UINavigationController(rootViewController: search!)
+        let myAppointmentsNC = UINavigationController(rootViewController: myAppointments!)
+        let profileNC = UINavigationController(rootViewController: profile!)
         
-        setViewControllers( [home!,search!,myAppointments!,profile!], animated: false)
+        setViewControllers( [homeNC,searchNC,myAppointmentsNC,profileNC], animated: false)
         
         modalPresentationStyle = .fullScreen
         
         tabBar.tintColor = .systemBlue
-        tabBar.backgroundColor = .white
+        tabBar.backgroundColor = UIColor(named: "white")
         
        
     }

@@ -27,7 +27,7 @@ class ReportsPage: UIViewController ,UIDocumentPickerDelegate{
         view.backgroundColor = UIColor(named: "background")
      
         
-        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.backgroundColor = UIColor(named: "white")
         
         setImageView()
         setBarButton()

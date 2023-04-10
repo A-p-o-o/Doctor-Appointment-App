@@ -69,7 +69,7 @@ class LabelImageLabel: UIView {
        addSubview(image)
         
         
-       backgroundColor = .white
+       backgroundColor = UIColor(named: "white")
        layer.shadowColor = UIColor(named: "shadow")?.cgColor
        layer.shadowOpacity = 0.5
        layer.shadowOffset = CGSize(width: 2, height: 2)

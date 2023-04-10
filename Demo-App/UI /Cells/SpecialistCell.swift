@@ -65,7 +65,7 @@ class SpecialistCell: UICollectionViewCell {
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.shadowRadius = 5
          
-         contentView.backgroundColor = .white
+         contentView.backgroundColor = UIColor(named: "white")
          contentView.layer.cornerRadius = 10
         
         NSLayoutConstraint.activate([
@@ -76,7 +76,7 @@ class SpecialistCell: UICollectionViewCell {
             departmentImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -5)
         ])
         
-        departmentImage.backgroundColor = .white
+        departmentImage.backgroundColor = UIColor(named: "white")
         
         NSLayoutConstraint.activate([
             departmentName.topAnchor.constraint(equalTo: departmentImage.bottomAnchor),
@@ -124,7 +124,7 @@ class CollectionHeaderView: UICollectionReusableView {
     func setConstrains(){
           
         addSubview(title)
-        title.backgroundColor = .white
+        title.backgroundColor = UIColor(named: "white")
         
         layer.cornerRadius = 10
         layer.shadowColor = UIColor(named: "shadow")?.cgColor

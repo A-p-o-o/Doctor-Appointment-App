@@ -8,7 +8,51 @@
 import Foundation
 
 enum BloodGroup{
-    case O_positive
+    case oPositive,oNegative,aPositive,aNegative,abPositive,abNegative,bPositive,bNegative
+    
+    var name : String {
+        switch self {
+        case .oPositive : return "O+ Positive"
+        case .oNegative:
+            return "O- Negative"
+        case .aPositive:
+            return "A+ Positive"
+        case .aNegative:
+            return "A- Negative"
+        case .abPositive:
+            return "AB+ Positive"
+        case .abNegative:
+            return "AB- Negative"
+        case .bPositive:
+            return "B+ Positive"
+        case .bNegative:
+            return "B- Negative"
+        }
+    }
+    
+    static func getBloodGroup(from string: String) -> BloodGroup? {
+            switch string {
+            case BloodGroup.oPositive.name:
+                return .oPositive
+            case BloodGroup.oNegative.name:
+                return .oNegative
+            case BloodGroup.aPositive.name :
+                return .aPositive
+            case BloodGroup.aNegative.name:
+                return .aNegative
+            case BloodGroup.abPositive.name:
+                return .abPositive
+            case BloodGroup.abNegative.name:
+                return .abNegative
+            case BloodGroup.bPositive.name:
+                return .bPositive
+            case BloodGroup.bNegative.name:
+                return .bNegative
+            default:
+                return nil
+            }
+        }
+    
 }
 
 enum Role {
@@ -25,6 +69,15 @@ enum Sex{
         case .NonBinary : return "Non Binary"
         }
     }
+    
+    static func getSex(from string: String) -> Sex? {
+           switch string {
+           case "Male": return .Male
+           case "Female": return .Female
+           case "Non Binary": return .NonBinary
+           default: return nil
+           }
+       }
 }
 
 enum Department{
@@ -76,6 +129,13 @@ enum Department{
 
 enum AppointmentType : Equatable {
     case Online,Offline
+    
+    var stringName : String {
+        switch self {
+        case .Offline : return "Physical"
+        case .Online : return "Online"
+        }
+    }
 }
 
 enum AppointmentStatus : Equatable{

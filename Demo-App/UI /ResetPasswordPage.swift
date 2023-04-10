@@ -49,7 +49,7 @@ class ResetPasswordPage: UIViewController {
         //RESET PASSWORD LABEL
         contentView.addSubview(resetPasswordLabel)
         resetPasswordLabel.text = "Reset Password"
-        resetPasswordLabel.textColor = .white
+        resetPasswordLabel.textColor = UIColor(named: "white")
         resetPasswordLabel.font = UIFont(name: "Avenir Next", size: 40)
         resetPasswordLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -92,7 +92,7 @@ class ResetPasswordPage: UIViewController {
         resetPasswordButton.configuration = .filled()
         resetPasswordButton.setTitle("Reset Password", for: .normal)
         resetPasswordButton.configuration?.baseBackgroundColor = .red
-        resetPasswordButton.configuration?.baseForegroundColor = .white
+        resetPasswordButton.configuration?.baseForegroundColor = UIColor(named: "white")
         
         resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
     }

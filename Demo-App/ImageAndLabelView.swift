@@ -20,13 +20,6 @@ class ImageAndLabelView: UIView {
     
         let spacing = UIView()
         
-        let imageView: UIImageView = {
-            let imageView = UIImageView()
-            imageView.contentMode = .scaleAspectFit
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor,multiplier: 0.8).isActive = true
-            return imageView
-        }()
         
         let label:  UILabel = {
             let label = UILabel()
@@ -34,7 +27,7 @@ class ImageAndLabelView: UIView {
             label.lineBreakMode = .byWordWrapping
             label.textColor = .black
             label.adjustsFontSizeToFitWidth = true
-            label.font = UIFont.systemFont(ofSize: 29, weight: .light)
+            label.font = UIFont.systemFont(ofSize: 20, weight: .light)
             
             let fontMetrics = UIFontMetrics(forTextStyle: .subheadline)
             label.font = fontMetrics.scaledFont(for: label.font)
@@ -44,9 +37,9 @@ class ImageAndLabelView: UIView {
             return label
         }()
     
-    let chevronImageView: UIImageView = {
+    let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "chevron.right")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        imageView.image = UIImage(systemName: "trash")?.withTintColor(.red, renderingMode: .alwaysOriginal)
         
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,15 +51,13 @@ class ImageAndLabelView: UIView {
         
     init(image: UIImage?, text: String) {
         super.init(frame: .zero)
-        imageView.image = image
+       
         label.text = text
         
-        imageView.alpha = 0.4
-        
+        imageView.image = image
         stackView.addArrangedSubview(spacing)
-        stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(label)
-        stackView.addArrangedSubview(chevronImageView)
+        stackView.addArrangedSubview(imageView)
         stackView.addArrangedSubview(trailingspace)
         
         addSubview(stackView)
@@ -82,7 +73,6 @@ class ImageAndLabelView: UIView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -bounds.width * 0.05),
             
             spacing.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.02),
-            imageView.widthAnchor.constraint(equalTo: heightAnchor, multiplier: 0.8),
             trailingspace.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.02)
         ])
     }

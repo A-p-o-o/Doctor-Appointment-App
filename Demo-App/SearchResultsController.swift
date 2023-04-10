@@ -28,8 +28,7 @@ class SearchResultsController: UICollectionViewController , UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.isHidden = true
-        
+      
         view.backgroundColor = UIColor(named: "background")
         collectionView.backgroundColor = .clear
          self.clearsSelectionOnViewWillAppear = true
@@ -39,22 +38,12 @@ class SearchResultsController: UICollectionViewController , UICollectionViewDele
 
         orientationChanged()
         
-        tabBarController?.tabBar.isHidden = true
-        navigationController?.navigationBar.tintColor = .black
+       
+        navigationController?.navigationBar.tintColor = UIColor(named: "book")
         
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
-        tabBarController?.navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        navigationController?.navigationBar.isHidden = true
-//        na
-    }
 
     func orientationChanged(){
         
@@ -103,7 +92,7 @@ class SearchResultsController: UICollectionViewController , UICollectionViewDele
             let department = data[indexPath.row] as! Department
             cell.leftLabel.text = department.departmentName
             cell.rightImage.image = UIImage(named: "\(department.departmentName)")
-            cell.backgroundColor = .white.withAlphaComponent(0.6)
+            cell.backgroundColor = UIColor(named: "white")?.withAlphaComponent(0.6)
             
        
             return cell
@@ -118,7 +107,7 @@ class SearchResultsController: UICollectionViewController , UICollectionViewDele
             cell.experience.text = "\(doctor.experience) years of experience"
             cell.profile.layer.cornerRadius = (cell.contentView.frame.height - 10) / 2
             cell.profile.image  = UIImage(named: doctor.image)
-            cell.backgroundColor = .white.withAlphaComponent(0.6)
+            cell.backgroundColor = UIColor(named: "white")?.withAlphaComponent(0.6)
             return cell
         }
 
@@ -136,12 +125,12 @@ class SearchResultsController: UICollectionViewController , UICollectionViewDele
         
                 if item is Doctor {
                     let doc = item as! Doctor
-                    let viewController = DoctorProfileController(doctor: doc,patient: self.patient!)
+                    let viewController = DoctorProfileController(doctor: doc,userId: patient!.UserId)
                     navigationController?.pushViewController(viewController, animated: true)
                 }
                 if item is Department {
                     let department = item as! Department
-                    let viewController = ViewDepartment(patient: self.patient!)
+                    let viewController = ViewDepartment(userId: patient!.UserId)
                     viewController.department = department.departmentName
                     navigationController?.pushViewController(viewController, animated: true)
                 }

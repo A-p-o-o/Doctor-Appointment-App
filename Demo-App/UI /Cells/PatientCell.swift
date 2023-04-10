@@ -117,7 +117,7 @@ class PatientCell: UICollectionViewCell {
         layer.shadowOpacity = 0.5
         layer.shadowOffset = CGSize(width: 2, height: 2)
         layer.shadowRadius = 5
-        backgroundColor = .white
+        backgroundColor = UIColor(named: "white")
     }
     
     func online(){

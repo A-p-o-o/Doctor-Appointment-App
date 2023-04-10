@@ -25,6 +25,19 @@ struct DoctorDAO{
         return nil
     }
     
+    func availableDoctorsOnDate(date : String,department : Department)->[Doctor]{
+        guard let availableDoctorsInDate : [DoctorAvailability] = Storage.storage.availableDoctors[date] else { return [Doctor]()}
+        var availableDoctorsInDepartment = [Doctor]()
+        
+        for available in availableDoctorsInDate {
+            guard let doctor = getDoctor(doctorId: available.doctorId) else { continue }
+            if doctor.department == department {
+                availableDoctorsInDepartment.append(doctor)
+            }
+        }
+        return availableDoctorsInDepartment
+    }
+    
     func getDoctor(doctorId : String )->Doctor?{
         return Storage.storage.doctorList[doctorId]
     }
@@ -49,6 +62,10 @@ struct DoctorDAO{
         return Array(Storage.storage.doctorList.values)
     }
     
+    
+    func getAvailableDates()->[String]{
+        Array(Storage.storage.availableDoctors.keys).sorted()
+    }
     
     func getAvailabilityDates(doctor:Doctor)->[(Date,Bool,[Slot])]{
         
@@ -117,7 +134,9 @@ struct DoctorDAO{
             
             for doctor in doctorsAvailableInDate {
                 if doctor.doctorId == doctorId {
-                    dates.append(dateFormat(date: date))
+                    if getAvailableSlots(for: date, doctorId: doctorId).time.count != 0 {
+                        dates.append(dateFormat(date: date))
+                    }
                 }
                 
             }

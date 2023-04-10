@@ -73,13 +73,7 @@ class PerDayAppointmentsController: UIViewController {
         appointmentsTable.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.navigationController?.navigationBar.isHidden = true
-       // navigationController?.navigationBar.isHidden = true
-       // tabBarController?.tabBar.isHidden = false
-        
-        navigationController?.navigationBar.tintColor = .black
-    }
+    
     
     lazy var Viewheight = view.frame.height < view.frame.width ? view.frame.width : view.frame.height
     lazy var viewWidth = view.frame.width > view.frame.height ? view.frame.height : view.frame.width

@@ -48,7 +48,7 @@ class ForgetPasswordPage: UIViewController {
         //FORGOT PASSWORD LABEL
         contentView.addSubview(forgotPasswordLabel)
         forgotPasswordLabel.text = "Forgot Password"
-        forgotPasswordLabel.textColor = .white
+        forgotPasswordLabel.textColor = UIColor(named: "white")
         forgotPasswordLabel.font = UIFont(name: "Avenir Next", size: 40)
         forgotPasswordLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -79,7 +79,7 @@ class ForgetPasswordPage: UIViewController {
         forgotPasswordButton.configuration = .filled()
         forgotPasswordButton.setTitle("Forgot Password", for: .normal)
         forgotPasswordButton.configuration?.baseBackgroundColor = .red
-        forgotPasswordButton.configuration?.baseForegroundColor = .white
+        forgotPasswordButton.configuration?.baseForegroundColor = UIColor(named: "white")
         
         forgotPasswordButton.translatesAutoresizingMaskIntoConstraints = false
     }

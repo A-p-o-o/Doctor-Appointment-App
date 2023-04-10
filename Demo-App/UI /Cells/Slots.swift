@@ -53,7 +53,7 @@ class Slots: UICollectionViewCell {
         layer.shadowRadius = 5
         layer.cornerRadius = 10
         
-        backgroundColor = .white
+        backgroundColor = UIColor(named: "white")
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 5),

@@ -13,7 +13,8 @@ class ProfileView: UIView {
     
      let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "image6")
+         imageView.contentMode = .scaleToFill
         imageView.clipsToBounds = true
         imageView.backgroundColor = .gray
         imageView.translatesAutoresizingMaskIntoConstraints = false

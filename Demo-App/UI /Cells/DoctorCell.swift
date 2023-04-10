@@ -14,7 +14,7 @@ class DoctorCell: UICollectionViewCell {
     
     let imageview : UIImageView = {
         let imageView = UIImageView()
-         imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
          //imageView.layer.cornerRadius = 10
          imageView.clipsToBounds = true
          imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class DoctorCell: UICollectionViewCell {
     
     let favouriteView : UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "white")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -90,7 +90,7 @@ class DoctorCell: UICollectionViewCell {
     
     let bookButton : UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = UIColor(named: "white")
         label.textAlignment = .center
         label.text = "Book"
         label.backgroundColor = UIColor(named: "book")
@@ -145,7 +145,7 @@ class DoctorCell: UICollectionViewCell {
        layer.shadowOffset = CGSize(width: 2, height: 2)
        layer.shadowRadius = 5
         
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(named: "white")
         contentView.layer.cornerRadius = 10
         
         let imageHeight = contentView.frame.height * 0.45

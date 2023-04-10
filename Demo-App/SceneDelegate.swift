@@ -20,16 +20,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
                 window = UIWindow(frame: windowScene.coordinateSpace.bounds)
                 window?.windowScene = windowScene
-              
-                let doctordao = DoctorDAO()
-        let doc = doctordao.getDoctor(doctorId: "D1")
-        let patient = Patient(userName: "deepak", password: "", UserId: "", role: .Admin,bloodGroup: .O_positive,dateOfBirth: Date(), name: "Arnold", phoneNumber: "", sex: .Female, mail: "", address: "", patientId: "", weight: 2, height: 2, AllergyTo: "")
-        let d = doc!.getAvailableDates()
+           
+        Storage.createStorage()
+//                let doctordao = DoctorDAO()
+//        let doc = doctordao.getDoctor(doctorId: "D1")
+//        let patient = Patient(userName: "deepak", password: "", UserId: "", role: .Admin,bloodGroup: .aPositive,dateOfBirth: Date(), name: "Arnold", phoneNumber: "", sex: .Female, mail: "", address: "", patientId: "", weight: 2, height: 2, AllergyTo: "")
+//        let d = doc!.getAvailableDates()
         
-        patient.createAppointment(patientName: "Arnold", patientMobileNumber: "", email: "", age: 1, gender: .Female, reason: "", doctor: doc!, date: Date(), slot: .slot(number: 1, time: .time(start: "", end: "")),type: .Offline)
-        patient.createAppointment(patientName: "Joseph", patientMobileNumber: "", email: "", age: 1, gender: .Female, reason: "", doctor: doc!, date: Date(), slot: .slot(number: 2, time: .time(start: "", end: "")),type: .Online)
+//        patient.createAppointment(patientName: "Arnold", patientMobileNumber: "", email: "", age: 1, gender: .Female, reason: "", doctor: doc!, date: Date(), slot: .slot(number: 1, time: .time(start: "", end: "")),type: .Offline, cost: 100)
+//        patient.createAppointment(patientName: "Joseph", patientMobileNumber: "", email: "", age: 1, gender: .Female, reason: "", doctor: doc!, date: Date(), slot: .slot(number: 2, time: .time(start: "", end: "")),type: .Online, cost: 200)
         
-        let rootViewController = PatientTabBarController()
+        let rootViewController = LoginViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

@@ -39,7 +39,7 @@ class DoctorHomePageController: UIViewController {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "image6")
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .white
+        imageView.backgroundColor = UIColor(named: "white")
         imageView.layer.cornerRadius = 0.4 * min(imageView.bounds.width, imageView.bounds.height)
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -336,7 +336,7 @@ class DoctorHomePageController: UIViewController {
         
      
         
-        TopView.backgroundColor = .white
+        TopView.backgroundColor = UIColor(named: "white")
         
         TopView.layer.cornerRadius = topViewheight / 2
         TopView.layer.shadowColor = UIColor(named: "shadow")?.cgColor
