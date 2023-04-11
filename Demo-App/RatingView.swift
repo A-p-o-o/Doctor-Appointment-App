@@ -9,6 +9,7 @@ import UIKit
 
 class RatingView: UIView {
 
+    var startCount : Int = 0
     
     let stackView : UIStackView = {
         let stackView = UIStackView()
@@ -87,8 +88,13 @@ class RatingView: UIView {
         
         guard let imageView = tapgesture.view as? UIImageView else { return }
         
-        selectImage(imageView: imageView)
-        
+        if imageView.tag != startCount {
+            print(startCount,"image tag = ",imageView.tag)
+            selectImage(imageView: imageView)
+        }
+        else {
+            startCount = 0
+        }
     }
     
     
@@ -101,6 +107,7 @@ class RatingView: UIView {
             starImage.image = UIImage(systemName: "star.fill")!.withTintColor(UIColor(named: "ratings")!, renderingMode: .alwaysOriginal)
             
         }
+        startCount = rating
     }
     
     func deselectImage(){

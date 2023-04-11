@@ -89,7 +89,7 @@ class MyAccountController: UIViewController {
         ])
         
         stackView.addArrangedSubview(profileView)
-        //stackView.addArrangedSubview(resetPasswordView)
+        stackView.addArrangedSubview(resetPasswordView)
         //stackView.addArrangedSubview(aboutUs)
         //stackView.addArrangedSubview(likeUsView)
         stackView.addArrangedSubview(logOutView)
@@ -101,12 +101,17 @@ class MyAccountController: UIViewController {
             views.backgroundColor = UIColor(named: "white")
             
             if views is ProfileView {
+                let profile = views as! ProfileView
                 NSLayoutConstraint.activate([
-                    views.heightAnchor.constraint(equalToConstant: Viewheight  * 0.3)
+                    profile.heightAnchor.constraint(equalToConstant: Viewheight  * 0.3),
+                    profile.imageView.heightAnchor.constraint(equalToConstant: (viewWidth  * 0.4)),
+                    profile.imageView.widthAnchor.constraint(equalToConstant: (viewWidth  * 0.4))
                 ])
                 
-                let profile = views as! ProfileView
-                profile.imageView.layer.cornerRadius = ((viewWidth-40) * 0.4)/2
+                
+                profile.imageView.layer.cornerRadius = (viewWidth  * 0.4)/2
+                
+                
                 profile.editButton.addTarget(self, action: #selector(editClicked), for: .touchUpInside)
             }
             else {
@@ -134,8 +139,8 @@ class MyAccountController: UIViewController {
             deleteAccountView.addGestureRecognizer(deleteGesture)
             
             resetPasswordView.isUserInteractionEnabled = true
-            let resetGesture = UITapGestureRecognizer(target: self, action: #selector(deleteClicked))
-            //resetPasswordView.addGestureRecognizer(deleteGesture)
+            let resetGesture = UITapGestureRecognizer(target: self, action: #selector(resetClicked))
+            resetPasswordView.addGestureRecognizer(resetGesture)
         }
     }
     
@@ -155,6 +160,11 @@ class MyAccountController: UIViewController {
         if let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+    }
+    
+    @objc func resetClicked(){
+        let viewController = ResetPasswordController(userId: patient.UserId)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     @objc func deleteClicked(){

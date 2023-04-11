@@ -29,7 +29,7 @@ struct ReviewDAO{
         
     }
     
-    func getReviews(doctorId : String)->[Review]?{
-       return Storage.storage.reviewList[doctorId]
+    func getReviews(doctorId : String)->[Review]{
+        return Storage.storage.reviewList[doctorId] ?? []
     }
 }

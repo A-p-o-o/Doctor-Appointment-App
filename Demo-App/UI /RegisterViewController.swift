@@ -231,16 +231,20 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
             
             switch labelAndField.tag {
             case 0 : if !labelAndField.isValidPhoneNumber(phoneNumber: &phoneNumber) {
+                scrollToView(view: labelAndField)
                 return false
             }
             case 1 : if !labelAndField.isValidEmail(email: &email){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 2 :if !labelAndField.isValidPassword(password: &password){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 3 :
                 if labelAndField.isTextEmpty(){
+                    scrollToView(view: labelAndField)
                     return false
                 }
                 else {
@@ -248,6 +252,7 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
                         labelAndField.errorLabel.isHidden = false
                         labelAndField.errorLabel.text = "Password does not match"
                         labelAndField.makeTextFieldRed()
+                        scrollToView(view: labelAndField)
                         return false
                     }
                     else {
@@ -262,7 +267,9 @@ class RegisterViewController: UIViewController,UITextFieldDelegate {
         return true
     }
     
-    
+    func scrollToView(view: UIView) {
+        scrollView.scrollRectToVisible(view.frame, animated: true)
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)

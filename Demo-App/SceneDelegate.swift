@@ -22,8 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 window?.windowScene = windowScene
            
         Storage.createStorage()
-//                let doctordao = DoctorDAO()
-//        let doc = doctordao.getDoctor(doctorId: "D1")
+                let doctordao = DoctorDAO()
+       let doc = doctordao.getDoctor(doctorId: "D1")
 //        let patient = Patient(userName: "deepak", password: "", UserId: "", role: .Admin,bloodGroup: .aPositive,dateOfBirth: Date(), name: "Arnold", phoneNumber: "", sex: .Female, mail: "", address: "", patientId: "", weight: 2, height: 2, AllergyTo: "")
 //        let d = doc!.getAvailableDates()
         

@@ -234,6 +234,11 @@ class PatientHomePage: UIViewController {
         profileImageView.backgroundColor = .black
         profileImageView.layer.cornerRadius = (topViewheight - 20) / 2
         
+        profileImageView.isUserInteractionEnabled = true
+        let profilegesture = UITapGestureRecognizer(target: self, action: #selector(profileSelected))
+        
+        profileImageView.addGestureRecognizer(profilegesture)
+        
         NSLayoutConstraint.activate([
             
             welcomeLabel.heightAnchor.constraint(equalToConstant: (topViewheight / 3.7)),
@@ -298,6 +303,10 @@ class PatientHomePage: UIViewController {
         let tapgesture = UITapGestureRecognizer(target: self, action: #selector(favouriteSelected))
         
         favouriteView.addGestureRecognizer(tapgesture)
+    }
+    
+    @objc func profileSelected(){
+        tabBarController?.selectedIndex = 3
     }
     
     @objc func favouriteSelected(){

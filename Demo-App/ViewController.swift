@@ -27,7 +27,16 @@ class ViewController: UIViewController {
     let scrollView = UIScrollView()
     
     
-    let createVertical = CreateVerticalView()
+    let button : UIButton = {
+        let button = UIButton()
+        button.configuration = .filled()
+        button.configuration?.baseBackgroundColor = .green
+        button.setTitle("button", for: .selected)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+ //   let createVertical = CreateVerticalView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,23 +103,33 @@ class ViewController: UIViewController {
         
         
         
-        let appointForView = createVertical.createView(leftSide: ["Appointment For","Myself"], rightSide: ["",""])
+        let appointForView = CreateVerticalView().createView(leftSide: ["Appointment For","Myself"], rightSide: ["",""])
         
-        stackView.addArrangedSubview(appointForView)
+        
         
         
         let left = ["Appointment Timing","Start Time","End Time","Date","Starts In"]
         let right = ["","Start Time","End Time","Date","Starts In"]
         
-        let appointmentTiming = createVertical.createView(leftSide: left, rightSide: right)
+        let appointmentTiming = CreateVerticalView().createView(leftSide: left, rightSide: right)
+        
+        
+        let anotherView = CreateVerticalView().createView(leftSide: left, rightSide: right)
         
         stackView.addArrangedSubview(appointmentTiming)
+        stackView.addArrangedSubview(button)
+        stackView.addArrangedSubview(appointForView)
         
-//        let deLeft = ["Bill Details","Consultation Fee ","Tax"]
+//        NSLayoutConstraint.activate([
+//            appointmentTiming.heightAnchor.constraint(equalToConstant: 400),
+//            appointForView.heightAnchor.constraint(equalToConstant: 100),
+//            button.heightAnchor.constraint(equalToConstant: 200)
+//        ])
+       let deLeft = ["Bill Details","Consultation Fee ","Tax"]
 //
-//        let billDetailsView = createVertical.createView(leftSide: deLeft, rightSide: deLeft)
+      let billDetailsView = CreateVerticalView().createView(leftSide: deLeft, rightSide: deLeft)
         
-       // stackView.addArrangedSubview(billDetailsView)
+        stackView.addArrangedSubview(billDetailsView)
         
     }
     

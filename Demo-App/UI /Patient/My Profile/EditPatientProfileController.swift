@@ -197,12 +197,6 @@ class EditPatientProfileController: UIViewController {
             
             labelAndField.textField.clearButtonMode = .whileEditing
             labelAndField.sizeToFit()
-//            labelAndField.layer.cornerRadius = 5
-//            labelAndField.layer.shadowColor = UIColor(named: "shadow")?.cgColor
-//            labelAndField.layer.shadowOpacity = 0.8
-//            labelAndField.layer.shadowOffset = CGSize(width: 4, height: 4)
-//            labelAndField.layer.shadowRadius = 5
-//            labelAndField.backgroundColor = .white.withAlphaComponent(0.6)
 
             labelAndField.textField.placeholder = ""
             scrollView.showsVerticalScrollIndicator = false
@@ -223,8 +217,11 @@ class EditPatientProfileController: UIViewController {
         case 1,6,7 : labelAndField.textField.keyboardType = .default
         case 2 : labelAndField.textField.keyboardType = .emailAddress
         case 3 : labelAndField.asDateOfBirth()
+            labelAndField.textField.text = details[3]
         case 4 : labelAndField.setGenderPicker()
+            labelAndField.textField.text = details[4]
         case 5  : labelAndField.setBloodGroupPicker()
+            labelAndField.textField.text = details[5]
         default : labelAndField.textField.keyboardType = .default
             
         }
@@ -236,30 +233,38 @@ class EditPatientProfileController: UIViewController {
             
             switch labelAndField.tag {
             case 0 : if !(labelAndField.isValidName(name: &name)){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 1 : if !(labelAndField.isValidPhoneNumber(phoneNumber: &phoneNumber)){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 2 : if !(labelAndField.isValidEmail(email: &email)){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 3 :  if labelAndField.isTextEmpty(){
+                scrollToView(view: labelAndField)
                 return false
             }
                 else {
                     dateOfBirth = labelAndField.selectedDate
                 }
             case 4 : if !labelAndField.isValidGender(gender: &gender){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 5 : if !labelAndField.isValidBloodGroup(bloodGroup: &bloodGroup){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 6 : if !labelAndField.isValidHeight(height: &height){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 7 : if !labelAndField.isValidWeight(weight: &weight){
+                scrollToView(view: labelAndField)
                 return false
             }
             default : continue
@@ -274,6 +279,9 @@ class EditPatientProfileController: UIViewController {
             present(imagePicker, animated: true, completion: nil)
         }
         
+    func scrollToView(view: UIView) {
+        scrollView.scrollRectToVisible(view.frame, animated: true)
+    }
         
 }
 

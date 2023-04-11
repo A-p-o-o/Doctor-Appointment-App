@@ -228,12 +228,14 @@ class LoginViewController: UIViewController {
             if labelAndField.tag == 0 {
                 
                 if !labelAndField.isValidEmail(email: &email){
+                    scrollToView(view: labelAndField)
                     return false
                 }
             }
             else {
                 
                 if labelAndField.isTextEmpty(){
+                    scrollToView(view: labelAndField)
                     return false
                 }else {
                     password = labelAndField.textField.text!
@@ -268,6 +270,11 @@ class LoginViewController: UIViewController {
     }
     
 
+    func scrollToView(view: UIView) {
+        scrollView.scrollRectToVisible(view.frame, animated: true)
+    }
+    
+   
    
 }
 

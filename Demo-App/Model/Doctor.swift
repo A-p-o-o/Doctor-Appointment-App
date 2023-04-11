@@ -57,7 +57,7 @@ struct Doctor : Employee,User,Equatable{
         appointmentDAO.getAppointment(doctor: self)
     }
     
-    var reviews : [ Review ]? {
+    var reviews : [ Review ] {
         reviewDAO.getReviews(doctorId: employeeId)
     }
     

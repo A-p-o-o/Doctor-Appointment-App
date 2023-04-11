@@ -217,15 +217,18 @@ class RegisterSecondPageViewController: UIViewController {
             guard let labelAndField = views as? LabelAndField else { continue }
             switch labelAndField.tag {
             case 0 : if  !labelAndField.isValidName(name: &name){
+                scrollToView(view: labelAndField)
                 return false
             }
             case 1 : if labelAndField.isTextEmpty(){
+                scrollToView(view: labelAndField)
                 return false
             }
                 else {
                     dateOfBirth = labelAndField.selectedDate
                 }
             case 2 :if labelAndField.isTextEmpty(){
+                scrollToView(view: labelAndField)
                 return false
             }
                 else {
@@ -233,6 +236,7 @@ class RegisterSecondPageViewController: UIViewController {
                 }
             case 3 :
                 if labelAndField.isTextEmpty(){
+                    scrollToView(view: labelAndField)
                     return false
                 }
                     else {
@@ -248,6 +252,10 @@ class RegisterSecondPageViewController: UIViewController {
         self.mobileNumber = mobileNumber
         self.email = email
         self.password = password
+    }
+    
+    func scrollToView(view: UIView) {
+        scrollView.scrollRectToVisible(view.frame, animated: true)
     }
    
 }

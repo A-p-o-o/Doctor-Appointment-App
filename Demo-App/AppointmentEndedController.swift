@@ -10,6 +10,21 @@ import UIKit
 class AppointmentEndedController: UIViewController {
 
     
+    let patient : Patient
+    let doctor : Doctor
+//    weak var delegate: appointmentEndedProtocol?
+    
+    init(userId : String,doctor : Doctor) {
+       let user = UserDAO()
+        self.patient = user.getUser(userId: userId) as! Patient
+        self.doctor = doctor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let scrollView = UIScrollView()
     let stackView = UIStackView()
     
@@ -131,6 +146,7 @@ class AppointmentEndedController: UIViewController {
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.distribution = .fill
+        stackView.alignment = .leading
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -168,12 +184,15 @@ class AppointmentEndedController: UIViewController {
             completedImage.heightAnchor.constraint(equalToConstant: Viewheight * 0.2),
             completedLabel.heightAnchor.constraint(equalToConstant: completedlabelSize.height),
             pleaseRateLabel.heightAnchor.constraint(equalToConstant: rateDoctorlabelSize.height),
-            startImages.heightAnchor.constraint(equalToConstant: ratingSize.height+20),
+            startImages.heightAnchor.constraint(equalToConstant: Viewheight * 0.03 ),
             postYourComment.heightAnchor.constraint(equalToConstant: postUrCommentSize.height),
             commentBox.heightAnchor.constraint(equalToConstant: Viewheight * 0.15),
             postButton.heightAnchor.constraint(equalToConstant: Viewheight * 0.05),
             backButton.heightAnchor.constraint(equalToConstant: Viewheight * 0.05),
 
+            commentBox.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            postButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            backButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
         ])
         postButton.addTarget(self, action: #selector(postClicked), for: .touchUpInside)
         
@@ -183,14 +202,35 @@ class AppointmentEndedController: UIViewController {
     @objc func postClicked(){
         
         view.endEditing(true)
-        if commentBox.text.isEmpty{
-            commentBox.layer.borderColor = UIColor.red.cgColor
-            commentBox.text = "*required"
+       if validate() {
+           patient.giveReview(doctor: doctor, reviewGivenBy: patient.name, time: Date(), Date: Date(), star: startImages.startCount, content: commentBox.text!)
+//           self.delegate?.appointmentEnded()
         }
-        
-        
+                
     }
     
+    func validate()->Bool{
+        if startImages.startCount == 0 {
+            startImages.layer.borderColor = UIColor.red.cgColor
+            startImages.layer.borderWidth = 1
+            scrollToView(view: startImages)
+            return false
+        }
+        else {
+            startImages.layer.borderWidth = 0
+        }
+         if commentBox.text.isEmpty{
+            commentBox.layer.borderColor = UIColor.red.cgColor
+            commentBox.text = "*required"
+            scrollToView(view: commentBox)
+             return false
+        }
+        return true
+    }
+    
+    func scrollToView(view: UIView) {
+        scrollView.scrollRectToVisible(view.frame, animated: true)
+    }
     
 
 }
@@ -198,7 +238,7 @@ class AppointmentEndedController: UIViewController {
 extension AppointmentEndedController : UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = ""
+//        textView.text = ""
         textView.layer.borderColor = UIColor(named: "book")?.cgColor
         textView.backgroundColor = UIColor(named: "white")?.withAlphaComponent(0.8)
     }
@@ -208,3 +248,5 @@ extension AppointmentEndedController : UITextViewDelegate {
     }
     
 }
+
+

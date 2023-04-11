@@ -407,14 +407,15 @@ class AppointmentdetailsController: UIViewController {
         
         if appointment.type == .Offline {
             patient.attendAppointment(appointment: appointment)
-           
-            navigationController?.popViewController(animated: true)
+           let viewController = AppointmentEndedController(userId: patient.UserId, doctor: doctor)
+//            viewController.delegate = self
+            present(viewController, animated: true)
         }
         else {
             
             let viewController = CallingController(appointment: appointment,userId: patient.UserId)
             viewController.presentedByController = self
-          //  navigationController?.pushViewController(viewController, animated: true)
+            viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: false)
         }
     }
@@ -433,3 +434,12 @@ extension AppointmentdetailsController: RescheduleControllerDelegate {
         delegate?.clickedReshedule(selectedVC, appointment: appointment)
     }
 }
+
+//extension AppointmentdetailsController: appointmentEndedProtocol {
+//    func appointmentEnded() {
+//
+//        print("here")
+//    }
+//
+//
+//}

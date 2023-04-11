@@ -72,12 +72,14 @@ class ProfileView: UIView {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             
-            imageView.widthAnchor.constraint(equalTo: widthAnchor,multiplier: 0.4),
-            imageView.heightAnchor.constraint(equalTo: widthAnchor,multiplier: 0.4),
+           // imageView.widthAnchor.constraint(equalTo: widthAnchor,multiplier: 0.4),
+           // imageView.heightAnchor.constraint(equalTo: widthAnchor,multiplier: 0.4),
             
             editButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4),
             editButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.1)
         ])
+         
+        
     }
 }
 

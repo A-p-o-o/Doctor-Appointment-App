@@ -7,7 +7,8 @@
 
 import UIKit
 
-class MyAppointments: UIViewController {
+class MyAppointments: UIViewController  {
+    
     
     let patient : Patient?
     
@@ -310,7 +311,7 @@ extension MyAppointments: AppointmentdetailsControllerDelegate {
             viewController.time = appointment?.slot.time.startTime
             viewController.date = appointment?.date
             viewController.department = appointment?.doctor.department
-            viewController.type = appointment?.type
+         //   viewController.type = appointment?.type
             navigationController?.pushViewController(viewController, animated: false)
             
         case .DiffDocAndTime:

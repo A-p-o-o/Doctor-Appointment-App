@@ -16,7 +16,7 @@ class AvailableDoctorsController: UIViewController {
     var date : Date? = nil
     var department : Department? = nil
     var time : String? = nil
-    var type : AppointmentType? = nil
+   // var type : AppointmentType? = nil
     
     var searchtext = "No"
     
@@ -173,9 +173,18 @@ extension  AvailableDoctorsController : UICollectionViewDelegateFlowLayout,UICol
         
         let endAndSlot : (endtime : String ,slotNo : Int) = search.getEndtimeAndSlot(doctor: doctor, date: dateFormat(date: date!), startTime: time!)
         
-        let viewController = BookAppointmentController(doctor: doctor, userId: patient.UserId, startTime: time!, endTime: endAndSlot.endtime, date: dateFormat(date: date!), slotNo: endAndSlot.slotNo,type: type!)
+        //let viewController = BookAppointmentController(doctor: doctor, userId: patient.UserId, startTime: time!, endTime: endAndSlot.endtime, date: dateFormat(date: date!), slotNo: endAndSlot.slotNo,type: type!)
         
-                navigationController?.pushViewController(viewController, animated: true)
+        let viewController = AppointmentModeController()
+        viewController.doctor = doctor
+        viewController.patient = self.patient
+        viewController.slotNo = endAndSlot.slotNo
+        viewController.starTime = time!
+        viewController.endTime = endAndSlot.endtime
+        viewController.date = dateFormat(date: date!)
+        
+        navigationController?.pushViewController(viewController, animated: true)
+        
     }
     
     

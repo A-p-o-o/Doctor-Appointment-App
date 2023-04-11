@@ -74,6 +74,7 @@ class BookAppointmentController: UIViewController {
     let appointmentTimingsView = UIView()
     let billDetailsView = UIView()
     let bookingView = UIView()
+    let spaceView = UIView()
     
     let profileImageView: UIImageView = {
         let imageView = UIImageView()
@@ -428,6 +429,7 @@ class BookAppointmentController: UIViewController {
         scrollView.addSubview(appointmentTimingsView)
         scrollView.addSubview(billDetailsView)
         scrollView.addSubview(listOfPeopleTableView)
+        scrollView.addSubview(spaceView)
         scrollView.backgroundColor = .clear
         
         scrollView.showsVerticalScrollIndicator = false
@@ -521,13 +523,13 @@ class BookAppointmentController: UIViewController {
     
     func setConstrains(){
         
-        
+        scrollView.bounces = false
        
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 20),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -20),
         ])
@@ -792,8 +794,21 @@ class BookAppointmentController: UIViewController {
         bookingView.layer.shadowRadius = 5
         
         confirmButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
+        setSpacingView()
     }
     
+    
+    func setSpacingView(){
+       
+        spaceView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            spaceView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            spaceView.heightAnchor.constraint(equalToConstant: Viewheight * 0.15),
+            spaceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            spaceView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ])
+    }
     
     func setkeyboard(labelAndField : LabelAndField){
         labelAndField.textField.returnKeyType = .done
@@ -817,18 +832,23 @@ class BookAppointmentController: UIViewController {
                 
                 switch labelAndField.tag{
                 case 0 : if  !labelAndField.isValidName(name: &name){
+                    scrollToView(view: labelAndField)
                     return false
                 }
                 case 1 : if  !labelAndField.isValidPhoneNumber(phoneNumber: &mobileNumber){
+                    scrollToView(view: labelAndField)
                     return false
                 }
                 case 2 : if  !labelAndField.isValidEmail(email: &mail){
+                    scrollToView(view: labelAndField)
                     return false
                 }
                 case 3 : if !labelAndField.isValidAge(age: &age){
+                    scrollToView(view: labelAndField)
                     return false
                 }
                 case 4 : if  labelAndField.isTextEmpty(){
+                    scrollToView(view: labelAndField)
                     return false
                 }else {
                     gender =  Sex.getSex(from: labelAndField.textField.text!)
@@ -840,6 +860,7 @@ class BookAppointmentController: UIViewController {
         if reasonForAppointment.text.isEmpty {
             reasonForAppointment.layer.borderWidth = 2
             reasonForAppointment.layer.borderColor = UIColor.red.cgColor
+            scrollToView(view: reasonForAppointment)
             return false
         }
         else {
@@ -868,6 +889,10 @@ class BookAppointmentController: UIViewController {
             present(viewController, animated: true)
         }
             }
+    
+    func scrollToView(view: UIView) {
+        scrollView.scrollRectToVisible(view.frame, animated: true)
+    }
 }
 
 extension BookAppointmentController: UITableViewDataSource, UITableViewDelegate {

@@ -28,7 +28,6 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
        return search.allAvailableDates()
     }()
     
-    //let timeData : [String] =  ["09:00-AM","09:30-AM","10:00-AM","10:30-AM","11:00-AM","11:30-AM","02:00-PM","02:30-PM","03:00-PM","03:30-PM"]
     
      var timeData : [String] = []
     
@@ -87,7 +86,7 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         
         searchResultsController.modalPresentationStyle = .formSheet
     }
-    
+   
     override func viewDidDisappear(_ animated: Bool) {
         DepartmentView.isHidden = true
         TimeView.isHidden = true
@@ -101,6 +100,8 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         DepartmentView.collectionView.reloadData()
         TimeView.collectionView.reloadData()
     }
+    
+    
     
     
     func setSearchController(){
@@ -223,7 +224,7 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         viewController.time = selectedTime
         viewController.date = formatDate(date: selectedDate!)
         viewController.department = selectedDepartment
-        viewController.type = .Offline
+      //  viewController.type = .Offline
         
         navigationController?.pushViewController(viewController, animated: true)
     }

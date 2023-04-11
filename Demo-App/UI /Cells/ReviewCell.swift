@@ -10,8 +10,7 @@ import UIKit
 class ReviewCell: UITableViewCell {
 
     static let identifier : String = "ReviewCell"
-    
-    var isExpanded : Bool = false
+   
     
     let stackview : UIStackView = {
         let stackView = UIStackView()
@@ -26,7 +25,6 @@ class ReviewCell: UITableViewCell {
     let name : UILabel = {
         let label = UILabel()
         label.textColor = .black
-//        label.text = "Your Appointment Has been Completed Succcessfully"
         label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         
@@ -42,7 +40,6 @@ class ReviewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .black
         label.textAlignment = .right
-//        label.text = "Your Appointment Has been Completed Succcessfully"
         label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         
@@ -59,7 +56,6 @@ class ReviewCell: UITableViewCell {
     let content : UILabel = {
         let label = UILabel()
         label.textColor = .black
-//        label.text = "Your Appointment Has been Completed Succcessfully"
         label.font = UIFont.systemFont(ofSize: 16, weight: .light)
         label.numberOfLines = 3
         let fontMetrics = UIFontMetrics(forTextStyle: .body)
@@ -73,9 +69,8 @@ class ReviewCell: UITableViewCell {
     
     let viewMoreButton : UIButton = {
         let button = UIButton()
-        button.configuration = .filled()
-        button.tintColor = UIColor(named: "white")
-        button.configuration?.baseForegroundColor = UIColor(named: "book")
+        button.configuration = .borderless()
+        button.configuration?.baseForegroundColor = .black
         button.setTitle("View More", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -91,6 +86,11 @@ class ReviewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        content.numberOfLines = 3
+        viewMoreButton.isSelected = false
+        viewMoreButton.isHidden = false
+    }
     
     func setUpViews(){
         //addSubview(stackview)
@@ -106,47 +106,35 @@ class ReviewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             name.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            name.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -5),
-           // name.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
-            
-            date.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            date.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 5),
+            name.trailingAnchor.constraint(lessThanOrEqualTo: contentView.centerXAnchor, constant: -5),
+    
+            date.topAnchor.constraint(equalTo: name.topAnchor),
+            date.centerYAnchor.constraint(equalTo: name.centerYAnchor),
             date.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             date.bottomAnchor.constraint(equalTo: name.bottomAnchor),
-            
+
             ratings.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 5),
             ratings.leadingAnchor.constraint(equalTo: name.leadingAnchor),
-          //  ratings.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -5),
+        
             ratings.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
-            
+
             content.topAnchor.constraint(equalTo: ratings.bottomAnchor, constant: 5),
-            content.leadingAnchor.constraint(equalTo: name.leadingAnchor),
-            content.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            content.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,constant: -5),
-            
-//            viewMoreButton.bottomAnchor.constraint(equalTo: content.bottomAnchor,constant: -5),
-//            viewMoreButton.widthAnchor.constraint(lessThanOrEqualToConstant: 200),
-//            viewMoreButton.heightAnchor.constraint(lessThanOrEqualToConstant: 20),
-//            viewMoreButton.trailingAnchor.constraint(equalTo: content.trailingAnchor),
+            content.leadingAnchor.constraint(equalTo: ratings.leadingAnchor),
+            content.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -5),
+
             
             viewMoreButton.topAnchor.constraint(equalTo: content.bottomAnchor, constant: 18),
-            viewMoreButton.leadingAnchor.constraint(equalTo: content.leadingAnchor),
+            viewMoreButton.leadingAnchor.constraint(equalTo: ratings.leadingAnchor),
+            viewMoreButton.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -5),
             viewMoreButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
             
         ])
         
         ratings.deActivateUserInteraction()
-        viewMoreButton.addTarget(self, action: #selector(viewMoreClicked(_:)), for: .touchUpInside)
     }
     
     
     
     
-    
-    
-    
-    @objc func viewMoreClicked(_ sender : UIButton){
-        isExpanded = !isExpanded
-                content.numberOfLines = isExpanded ? 0 : 3
-    }
+
 }
