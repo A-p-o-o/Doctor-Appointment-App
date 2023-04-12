@@ -5,6 +5,7 @@
 //  Created by deepak-pt6306 on 05/04/23.
 //
 
+
 import UIKit
 
 class AppointmentdetailsController: UIViewController {
@@ -408,13 +409,14 @@ class AppointmentdetailsController: UIViewController {
         if appointment.type == .Offline {
             patient.attendAppointment(appointment: appointment)
            let viewController = AppointmentEndedController(userId: patient.UserId, doctor: doctor)
-//            viewController.delegate = self
+            viewController.modalPresentationStyle = .fullScreen
+            viewController.delegate = self
             present(viewController, animated: true)
         }
         else {
             
             let viewController = CallingController(appointment: appointment,userId: patient.UserId)
-            viewController.presentedByController = self
+            viewController.delegate = self
             viewController.modalPresentationStyle = .fullScreen
             present(viewController, animated: false)
         }
@@ -422,10 +424,6 @@ class AppointmentdetailsController: UIViewController {
 
 }
 
-protocol AppointmentdetailsControllerDelegate {
-    
-    func clickedReshedule(_ selectedVC: clickedVC,  appointment: Appointment?) -> Void
-}
 
 extension AppointmentdetailsController: RescheduleControllerDelegate {
     
@@ -435,11 +433,19 @@ extension AppointmentdetailsController: RescheduleControllerDelegate {
     }
 }
 
-//extension AppointmentdetailsController: appointmentEndedProtocol {
-//    func appointmentEnded() {
-//
-//        print("here")
-//    }
-//
-//
-//}
+extension AppointmentdetailsController : PopPageFromPresentedProtocol {
+    func popTheViewController() {
+        navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+extension AppointmentdetailsController : CalledEndedProtocol {
+    func callEnded() {
+        let viewController = AppointmentEndedController(userId: patient.UserId, doctor: doctor)
+         viewController.modalPresentationStyle = .fullScreen
+         viewController.delegate = self
+         present(viewController, animated: true)
+    }
+    
+    
+}

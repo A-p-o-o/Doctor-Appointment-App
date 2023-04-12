@@ -23,6 +23,8 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
     var selectedTime : String? = nil
     var selectedDepartment : Department? = nil
     
+    let noSlotsImage = ImageAndLabel()
+    
     let dateData : [String]  = {
         let search = Search()
        return search.allAvailableDates()
@@ -33,13 +35,31 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
     
     let departmentData : [Department] = Department.allCases
     
-    lazy var searchResultsController = UINavigationController(rootViewController: SearchResultsController(collectionViewLayout: UICollectionViewFlowLayout()) )
+    lazy var searchResultsController = SearchResultsController(collectionViewLayout: UICollectionViewFlowLayout())
     
     
     lazy var  searchController = UISearchController(searchResultsController: searchResultsController)
                                                     
     let scrollView = UIScrollView()
     let stackView = UIStackView()
+    
+    
+    let titleLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Book Appointment on Your Convenient Time"
+        label.textColor = .black
+        label.numberOfLines = 3
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        
+        let fontMetrics = UIFontMetrics(forTextStyle: .headline)
+        label.font = fontMetrics.scaledFont(for: label.font)
+        label.adjustsFontForContentSizeCategory = true
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     
     let DateView = TitleAndCollectionView()
     let TimeView = TitleAndCollectionView()
@@ -75,8 +95,10 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         setSearchController()
         setupScrollView()
         setUpStackView()
+        setUpTitleView()
         setUpDateView()
         setUpDepartmentView()
+        noSlotsAvailable()
         setUpTimeView()
         setUpConfirmButton()
         
@@ -91,6 +113,7 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         DepartmentView.isHidden = true
         TimeView.isHidden = true
         confirmButton.isHidden = true
+        noSlotsImage.isHidden = true
         
         selectedDate = nil
         selectedTime = nil
@@ -101,23 +124,33 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         TimeView.collectionView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+        navigationItem.searchController = searchController
+        searchController.showsSearchResultsController = true
+    }
     
     
     
     func setSearchController(){
-//        title = "Book Appointment"
-//        navigationController?.navigationBar.prefersLargeTitles = true
+       title = "Book Appointment"
         searchController.searchResultsUpdater = self
+        searchResultsController.delegate = self
         searchController.delegate = self
         searchController.showsSearchResultsController = true
-      //  navigationItem.searchController = searchController
-        self.definesPresentationContext = false
+        navigationItem.searchController = searchController
+        searchController.becomeFirstResponder()
+    }
+    
+    func setFilter(){
+        let expHiToLow = UIAction(title: "High to Low", handler:{_ in  } )
     }
     
     
     func setupScrollView(){
         view.addSubview(scrollView)
-        
+        scrollView.showsVerticalScrollIndicator = false
+       // scrollView.bounces = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -133,6 +166,7 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         scrollView.addSubview(stackView)
         stackView.axis = .vertical
         stackView.distribution = .fill
+        stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -142,6 +176,15 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
             stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
+    }
+    
+    func setUpTitleView(){
+        stackView.addArrangedSubview(titleLabel)
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: Viewheight * 0.05)
+        ])
     }
     
     func setUpDateView(){
@@ -156,9 +199,23 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         
         DateView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            DateView.heightAnchor.constraint(greaterThanOrEqualToConstant: Viewheight * 0.15)
+            DateView.heightAnchor.constraint(greaterThanOrEqualToConstant: Viewheight * 0.15),
+            DateView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
         
+    }
+    
+    func noSlotsAvailable(){
+        stackView.addArrangedSubview(noSlotsImage)
+        noSlotsImage.imageView.image = UIImage(named: "noslots")
+        noSlotsImage.label.text = "Sorry No Slots Available"
+        noSlotsImage.translatesAutoresizingMaskIntoConstraints = false
+        noSlotsImage.isHidden = true
+        
+        NSLayoutConstraint.activate([
+            noSlotsImage.heightAnchor.constraint(equalToConstant: Viewheight * 0.1),
+            noSlotsImage.widthAnchor.constraint(equalToConstant: Viewheight * 0.1)
+        ])
     }
     
     func setUpTimeView(){
@@ -173,7 +230,8 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         
         TimeView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            TimeView.heightAnchor.constraint(greaterThanOrEqualToConstant: Viewheight * 0.15)
+            TimeView.heightAnchor.constraint(greaterThanOrEqualToConstant: Viewheight * 0.15),
+            TimeView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
         
     }
@@ -191,7 +249,8 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         DepartmentView.collectionView.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 10)
         DepartmentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            DepartmentView.heightAnchor.constraint(greaterThanOrEqualToConstant: Viewheight * 0.4)
+            DepartmentView.heightAnchor.constraint(greaterThanOrEqualToConstant: Viewheight * 0.4),
+            DepartmentView.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
         
         DepartmentView.collectionView.sizeToFit()
@@ -212,10 +271,18 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         stackView.addArrangedSubview(confirmButton)
         
         NSLayoutConstraint.activate([
-            confirmButton.heightAnchor.constraint(equalToConstant: Viewheight * 0.05)
+            confirmButton.heightAnchor.constraint(equalToConstant: Viewheight * 0.05),
+            confirmButton.widthAnchor.constraint(equalTo: stackView.widthAnchor)
         ])
         
         confirmButton.addTarget(self, action: #selector(confirmClicked), for: .touchUpInside)
+        
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(view)
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalToConstant: Viewheight * 0.1)
+        ])
     }
     
     @objc func confirmClicked(){
@@ -239,6 +306,18 @@ class BookAppointmentOfYourChoiceController: UIViewController, UISearchControlle
         }()
         TimeView.collectionView.reloadData()
     }
+    
+    func setNoSlotsAvailableImage(){
+        
+        if timeData.count == 0 {
+            noSlotsImage.isHidden = false
+            TimeView.isHidden = true
+            confirmButton.isHidden = true
+        }else{
+            noSlotsImage.isHidden = true
+            TimeView.isHidden = false
+        }
+    }
    
     }
 
@@ -256,10 +335,12 @@ extension BookAppointmentOfYourChoiceController :UISearchResultsUpdating{
         
        
          
-       let navigationController =  searchController.searchResultsController as! UINavigationController
-        guard let controller = navigationController.topViewController as? SearchResultsController else {return}
+    
+        guard let controller =  searchController.searchResultsController  as? SearchResultsController else {return}
         controller.updateData(data: data)
     }
+    
+   
     
 }
 
@@ -361,7 +442,9 @@ extension BookAppointmentOfYourChoiceController : UICollectionViewDataSource , U
             selectedDate = dateData[indexPath.row]
             reloadTimeData()
             
-            
+            if selectedDepartment != nil {
+                 setNoSlotsAvailableImage()
+            }
             
         }
         
@@ -373,6 +456,8 @@ extension BookAppointmentOfYourChoiceController : UICollectionViewDataSource , U
             confirmButton.isHidden = false
             selectedTime = timeData[indexPath.row]
             reloadTimeData()
+            
+            //scrollView.scrollRectToVisible(confirmButton.frame, animated: true)
         }
         
         
@@ -382,10 +467,12 @@ extension BookAppointmentOfYourChoiceController : UICollectionViewDataSource , U
             cell.layer.borderColor = UIColor(named: "book")?.cgColor
             
             selectedDepartment = departmentData[indexPath.row]
-            TimeView.isHidden = false
-            
-            
             reloadTimeData()
+            setNoSlotsAvailableImage()
+            
+            
+            
+            
         }
         
         
@@ -405,8 +492,24 @@ extension BookAppointmentOfYourChoiceController : UICollectionViewDataSource , U
     
     
     
+    
 }
 
   
+extension BookAppointmentOfYourChoiceController: docotorInformationProtocol {
+    func doctorInformations(_ doctor: Doctor) {
+        let viewController = DoctorProfileController(doctor: doctor,userId: patient!.UserId)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func departmentInformation(_ department: Department) {
+        let viewController = ViewDepartment(userId: patient!.UserId)
+        viewController.department = department.departmentName
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    
+    
+}
     
 

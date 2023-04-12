@@ -12,8 +12,8 @@ class CallingController: UIViewController {
     
     let appointment : Appointment
     let patient : Patient
-    var presentedByController : UIViewController? = nil
-    
+   // var presentedByController : UIViewController? = nil
+   
     init(appointment: Appointment,userId : String) {
         self.appointment = appointment
 
@@ -25,6 +25,8 @@ class CallingController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    weak var delegate : CalledEndedProtocol?
     
     let callerImage : UIImageView = {
         let imageView = UIImageView()
@@ -136,7 +138,8 @@ class CallingController: UIViewController {
         
         dismiss(animated: false)
         
-        presentedByController?.navigationController?.popToRootViewController(animated: false)
+        delegate?.callEnded()
         
     }
 }
+

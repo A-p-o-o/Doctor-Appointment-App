@@ -45,7 +45,6 @@
 		076A96CB29DD3BB700275299 /* AppointmentModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A96CA29DD3BB700275299 /* AppointmentModeController.swift */; };
 		076A96CD29DD45EE00275299 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A96CC29DD45EE00275299 /* Delegates.swift */; };
 		076A96CF29DD49B700275299 /* AllDoctorsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076A96CE29DD49B700275299 /* AllDoctorsController.swift */; };
-		07830D1C29E53DB6008A4AC0 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07830D1B29E53DB6008A4AC0 /* Protocols.swift */; };
 		078FBCC629DD576200389AFF /* AppointmentdetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FBCC529DD576200389AFF /* AppointmentdetailsController.swift */; };
 		078FBCC829DD8D1300389AFF /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FBCC729DD8D1300389AFF /* RegisterViewController.swift */; };
 		078FBCCA29DD9CE800389AFF /* RegisterSecondPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078FBCC929DD9CE800389AFF /* RegisterSecondPageViewController.swift */; };
@@ -166,7 +165,6 @@
 		076A96CA29DD3BB700275299 /* AppointmentModeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentModeController.swift; sourceTree = "<group>"; };
 		076A96CC29DD45EE00275299 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
 		076A96CE29DD49B700275299 /* AllDoctorsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllDoctorsController.swift; sourceTree = "<group>"; };
-		07830D1B29E53DB6008A4AC0 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		078FBCC529DD576200389AFF /* AppointmentdetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppointmentdetailsController.swift; path = ../../../AppointmentdetailsController.swift; sourceTree = "<group>"; };
 		078FBCC729DD8D1300389AFF /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		078FBCC929DD9CE800389AFF /* RegisterSecondPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSecondPageViewController.swift; sourceTree = "<group>"; };
@@ -298,6 +296,7 @@
 			children = (
 				07D75D8C29BB4F680082A4A5 /* MyAppointments.swift */,
 				078FBCC529DD576200389AFF /* AppointmentdetailsController.swift */,
+				078FBCD529DFF62D00389AFF /* AppointmentEndedController.swift */,
 				078FBCD129DE95B400389AFF /* RescheduleController.swift */,
 				076A96C929DD32D900275299 /* views */,
 			);
@@ -364,11 +363,9 @@
 				076A96CE29DD49B700275299 /* AllDoctorsController.swift */,
 				078FBCCD29DE4FB700389AFF /* CreateVerticalView.swift */,
 				078FBCCF29DE8B1700389AFF /* ChoiceViewController.swift */,
-				078FBCD529DFF62D00389AFF /* AppointmentEndedController.swift */,
 				078FBCD329DEDB9800389AFF /* ReasonController.swift */,
 				078FBCD729DFFC6A00389AFF /* RatingView.swift */,
 				078FBCDB29E0255900389AFF /* ratingController.swift */,
-				07830D1B29E53DB6008A4AC0 /* Protocols.swift */,
 				07D75D7029B9CB0C0082A4A5 /* UI  */,
 				07D75D3029B609710082A4A5 /* Model */,
 				07D75D4D29B625810082A4A5 /* Data */,
@@ -704,7 +701,6 @@
 				07D75D3A29B614150082A4A5 /* Cashier.swift in Sources */,
 				07D75D3429B60CAE0082A4A5 /* Appointment.swift in Sources */,
 				07D75D5529B712600082A4A5 /* DoctorDAO.swift in Sources */,
-				07830D1C29E53DB6008A4AC0 /* Protocols.swift in Sources */,
 				07D75D5929B724860082A4A5 /* UserDAO.swift in Sources */,
 				07D75D4F29B628620082A4A5 /* Storage.swift in Sources */,
 				076A968F29D5282200275299 /* MobileDAO.swift in Sources */,

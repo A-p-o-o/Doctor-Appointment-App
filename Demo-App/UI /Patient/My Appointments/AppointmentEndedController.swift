@@ -25,6 +25,8 @@ class AppointmentEndedController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    weak var delegate : PopPageFromPresentedProtocol?
+    
     let scrollView = UIScrollView()
     let stackView = UIStackView()
     
@@ -195,7 +197,7 @@ class AppointmentEndedController: UIViewController {
             backButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
         ])
         postButton.addTarget(self, action: #selector(postClicked), for: .touchUpInside)
-        
+        backButton.addTarget(self, action: #selector(backClicked), for: .touchUpInside)
         
     }
     
@@ -204,9 +206,15 @@ class AppointmentEndedController: UIViewController {
         view.endEditing(true)
        if validate() {
            patient.giveReview(doctor: doctor, reviewGivenBy: patient.name, time: Date(), Date: Date(), star: startImages.startCount, content: commentBox.text!)
-//           self.delegate?.appointmentEnded()
+           dismiss(animated: false)
+           delegate?.popTheViewController()
         }
                 
+    }
+    
+    @objc func backClicked(){
+        dismiss(animated: false)
+        delegate?.popTheViewController()
     }
     
     func validate()->Bool{

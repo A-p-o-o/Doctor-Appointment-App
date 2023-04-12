@@ -11,6 +11,8 @@ private let reuseIdentifier = "Cell"
 
 class SearchResultsController: UICollectionViewController , UICollectionViewDelegateFlowLayout{
     
+    weak var delegate: docotorInformationProtocol?
+    
     let patient : Patient? =  Patient(userName: "deepak", password: "", UserId: "", role: .Admin, name: "Arnold", phoneNumber: "", sex: .Female, mail: "", address: "", patientId: "", weight: 2, height: 2, AllergyTo: "")
     
     var data : [Any] = []
@@ -28,7 +30,6 @@ class SearchResultsController: UICollectionViewController , UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
         view.backgroundColor = UIColor(named: "background")
         collectionView.backgroundColor = .clear
          self.clearsSelectionOnViewWillAppear = true
@@ -126,13 +127,15 @@ class SearchResultsController: UICollectionViewController , UICollectionViewDele
                 if item is Doctor {
                     let doc = item as! Doctor
                     let viewController = DoctorProfileController(doctor: doc,userId: patient!.UserId)
-                    navigationController?.pushViewController(viewController, animated: true)
+                    delegate?.doctorInformations(doc)
+//                    navigationController?.pushViewController(viewController, animated: true)
                 }
                 if item is Department {
                     let department = item as! Department
                     let viewController = ViewDepartment(userId: patient!.UserId)
                     viewController.department = department.departmentName
-                    navigationController?.pushViewController(viewController, animated: true)
+                    delegate?.departmentInformation(department)
+//                    navigationController?.pushViewController(viewController, animated: true)
                 }
         
         
@@ -170,3 +173,5 @@ class SearchResultsController: UICollectionViewController , UICollectionViewDele
     */
 
 }
+
+

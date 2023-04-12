@@ -23,15 +23,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "94DF1D26-39A7-4B57-B13E-3152D2921473"
-            shouldBeEnabled = "No"
+            uuid = "95F468C5-D61F-4650-A4CC-2B104335C56C"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Demo-App/SearchResultsController.swift"
+            filePath = "Demo-App/UI /Patient/Book Appointment/BookAppointmentOfYourChoiceController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
